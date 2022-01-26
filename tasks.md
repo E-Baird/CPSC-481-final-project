@@ -49,11 +49,10 @@ Students:
 2. Requesting or showing interest in a demo or class: 
 - TODO
 3. Tool certification:
-- The library website has quizzes which test your knowledge about the basic functionality of a machine. 
-    - question: How do they actually tell if you have completed your safety quiz? Does it go on your student record?
-4. Badge:
-- Looks like it's a physical badge that is issued to the user once they have successfully completed the quiz and filled out their contact info.
-5. Booking time on a machine:
+- Brian wants to use a specific tool from the makerspace, in this case the 3D printer. He needs to get certified in order to use it. He goes to the makerspace webpage (https://library.ucalgary.ca/makerspace/) and hovering over the 3D printing image he clicks on "Learn more about DIY printing". He then decides he will use the 3D printer without support so he clicks on the "Self Serve 3D Printing" tab. He must read the information displayed which includes instructions on the basic funcionality of the 3D printer and useful information for users. Then he must complete a quiz by clicking on the "3D Printing Quiz" link at the bottom of the page. After answering all the questions on the quiz he should enter his name and email address to receive his certification badge.
+5. Badge:
+- After completing the certification quiz and entering his name and email address, Brian receives an email with his digital badge. This badge is a digital icon with information about when and how it was acquired. Brian can then use the email to view the badge or login at https://badges.ucalgary.ca/ to view all his badges. With this badge he will be able to use the Self Serve 3D Printer service at the TFDL makerspace.
+6. Booking time on a machine:
 - Currently the U of C's Makerspace has no way to prebook time on machines. The website just says to show up with plenty of time to spare
 
 6. Live queue and space usage updates:
