@@ -55,7 +55,9 @@ Joey wants to start using the makerspace. He goes to the TFDL webpage and reads 
 4. Badge:
 - Looks like it's a physical badge that is issued to the user once they have successfully completed the quiz and filled out their contact info.
 5. Booking time on a machine:
-- Currently the U of C's Makerspace has no way to prebook time on machines. The website just says to show up with plenty of time to spare
+This task is something that would be done by a makerspace user who has already been certified to work on a machine. It is especially impactful for people using a machine that potentially takes a lot of time to setup and run, such as a 3D printer, but it is something that is done by all users. The act of figuring out if a machine is available and claiming it is probably the most common task for users, other than the tasks of physically using a machine. For this reason, booking time on a machine is frequent and important for all space users.
+Joey wants to print a case for his personal Raspberry Pi. He has already found a good model on the internet and is ready to go to the makerspace and start the machine. He wants some finer-grained control than what he would get from the space's full-service print job, so he decides to do a self-serve print. He goes to the TFDL website to see if there is any way to tell if the machine is in use, down for maintenance, or available, but isn't able to find anything. He decides that he'll just have to go down to the space to check for himself. When he gets there, he learns that someone else is using the printer and he'll have to wait for around 20 minutes for them to be done, so he goes back to the first floor of the library to grab a coffee and wait. After he finishes his coffee, Joey goes back upstairs to the makerspace, only to find that someone else has snagged the 3D printer while he was away. This time, Joey sits in the space on his phone, waiting for the machine to be free. Finally, the other user finishes up and Joey can start his print job.
+The website just says to show up with plenty of time to spare
 
 6. Live queue and space usage updates:
 
@@ -73,11 +75,12 @@ We chose these 7 tasks by envisioning ourselves as students looking to use the s
 ### Must Do:
 - Booking a class:
 
-    Classes are used to ensure that students have the necessary qualifications to operate the expensive equipment. They must be held before a student can use any of the tools in the makerspace alone. Seeing as there is limited staff in TFDL, students would have to book to reserve a spot in one of these classes. Seeing as most management apps are expected to have a booking feature, we feel that this task is absolutely essential and should fall under the "must do" category.
+    Classes are used to ensure that students have the necessary qualifications to operate the expensive equipment. Orientation classes are also required for any new users who want to be able to access the space. We chose to put this task in the "must do" category for a few reasons. First, because of the orientation class, this task is something that every single user of the space will do at least once. Second, there is limited staff in the TFDL, so students are required to reserve spots in these classes, and some form of booking management is required, but the existing booking management system is pretty lacking. There is no easy way for users to figure out what classes are necessary for which parts of the space, beyond just reading a wall of text on the TFDL website, and when they do decide on what to sign up for, users are simply told to scan through the complete list of programming going on at TFDL, almost all of which is irrelevant to Makerspace users. Because of the critical nature of the task, and the fact that it really needs an overhaul, the ability to book a class is something that we categorized as a "must do."
     
 - Booking time on a machine: 
 
-    As we stated in "booking a class", booking is an essential task for management apps and being able to  book when you use the equipment is the primary function of our management app. This would arguably make    this into our most important task, so it falls under "must do"  
+    The Makerspace has limited machines, and some of them such as the 3D printers or CNC router can take a long time to complete a job. Because of this, it is very possible for a user to show up to the space simply to find that there is no available time on a machine. Currently, there is no system in place for booking a timeslot on a machine, and the TFDL website simply states, "3D printers are not bookable, so arrive with sufficient time.  Remember, you get a time estimate when you slice a model in PrusaSlicer. Add 10% to this estimate to ensure your print will be done before Lab NEXT closes, as we do not allow prints to run overnight."
+    As we stated in "booking a class", booking is an essential task for management apps and being able to book when you use the equipment is the primary function of our management app. This would arguably make this one of the most important tasks on our list, so it falls under "must do"  
 
 ### Should Do:
 - Requesting a class
