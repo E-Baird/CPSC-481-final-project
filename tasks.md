@@ -70,7 +70,10 @@ The website just says to show up with plenty of time to spare
     The expected users that fall under this task include anyone waiting to get their hands on a piece of equipment. This task is quite important as there is of course a limited supply of all the tools, so students will have the share the equipment with other students, preferably on a first come first serve basis. When all of the equipment is being used, students will want to know the approximate wait time until they have access to the tools they are looking to make use of. Having a live queue allows them to at least know that all of the equipment is currently unavailable, if not when it will be available, making this task fall under the "should be included" and "frequently done and important" categories. The only reason we did not put this in the must do category is because without a live queue, they are still able to accomplish the absolutely necessary task of using the equipment, even if it may be inconvenient not knowing when. The current state of this tasks is asking the school staff about any availability and it being communicated through word of mouth. If the equipment is being used, then you are simply unable to book it for your preferred time.
 
 7. Report a problem:
-- Talk to the person on staff and let them know that there's a problem
+
+    The expected user will be anyone who is currently using the machines and have encountered a problem while working on their project. Should the user encounter any problems when they are working on the machines, they should be able to ask for assistance from someone who has more knowledge of how the machines work such as staff members. This task is considered “out of scope” and is excluded since there will always be supervising staff on the site during open hours. User’s should be able to easily locate staff themselves without using the app.
+    While working on their project, Joey encounters a problem with the machine and does not know how to fix it. As there is always staff on site supervising the makerspace, Joey asks for help from the staff. If the problem is fixable, then Joey can continue on his work after the staff is finished. Otherwise, Joey may have to work on his project on the other machine if there is one. If there is no second machine, then Joey will have to come back another time. 
+
 
 ### How the Tasks were collected
 
@@ -102,7 +105,10 @@ We chose these 7 tasks by envisioning ourselves as students looking to use the s
 
 ### Out of Scope:
 - Tool certification: this should probably be done in person
-- Report a problem: there's always a staff member at the space, so it should be fine to leave this one out of the requirements for the app.
+
+- Report a problem: 
+
+    Being able to request for assistance when the user has encountered a problem would be a nice feature. However, considering that there will always be staff members on site to supervise the makerspace, this task is considered “Out of scope” since it would be redundant in the app and it would be easier for the user themselves to locate staff members on site to request for help. 
 
 ## Other junk
 - collaboration ideas - ability to have a display somewhere that states what you're working on
