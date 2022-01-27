@@ -91,21 +91,23 @@ We chose these 7 tasks by envisioning ourselves as students looking to use the s
 ### Should Do:
 - Requesting a class
 
-    Being able to request a class to learn how to use a tool when there are no classes being offered is a really nice feature to have because it tells the makerspace that there are students looking to use the equipment who need to be helped. It is doable, but even without this feature, students will still be able to access classes when they are available. That is why this falls into "should do" and not "must have".
+    Being able to request a class to learn how to use a tool when there are no classes being offered is a really nice feature to have for a few reasons. The biggest of these is that, like booking time on a machine, this task is currently really poorly served. If no courses or orientations are currently scheduled on the TFDL's general programming calendar, as a user it is really difficult to figure out what your next steps should be. It is doable, but even without this feature, students will still be able to access classes when they are available. That is why this falls into "should do" and not "must have."
 
 - Live queue/space updates
 
-    A live queue is also a nice to have as it will tell students how long they will have to wait before being able to use the first available piece of equipment or their interest. We believe that makes it fall under the "should do" category. The only reason we did not put this in the must do category is because without a live queue, they are still able to accomplish the absolutely necessary task of using the equipment, even if it may be inconvenient not knowing when.
+    A live queue is also a nice to have. Similar to the two above tasks, this is something that has no formal sytem available to help users complete the task. There are many forms that this task could take in our system, but in general it will tell students how long they will have to wait before being able to use the first available piece of equipment or their interest. The reason we did not put this in the must do category is because without a live queue, they are still able to accomplish the absolutely necessary task of using the equipment, even if it may be inconvenient not knowing when. Even though this task is less common or impactful than other tasks, depending on the implementation we can cover this task mostly 'for free' because it shares features with the 'Requesting a Machine' task. For this reason, it makes sense to get a lot of bang for our buck by including it. We believe that makes it fall under the "should do" category. 
 
 ### Could Do:
-- Badge acquisition: we think the physical badge is fine as-is, but we could also see it working as part of your student ID or a QR code on an app
+- Badge acquisition: 
+
+    Currently, the TFDL makerspace issues access cards to users who have completed their orientation training. We could see implementations where these cards could be integrated with our system, such as through a QR code, but overall it seems that the current access system works quite well for users and it seems excessive to completely overhaul it without good reason. Because of this, we decided that this task should be categorized as "could do." 
 
 ### Out of Scope:
-- Tool certification: this should probably be done in person
+- Tool certification: 
+    The system for getting trained on tools is currently done via a combination of online and in person training. Even though the process of getting certified on machines is a task that all users have to go through, it is a one-time process for each tool. This means that it is less general-purpose than some other tasks such as booking a class, which users can potentially do repeatedly depending on what programming is being offered. Additionally, this task is very different from any of the others, so attempting to include it would cause the project complexity to vastly increase.
 
 - Report a problem: 
-
-    Being able to request for assistance when the user has encountered a problem would be a nice feature. However, considering that there will always be staff members on site to supervise the makerspace, this task is considered “Out of scope” since it would be redundant in the app and it would be easier for the user themselves to locate staff members on site to request for help. 
+    There is always a staff member at the makerspace during open hours, but even if there was a time when no one was around, other library staff are also available to help. Supporting this task might make more sense if we were targeting library staff as our main user group, as they are the ones who have to deal with and catalog the problem. However, because our main users are students who work in the space, we decided that this task was well covered by existing systems and was therefore out of scope.
 
 ## Other junk
 - collaboration ideas - ability to have a display somewhere that states what you're working on
