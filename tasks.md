@@ -70,6 +70,79 @@ Joey wants to start using the makerspace. He goes to the TFDL webpage and reads 
     While working on their project, Joey encounters a problem with the machine and does not know how to fix it. As there is always staff on site supervising the makerspace, Joey asks for help from the staff. If the problem is fixable, then Joey can continue on his work after the staff is finished. Otherwise, Joey may have to work on his project on the other machine if there is one. If there is no other machine available, then Joey will have to come back another time. 
 
 
+
+1. Learn How the Makerspace works
+### Requirments:
+
+#### Must
+- View upcoming workshops
+- See available spots in the workshop
+- Register for a workshop
+
+#### Should
+- Receive confirmation that you are enrolled in a workshop
+- Receive notifications if the workshop time changes
+- Incorporate existing online portion of the orientation for easy access
+
+#### Could
+- Request/show interest in a workshop
+- Display completion of workshops on your user profile
+
+#### Out of Scope
+Online certification courses of any kind (orientation or machine specific)
+
+
+
+2. Using a Machine
+### Requirments:
+
+#### Must
+- Figure out if a machine is available
+- Book a timeslot to use a machine
+
+#### Should
+- Figure out if materials are available
+- Send a model to the staff
+- Pick a material colour
+
+#### Could
+Checking in to the space
+Get updates about your spot in queue
+Get updates about your print job’s progress
+
+#### Out of Scope
+Select materials for self-service machines
+
+
+
+3. Access Materials for project
+### Requirments:
+
+#### Must
+- Figure out if a machine is available
+- Book a timeslot to use a machine
+
+#### Should
+- Figure out if materials are available
+- Send a model to the staff
+- Pick a material colour
+
+#### Could
+Checking in to the space
+Get updates about your spot in queue
+Get updates about your print job’s progress
+
+#### Out of Scope
+Select materials for self-service machines
+
+
+4. Provide Feedback
+
+5. Connect with community
+
+
+
+
 ### How the Tasks were collected
 
 We chose these 7 tasks by envisioning ourselves as students looking to use the school's makerspace and chronologically going through the feature we feel are essential in maker our user experience as smooth as possible. By thinking about the tasks in chronological order, we are able to identity in-between tasks more effectively as we see them to be essential steps towards the next task. Some of our team members have used makerspaces before, so we used their opinions to validate our choices of tasks. After choosing the tasks in chronological order, we organized them in terms of importance, starting with the most essential tasks being anything to do with booking, seeing as that is usually the purpose of any management app. The should do category was filled with things that would be extremely inconvenient not do have, but the equipment can still be used without. This includes requesting a class when there are none available and being able to see a live queue of what equipment is currently in use by others. The "could do" category includes tasks that wouldn't be too difficult to implement, but are fine in their current such as changing the current system of how student receive their badges confirming their qualifications to use a piece of equipment. Finally, the out of scope tasks included non-essential idea that would take a lot of time to program, such as creating virtual certification classes for each tool and giving the students the ability to report a detailed problem using the app.
