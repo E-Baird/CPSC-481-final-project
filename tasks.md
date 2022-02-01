@@ -137,8 +137,34 @@ Select materials for self-service machines
 
 
 4. Provide Feedback
+### Requirments:
+
+#### Must
+
+
+#### Should
+
+
+#### Could
+- Send suggestions to library staff on how to improve the makerspace. 
+
+#### Out of Scope
+- Report problems that require immediate assistance (staff in the makerspace will help)
 
 5. Connect with community
+### Requirments:
+
+#### Must
+
+
+#### Should
+
+
+#### Could
+- Post invitations to other users of the makerspace to collaborate on projects
+
+#### Out of Scope
+- Ability to communicate with other users.
 
 
 
