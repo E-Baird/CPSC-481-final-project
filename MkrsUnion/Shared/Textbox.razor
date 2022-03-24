@@ -1,0 +1,16 @@
+﻿<h3>Textbox</h3>
+
+<form class="textbox-form">
+	<label for=textbox class="textbox-label">@label</label>
+	<input type="text" class="textbox" value="@data" />
+</form>
+
+@code {
+	[Parameter]
+	public string data { get; set; }
+
+	[Parameter]
+    public string? label { get; set; }
+
+	
+}
