@@ -1,11 +1,44 @@
 ﻿<div class="card">
     <div class="card-header">
-        Personal Details
+        Job/Personal Details
     </div>
     <div class="card-body">
         <EditForm Model="@fullserveform" OnValidSubmit="@HandleValidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary />
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <input type="file" id="exampleInputFile">
+                <p class="help-block">File Upload (max 30MB): Files must be in .STL format*.</p>
+            </div>
+            <div class="form-group">
+                <label for="colourCategoryInput">Colour</label>
+                <InputSelect class="form-control" id="colourCategoryInput" @bind-Value="fullserveform.Colour">
+                    @{
+                        foreach (var value in Enum.GetValues(typeof(ColourCategory)))
+                        {
+                            <option value="@value">@value</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <label for="copiesInput">Copies</label>
+                <InputNumber class="form-control" id="copiesInput" @bind-Value="fullserveform.Copies" />
+            </div>
+            <p>Dimensions(mm)</p>
+            <div class="form-group">
+                <label for="dimxInput">X</label>
+                <InputNumber class="form-control" id="dimxInput" @bind-Value="fullserveform.DimensionX" />
+            </div>
+            <div class="form-group">
+                <label for="dimyInput">Y</label>
+                <InputNumber class="form-control" id="dimyInput" @bind-Value="fullserveform.DimensionY" />
+            </div>
+            <div class="form-group">
+                <label for="amountInput">Z</label>
+                <InputNumber class="form-control" id="amountInput" @bind-Value="fullserveform.DimensionZ" />
+            </div>
             <div class="form-group">
                 <label for="nameInput">Name</label>
                 <InputText class="form-control" id="nameInput" @bind-Value="fullserveform.Name" />
@@ -36,7 +69,7 @@
 
     public void HandleValidSubmit()
     {
-        success = "success";
+        success = "Submission Successful!";
     }
 
 }
