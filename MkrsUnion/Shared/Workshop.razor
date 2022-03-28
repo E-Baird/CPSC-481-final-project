@@ -1,0 +1,68 @@
+﻿<div class="workshop">
+    <div class="row row-cols-2">
+        <div class="col">
+            <h4>@title</h4>
+            <p>
+                Date: @date <br>
+                Time: @time <br>
+                Location: @loc <br>
+                Categories: @cat<br>
+            </p>
+        </div>
+        <div class="col">
+            <img src=@img width="200" height="130"/>
+        </div>
+        <div class="col">
+            <button class="btn btn-outline-primary btn-sm" type="button" @onclick="Toggle">
+                Description
+            </button>
+        </div>
+        <div class="col">
+            <a class="btn btn-primary" 
+                href="/workshopconfirm/@title/@date/@time/@loc/@cat/@imgnum" 
+                role="button"
+            >
+                Register
+            </a>
+        </div>
+    </div>
+    @if (toggle)
+    {
+        <p class="description">
+            <div class="card card-body">
+                @description
+            </div>
+        </p>
+    }
+</div>
+
+@code {
+    string loc = "TDFL Makerspace";
+
+    bool toggle = false;
+
+    public void Toggle() {
+        toggle = !toggle;
+    }
+
+    [Parameter]
+	public string title { get; set; }
+
+	[Parameter]
+    public string? date { get; set; }
+
+    [Parameter]
+    public string? time { get; set; }
+
+    [Parameter]
+    public string? cat { get; set; }
+
+    [Parameter]
+    public string? img { get; set; }
+
+    [Parameter]
+    public int? imgnum { get; set; }
+
+    [Parameter]
+    public string? description { get; set; }
+}

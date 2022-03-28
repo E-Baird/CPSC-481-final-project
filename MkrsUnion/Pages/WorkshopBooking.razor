@@ -1,10 +1,118 @@
 ﻿@page "/WorkshopBooking"
 
-<h3>WorkshopBooking</h3>
+<div class="text-center">
+    <h1>Upcoming Events</h1>
+</div>
 
-<!-- Example textbox usage -->
-<Textbox label="Email"/>
+<div class="wrksp-container">
+    <div class="filter">
+        <div class="filter1">
+            <h5><button type="button" @onclick="ToggleFilter1">
+                Category
+            </button></h5>
+            @if (toggle1) {
+                <div class="card-body">
+                    <div><input type="checkbox" id="c0"> <label for="c0">Virtual</label></div>
+                    <div><input type="checkbox" id="c1"> <label for="c1">In-person</label></div>
+                    <div><input type="checkbox" id="c2"> <label for="c2">Technology Training</label></div>
+                </div>
+            }
+        </div>
+        <div class="filter2">
+            <h5><button type="button" @onclick="ToggleFilter2">
+                Week
+            </button></h5>
+            @if (toggle2) {
+                <div class="card-body">
+                    <div><input type="checkbox" id="d0"> <label for="d0">Sunday</label></div>
+                    <div><input type="checkbox" id="d1"> <label for="d1">Monday</label></div>
+                    <div><input type="checkbox" id="d2"> <label for="d2">Tuesday</label></div>
+                    <div><input type="checkbox" id="d3"> <label for="d3">Wednesday</label></div>
+                    <div><input type="checkbox" id="d4"> <label for="d4">Thursday</label></div>
+                    <div><input type="checkbox" id="d5"> <label for="d5">Friday</label></div>
+                    <div><input type="checkbox" id="c6"> <label for="c6">Saturday</label></div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="workshop-list">
+        <Workshop 
+            title=@title1
+            date=@date1
+            time=@time1
+            cat=@cat1
+            img="images/safetyworkshop.jpg"
+            imgnum=@imgnum1
+            description="This is an in-person safety orientation, however you may 
+            choose to complete the orientation virtually by booking for the [ONLINE]
+            Safety Orientation in the “Workshops and Events” page. An orientation is 
+            required for anyone wanting to access the Makerspace. The orientation 
+            has two parts: the first is a short orientation, the second is quiz. 
+            You must successfully complete a safety orientation in order to access 
+            the makerspace.">
+        </Workshop>
+
+        <Workshop 
+            title=@title2
+            date=@date2
+            time=@time2
+            cat=@cat2
+            img="images/3dworkshop.jpg"
+            imgnum=@imgnum2
+            description="Interested in 3D printing but you are not sure on what to 
+            start on? Or maybe you are experienced and looking for a fun new project
+            to work on? Students and faculty are welcome to come by and learn how to 
+            plan and build their own 3D printed board game."
+            >
+        </Workshop>
+
+        <Workshop 
+            title=@title3
+            date=@date3
+            time=@time3
+            cat=@cat3
+            img="images/safetyworkshop.jpg"
+            imgnum=@imgnum1
+            description="This is an virtual safety orientation, however you may 
+            choose to complete the orientation in-person by booking for the [IN-PERSON]
+            Safety Orientation in the “Workshops and Events” page. An orientation is 
+            required for anyone wanting to access the Makerspace. The orientation 
+            has two parts: the first is a short orientation, the second is quiz. 
+            You must successfully complete a safety orientation in order to access 
+            the makerspace.">
+        </Workshop>
+    </div>
+</div>
 
 @code {
+    bool toggle1 = false;
+    bool toggle2 = false;
 
+    public void ToggleFilter1() {
+        toggle1 = !toggle1;
+    }
+
+    public void ToggleFilter2() {
+        toggle2 = !toggle2;
+    }
+
+    int imgnum1 = 1;
+    int imgnum2 = 2;
+
+    string loc = "TDFL Makerspace";
+
+    string title1 = "[IN-PERSON] Safety Orientation";
+    string date1 = new DateTime(2022, 4, 23).ToLongDateString();
+    string time1 = "10:30am-12:00pm (MST)";
+    string cat1 = "Technology Training, In-person";
+
+    string title2 = "3D-Printed Board Games";
+    string date2 = new DateTime(2022, 4, 24).ToLongDateString();
+    string time2 = "11:30am-1:00pm (MST)";
+    string cat2 = "Technology Training";
+
+    string title3 = "[ONLINE] Safety Orientation";
+    string date3 = new DateTime(2022, 4, 23).ToLongDateString();
+    string time3 = "1:30pm-3:00pm (MST)";
+    string cat3 = "Technology Training, Virtual";
 }
