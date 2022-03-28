@@ -1,0 +1,71 @@
+﻿@page "/workshopconfirm/{title}/{date}/{time}/{loc}/{cat}/{imgnum:int}"
+
+<div class="layout">
+    <div class="back">
+        <button type="button" onclick="history.back()" class="btn btn-danger">Back</button>
+    </div>
+
+    <div class="container">
+        <h1>@title</h1>
+        <div class="form-wrapper">
+            <div class="form">
+                <div class="mb-3 row">
+                    <label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control form-control-sm" type="text" value="@date" disabled readonly>
+                    </div>
+
+                    <label for="staticDate" class="col-sm-2 col-form-label">Time:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control form-control-sm" type="text" value="@time" disabled readonly>
+                    </div>
+
+                    <label for="staticDate" class="col-sm-2 col-form-label">Location:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control form-control-sm" type="text" value="@loc" disabled readonly>
+                    </div>
+
+                    <label for="staticDate" class="col-sm-2 col-form-label">Topic:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control form-control-sm" type="text" value="@cat" disabled readonly>
+                    </div>
+                </div>
+                <Textbox label="Name"/>
+                <Textbox label="Email"/>
+                <Textbox label="UCID"/>
+                <a class="btn btn-primary" href="#" role="button">Confirm</a>
+            </div>
+
+            <div class="image">
+                @if (@imgnum == 1 || @imgnum == 3)
+                {
+                    <img src="images/safetyworkshop.jpg" width="500" height="325"/>
+                } else if (imgnum == 2)
+                {
+                    <img src="images/3dworkshop.jpg" width="500" height="325"/>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? imgnum { get; set; }
+
+    [Parameter]
+    public string? title { get; set; }
+
+    [Parameter]
+    public string? date { get; set; }
+
+    [Parameter]
+    public string? time { get; set; }
+
+    [Parameter]
+    public string? loc { get; set; }
+
+    [Parameter]
+    public string? cat { get; set; }
+
+}
