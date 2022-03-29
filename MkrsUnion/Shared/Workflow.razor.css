@@ -12,15 +12,30 @@
     margin: auto;
     height: inherit;
     width: 6px;
-    background-color: black;
     z-index: 1;
+    background-color: #bdbebf;
+}
+
+.success {
+    background-color: #b8c870;
+    color: white;
+}
+
+.in-progress {
+    background-color: #4c9500;
+    color: white;
+}
+
+.to-do {
+    background-color: #bdbebf;
 }
 
 .workflow-container {
-    height: 800px;
+    height: 700px;
     width: 100px;
     position: relative;
-    margin: 30px auto;
+    margin: 20px auto;
+    background-color: inherit;
 }
 
 .workflow {
