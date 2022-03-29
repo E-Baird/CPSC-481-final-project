@@ -1,0 +1,35 @@
+.circle {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;    
+}
+
+.line {
+    position: absolute;
+    border-radius: 3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: inherit;
+    width: 6px;
+    background-color: black;
+    z-index: 1;
+}
+
+.workflow-container {
+    height: 800px;
+    width: 100px;
+    position: relative;
+    margin: 30px auto;
+}
+
+.workflow {
+    position: absolute;
+    height: inherit;
+    flex: 1 1 auto;
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    z-index: 2
+}
