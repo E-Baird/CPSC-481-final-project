@@ -8,28 +8,12 @@
             <MkrsUnion.Shared.Header/>
         </div>
 
-        <button class="btn btn-primary" type="button" @onclick="ToggleSidebarFilter">Toggle Sidebar</button>
-
-        <div class="d-flex">
-            @if (toggleSidebar)
-            {                
-                <div id="sidebar">
-                    <Workflow/>
-                </div>
-            }
-
-            <article class="content px-4">
-                @Body
-            </article>
-        </div>
+        <article class="content px-4">
+            @Body
+        </article>
     </main>
 </div>
 
 @code {
-    bool toggleSidebar = true;
 
-    public void ToggleSidebarFilter()
-    {
-        toggleSidebar = !toggleSidebar;
-    }
 }

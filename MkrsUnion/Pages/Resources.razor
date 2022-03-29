@@ -5,62 +5,94 @@
     <h1>Resources</h1>
 </div>
 
-<div class="container">
-  <div class="row g-2">
-    <div class="col-6 d-flex">
-      <div class="p-3 border bg-light rounded">
-          <div class="container">
-            <h3>Online Tour</h3>
-            <p>
-                With ThinkLink, visit the Makerspace virtually with a 
-                360 interactive tour of the space accompanied by annotated 
-                descriptions of the various machines and resources offered. 
-            </p>
-            <button type="button" class="btn btn-info">View More</button>
-          </div>
-      </div>
-    </div>
-    <div class="col-6 d-flex">
-      <div class="p-3 border bg-light rounded">
-          <div class="container">
-            <h3>Learning Paths</h3>
-            <p>
-                Want to learn more about a certain tool or machine 
-                offered by the space? Get an indepth walkthrough of 
-                everything you need to know here. 
-            </p>
-            <button type="button" class="btn btn-info">View More</button>
-          </div>
-      </div>
-    </div>
-    <div class="col-6 d-flex">
-      <div class="p-3 border bg-light rounded">
-          <div class="container">
-            <h3>Project Ideas</h3>
-            <p>
-                Feel like you dont know where to start 
-                but you want to use the makerspace? 
-                Get inspired with various 3D-Printing, sewing, carving, 
-                game design ideas and so much more here.  
-            </p>
-            <button type="button" class="btn btn-info">View More</button>
-          </div>
-      </div>
-    </div>
-    <div class="col-6 d-flex">
-      <div class="p-3 border bg-light rounded">
-          <div class="container">
-            <h3>Contact Us</h3>
-            <p>
-                Have a question and not sure how to contact us? 
-                We’d love to hear from you, send us a message!
-            </p>
-            <button type="button" class="btn btn-info">Send Us an Email</button>
-          </div>
-      </div>
-    </div>
-  </div>
+<div>
+    <button class="btn btn-primary" @onclick=ToggleSidebarFilter>To-Do List</button>
 </div>
 
+<div class="d-flex">
+    @if (toggleSidebar)
+    {        
+        <div class="sidebar">
+            <Workflow
+                WorkflowSteps="workflowSteps"
+                CurrentStep=1
+            />
+        </div>
+    }
+
+
+    <div class="container">
+      <div class="row g-2">
+        <div class="col-6 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>Online Tour</h3>
+                <p>
+                    With ThinkLink, visit the Makerspace virtually with a 
+                    360 interactive tour of the space accompanied by annotated 
+                    descriptions of the various machines and resources offered. 
+                </p>
+                <button type="button" class="btn btn-info">View More</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-6 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>Learning Paths</h3>
+                <p>
+                    Want to learn more about a certain tool or machine 
+                    offered by the space? Get an indepth walkthrough of 
+                    everything you need to know here. 
+                </p>
+                <button type="button" class="btn btn-info">View More</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-6 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>Project Ideas</h3>
+                <p>
+                    Feel like you dont know where to start 
+                    but you want to use the makerspace? 
+                    Get inspired with various 3D-Printing, sewing, carving, 
+                    game design ideas and so much more here.  
+                </p>
+                <button type="button" class="btn btn-info">View More</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-6 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>Contact Us</h3>
+                <p>
+                    Have a question and not sure how to contact us? 
+                    We’d love to hear from you, send us a message!
+                </p>
+                <button type="button" class="btn btn-info">Send Us an Email</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
 @code {
+    bool toggleSidebar = true;
+
+    public void ToggleSidebarFilter()
+    {
+        toggleSidebar = !toggleSidebar;
+    }
+
+    List<string> workflowSteps = new List<string>
+    {
+        "Safety Orientation",
+        "Select a Machine",
+        "Book a Time",
+        "Go make it!"
+    };
 }
