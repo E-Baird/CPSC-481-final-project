@@ -1,0 +1,50 @@
+.circle {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;    
+}
+
+.line {
+    position: absolute;
+    border-radius: 3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: inherit;
+    width: 6px;
+    z-index: 1;
+    background-color: #bdbebf;
+}
+
+.success {
+    background-color: #b8c870;
+    color: white;
+}
+
+.in-progress {
+    background-color: #4c9500;
+    color: white;
+}
+
+.to-do {
+    background-color: #bdbebf;
+}
+
+.workflow-container {
+    height: 700px;
+    width: 100px;
+    position: relative;
+    margin: 20px auto;
+    background-color: inherit;
+}
+
+.workflow {
+    position: absolute;
+    height: inherit;
+    flex: 1 1 auto;
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    z-index: 2
+}
