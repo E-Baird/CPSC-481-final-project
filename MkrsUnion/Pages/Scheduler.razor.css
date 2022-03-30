@@ -8,17 +8,17 @@
 
 .wrapper {
     display: grid;
-    grid-template-rows: 70px 1fr 70px;
+    grid-template-rows: 40px 1fr 40px;
     grid-template-columns: 1fr;
     grid-template-areas: "sidebar"
                          "content";
-    width: 100vw; /* unnecessary, but let's keep things consistent */
+    width: 80vw; /* unnecessary, but let's keep things consistent */
     height: 100vh;
   }
   
-  @media screen and (min-width: 850px) {
+  @media screen and (min-width: 100px) {
     .wrapper {
-      grid-template-columns: 200px 5fr;
+      grid-template-columns: 100px 5fr;
       grid-template-rows: 1fr;
       grid-template-areas: "sidebar content";
     }
@@ -99,30 +99,40 @@
   
   .toolbar{
     display: flex;
-    justify-content: space-between;
+    width: 100vw;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 0px;
   }
-  .calendar{}
+  .currentMonth{
+    color: red;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+  }
   
-  .calendarDay,
-  .calendar__header {
+  .calendarHour,
+  .calendarHeader {
     display: grid;
     grid-template-columns: repeat(8, 1fr);  
   }
-  .calendarDay {
+  .calendarHour {
     grid-auto-rows: 100px;
+    grid-auto-columns: 50px;
     text-align: right;
   }
   
-  .calendar__header {
-    grid-auto-rows: 50px;
+  .calendarHeader {
+    grid-auto-columns: 50px;
     align-items: center;
     text-align: center;
   }
   
-  .calendarHour {
-    padding: 16px;
+  .calendarWeekday {
+    padding: 10px;
+    text-align: right;
+    vertical-align: top;
   }
   
   
@@ -201,18 +211,18 @@
     border: 1px solid #e1e1e1;
   }
   
-  .calendar__header > div {
+  .calendarHeader > div {
     text-transform: uppercase;
     font-size: 0.8em;
     font-weight: bold;
   }
   
-  .calendarHour {
+  .calendarWeekday {
     border-left: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
   }
   
-  .calendarHour:last-child {
+  .calendarWeekday:last-child {
     border-right: 0;
   }
   

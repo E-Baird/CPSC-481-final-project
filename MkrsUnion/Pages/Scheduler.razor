@@ -3,24 +3,27 @@
 <h1>Scheduler</h1>
 
 <div class="container">
-
-  <div class="hours">
-
-  </div>
-  <div class="calendar">
-    <div class="wrapper">
-  <main>
-    <div class="toolbar">
-      <div class="current-month">June 2016</div>
-    </div>
-    <div class="calendar">
-      <div class="calendar__header">
-        <div>Time</div>
+  <div class="wrapper">
+    <main>
+      <div class="toolbar">
+        <button type="button" class="btn btn-primary">Previous</button>
+        <div class="currentMonth">January 30 - February 2</div>
+        <button type="button" class="btn btn-primary">Next</button>
       </div>
-      @{createCalendarRow(__builder);}
-    </div>
-  </main>
-</div>
+      <div class="calendar">
+        <div class="calendar__header">
+          <div>Time</div>
+          <div>Sunday</div>
+          <div>Monday</div>
+          <div>Tuesday</div>
+          <div>Wednesday</div>
+          <div>Thursday</div>
+          <div>Friday</div>
+          <div>Saturday</div>
+        </div>
+        @{createCalendarRow(__builder);}
+      </div>
+    </main>
   </div>
 </div>
 
@@ -28,16 +31,29 @@
 @code {
 
   void createCalendarRow(RenderTreeBuilder __builder) {
-    for (int i = 1; i < 24; i++) {
-      <div class="calendarDay"> 
-        <div class="calendarHour">@i</div> 
-        <div class="calendarHour"></div>
-        <div class="calendarHour"></div>
-        <div class="calendarHour"></div>
-        <div class="calendarHour"></div>
-        <div class="calendarHour"></div>
-        <div class="calendarHour"></div>
-        <div class="calendarHour"></div>
+    string timeString;
+    for (int i = 8; i < 24; i++) {
+      if (i == 0){
+        timeString = "12:00am";
+      }
+      else if (i < 12){
+        timeString = i.ToString() + ":00am";
+      }
+      else if (i == 12){
+        timeString = "12:00pm";
+      }
+      else{
+        timeString = (i-12).ToString() + ":00pm";
+      }
+      <div class="calendarHour"> 
+        <div class="calendarWeekday">@timeString</div> 
+        <div class="calendarWeekday"></div>
+        <div class="calendarWeekday"></div>
+        <div class="calendarWeekday"></div>
+        <div class="calendarWeekday"></div>
+        <div class="calendarWeekday"></div>
+        <div class="calendarWeekday"></div>
+        <div class="calendarWeekday"></div>
       </div>;
     }    
   }
