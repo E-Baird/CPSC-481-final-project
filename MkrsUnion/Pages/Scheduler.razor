@@ -1,0 +1,45 @@
+@page "/scheduler"
+<PageTitle>Scheduler</PageTitle>
+<h1>Scheduler</h1>
+
+<div class="container">
+
+  <div class="hours">
+
+  </div>
+  <div class="calendar">
+    <div class="wrapper">
+  <main>
+    <div class="toolbar">
+      <div class="current-month">June 2016</div>
+    </div>
+    <div class="calendar">
+      <div class="calendar__header">
+        <div>Time</div>
+      </div>
+      @{createCalendarRow(__builder);}
+    </div>
+  </main>
+</div>
+  </div>
+</div>
+
+@using Microsoft.AspNetCore.Components.Rendering
+@code {
+
+  void createCalendarRow(RenderTreeBuilder __builder) {
+    for (int i = 1; i < 24; i++) {
+      <div class="calendarDay"> 
+        <div class="calendarHour">@i</div> 
+        <div class="calendarHour"></div>
+        <div class="calendarHour"></div>
+        <div class="calendarHour"></div>
+        <div class="calendarHour"></div>
+        <div class="calendarHour"></div>
+        <div class="calendarHour"></div>
+        <div class="calendarHour"></div>
+      </div>;
+    }    
+  }
+
+}
