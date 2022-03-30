@@ -1,7 +1,10 @@
 .circle {
     height: 100px;
     width: 100px;
-    border-radius: 50%;    
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 6px;
+    border-color: black;
 }
 
 .line {
@@ -13,7 +16,7 @@
     height: inherit;
     width: 6px;
     z-index: 1;
-    background-color: #bdbebf;
+    background-color: black;
 }
 
 .success {
@@ -22,6 +25,7 @@
 }
 
 .in-progress {
+    border-color: #4c9500;
     background-color: #4c9500;
     color: white;
 }
