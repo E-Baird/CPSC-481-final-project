@@ -1,0 +1,53 @@
+﻿@page "/GettingStarted"
+<h3>Getting Started</h3>
+
+<PageTitle>Getting Started</PageTitle>
+
+<div class="text-center">
+    <h1>Getting Started</h1>
+</div>
+
+<div class="container">
+    <div class="text-center">
+        <p>
+            New to the Makerspace? There are only a few steps you need to follow
+            to get started. 
+        </p>
+    </div>
+
+
+    <div class="d-flex justify-content-start align-items-start">   
+            <Workflow
+                WorkflowSteps="workflowSteps"
+                CurrentStep=5
+            />
+            <WorkflowExplanations
+                Explanations="expList"
+            />
+    </div>
+
+    <div class="mb-5 text-center">
+        <a href="WorkshopBooking" class="btn btn-primary">Let's get started</a>
+    </div>
+
+</div>
+
+
+
+@code {
+    List<string> workflowSteps = new List<string>
+    {
+        "Safety Orientation",
+        "Select a Machine",
+        "Book a Time",
+        "Go make it!"
+    };
+
+    List<string> expList = new List<string>
+    {
+        "All students are required to complete a safety orientation before using the makerspace. Sign up for an online or in-person orientation and learn the basics",
+        "Once you know your way around, choose the kind of project you want to make and the right machine for the job",
+        "Machines must be prebooked. We'll help you estimate how much time you need, and get your booking set up.",
+        "Show up to the space, and have fun!"
+    };
+}
