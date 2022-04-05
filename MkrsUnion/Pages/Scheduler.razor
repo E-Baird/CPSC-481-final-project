@@ -1,61 +1,119 @@
 @page "/scheduler"
 <PageTitle>Scheduler</PageTitle>
+
+<div class = "text-end">Hello</div>
+<div class="row">
+<div class = "col-2">
+  col2
+</div>
+<div class="col-2">
+  col 2 2
+</div>
+<div class = "col-8 text-center">
+  col 8
+</div></div>
+
 <h1>Scheduler</h1>
 
-<div class="container">
-  <div class="wrapper">
-    <main>
-      <div class="toolbar">
-        <button type="button" class="btn btn-primary">Previous</button>
-        <div class="currentMonth">January 30 - February 2</div>
-        <button type="button" class="btn btn-primary">Next</button>
+
+<div class="wrapper">
+  <main>
+
+    <div class="toolBar">
+      <button type="button" class="btn btn-primary">Previous</button>
+      <div class="currentMonth">January 30 - February 2</div>
+      <button type="button" class="btn btn-primary">Next</button>
+    </div>
+
+    <div class="calendar">
+      <div class="calendarHeader">
+        <div>Time</div>
+        <div>Sunday Jan 30</div>
+        <div>Monday Jan 31</div>
+        <div>Tuesday Feb 1</div>
+        <div>Wednesday Feb 2</div>
+        <div>Thursday Feb 3</div>
+        <div>Friday Feb 4</div>
+        <div>Saturday Feb 5</div>
       </div>
-      <div class="calendar">
-        <div class="calendar__header">
-          <div>Time</div>
-          <div>Sunday</div>
-          <div>Monday</div>
-          <div>Tuesday</div>
-          <div>Wednesday</div>
-          <div>Thursday</div>
-          <div>Friday</div>
-          <div>Saturday</div>
-        </div>
-        @{createCalendarRow(__builder);}
+
+      <div class="calendarHourRow"> 
+        <div class="calendarWeekday" id="Time">10am</div>
+        <div class="calendarWeekday" id="Sunday"></div>
+        <div class="calendarWeekday" id="Monday"></div>
+        <div class="calendarWeekday" id="Tuesday">Tue</div>
+        <div class="calendarWeekday" id="Wednesday"></div>
+        <div class="calendarWeekday" id="Thursday"></div>
+        <div class="calendarWeekday" id="Friday">Fri</div>
+        <div class="calendarWeekday" id="Saturday"></div>
       </div>
-    </main>
-  </div>
+      <div class="calendarHourRow"> 
+        <div class="calendarWeekday" id="Time">11am</div>
+        <div class="calendarWeekday" id="Sunday"></div>
+        <div class="calendarWeekday" id="Monday"></div>
+        <div class="calendarWeekday" id="Tuesday">Tue</div>
+        <div class="calendarWeekday" id="Wednesday"></div>
+        <div class="calendarWeekday" id="Thursday"></div>
+        <div class="calendarWeekday" id="Friday">Fri</div>
+        <div class="calendarWeekday" id="Saturday"></div>
+      </div>
+      <div class="calendarHourRow"> 
+        <div class="calendarWeekday" id="Time">12pm</div>
+        <div class="calendarWeekday" id="Sunday"></div>
+        <div class="calendarWeekday" id="Monday"></div>
+        <div class="calendarWeekday" id="Tuesday">Tue</div>
+        <div class="calendarWeekday" id="Wednesday"></div>
+        <div class="calendarWeekday" id="Thursday"></div>
+        <div class="calendarWeekday" id="Friday">Fri</div>
+        <div class="calendarWeekday" id="Saturday"></div>
+      </div>
+      <div class="calendarHourRow"> 
+        <div class="calendarWeekday" id="Time">1pm</div>
+        <div class="calendarWeekday" id="Sunday"></div>
+        <div class="calendarWeekday" id="Monday"></div>
+        <div class="calendarWeekday" id="Tuesday">Tue</div>
+        <div class="calendarWeekday" id="Wednesday"></div>
+        <div class="calendarWeekday" id="Thursday"></div>
+        <div class="calendarWeekday" id="Friday">Fri</div>
+        <div class="calendarWeekday" id="Saturday"></div>
+      </div>
+
+    </div>
+  </main>
 </div>
 
 @using Microsoft.AspNetCore.Components.Rendering
 @code {
 
-  void createCalendarRow(RenderTreeBuilder __builder) {
-    string timeString;
+
+
+
+  @*void createCalendarRow(RenderTreeBuilder __builder) {
+     string timeString;
     for (int i = 8; i < 24; i++) {
       if (i == 0){
-        timeString = "12:00am";
+          timeString = "12:00am";
+          }
+          else if (i < 12){
+            timeString = i.ToString() + ":00am";
+          }
+          else if (i == 12){
+            timeString = "12:00pm";
+          }
+          else{
+            timeString = (i-12).ToString() + ":00pm";
+          }
+      for (int j = 1; j < 9; j++) {
+        if (j==1){
+          <div class="calendarWeekday">@timeString</div> 
+        }
+        if (j==2){
+          <div class="calendarWeekday">Sunday</div> 
+        }
+        else{
+        }
       }
-      else if (i < 12){
-        timeString = i.ToString() + ":00am";
-      }
-      else if (i == 12){
-        timeString = "12:00pm";
-      }
-      else{
-        timeString = (i-12).ToString() + ":00pm";
-      }
-      <div class="calendarHour"> 
-        <div class="calendarWeekday">@timeString</div> 
-        <div class="calendarWeekday"></div>
-        <div class="calendarWeekday"></div>
-        <div class="calendarWeekday"></div>
-        <div class="calendarWeekday"></div>
-        <div class="calendarWeekday"></div>
-        <div class="calendarWeekday"></div>
-        <div class="calendarWeekday"></div>
-      </div>;
     }    
-  }
+  } *@
 
 }
