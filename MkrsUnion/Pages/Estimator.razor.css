@@ -1,0 +1,10 @@
+.estimator-container {
+    width: 600px;
+    height: 200px;
+    padding: 10px;
+    margin: 10px;
+}
+
+btn:focus {
+    background-color: purple;
+}

@@ -1,0 +1,123 @@
+﻿<div class="estimator-container">
+    <div class="container border bg-light rounded" style="height: 100%">
+        @if (toggleEstimator == EstimatorState.ShowInitial)
+        {
+            <button class="btn btn-primary" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
+                Estimate how much time I need
+            </button>
+        } else if (toggleEstimator == EstimatorState.ShowInputs)
+        {            
+            <div class="d-flex">
+                <div class="row g-2 justify-content-between">
+                    <div class="col-4 d-flex">
+                        <div class="container text-center border">
+                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectSize = Size.Small; })">Small</button>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <div class="container text-center border">
+                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectSize = Size.Medium; })">Medium</button>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <div class="container text-center border">
+                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectSize = Size.Large; })">Large</button>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <div class="container text-center border">
+                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectComplexity = Complexity.Simple; })">Simple</button>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <div class="container text-center border">
+                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectComplexity = Complexity.Simple; })">Medium</button>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <div class="container text-center border">
+                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectComplexity = Complexity.Simple; })">Complex</button>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <button class="btn btn-primary" @onclick="@(() => EstimateProjectTime(@ProjectSize, @ProjectComplexity))">Estimate</button>
+                    </div>
+                </div>
+            </div>
+        } else
+        {
+            <div>
+                Your @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hours
+            </div>
+            <button class="btn btn-primary" @onclick="@(
+                () => {
+                    ChangeEstimatorState(EstimatorState.ShowInputs); 
+                    @ProjectComplexity = Complexity.Unknown;
+                    @ProjectSize = Size.Unknown;
+                })"
+            >
+                Reestimate
+            </button>
+        }
+    </div>
+</div>
+
+@code {
+
+    public enum EstimatorState
+    {
+        ShowInitial,
+        ShowInputs,
+        ShowResults,
+        Unknown
+    }
+    public enum Size
+    {
+        Small,
+        Medium,
+        Large,
+        Unknown
+    }
+    public enum Complexity
+    {
+        Simple,
+        Average,
+        Complex,
+        Unknown
+    }
+
+    int ProjectTime = 0;
+
+    EstimatorState toggleEstimator = EstimatorState.ShowInitial;
+
+    public void ChangeEstimatorState(EstimatorState newState)
+    {
+        toggleEstimator = newState;
+    }
+
+    public Size ProjectSize { get; set; } = Size.Unknown;
+    public Complexity ProjectComplexity { set; get; } = Complexity.Unknown;
+
+    public void EstimateProjectTime(Size projSize, Complexity projComplexity)
+    {
+        // requires users to select a legitimate size and complexity
+        if (projSize == Size.Unknown || projComplexity == Complexity.Unknown)
+        {
+            return;
+        }
+
+        // calculate the estimated project time
+        int baseProjectTime = 3;
+        if (projSize == Size.Small) baseProjectTime--;
+        if (projComplexity == Complexity.Simple) baseProjectTime--;
+
+        if (projSize == Size.Large) baseProjectTime++;
+        if (projComplexity == Complexity.Complex) baseProjectTime++;
+
+        ProjectTime = baseProjectTime;
+
+        // flip the view to show the results
+        toggleEstimator = EstimatorState.ShowResults;
+    }
+
+}
