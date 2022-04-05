@@ -5,14 +5,16 @@ namespace MkrsUnion.Components
 {
     public class FullServeModel
     {
-        public ColourCategory Colour { get; set; }
-
-        public int Copies { get; set; }
-
+        [Required]
+        [Range(0, 200)]
         public int DimensionX { get; set; }
 
+        [Required]
+        [Range(0, 200)]
         public int DimensionY { get; set; }
 
+        [Required]
+        [Range(0, 200)]
         public int DimensionZ { get; set; }
 
         [Required]
@@ -25,9 +27,6 @@ namespace MkrsUnion.Components
         [StringLength(8)]
         public string UCID { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Comments { get; set; }
     }
 }
 
