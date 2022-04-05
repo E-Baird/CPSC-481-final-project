@@ -1,76 +1,116 @@
-﻿<div class="estimator-container">
-    <div class="container border bg-light rounded" style="height: 100%">
-        @if (toggleEstimator == EstimatorState.ShowInitial)
-        {
-            <button class="btn btn-primary" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
+﻿
+<div class="container m-3">
+    @if (toggleEstimator == EstimatorState.ShowInitial)
+    {
+        <div class="container mx-auto text-center">
+            <button class="btn text-center" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
                 Estimate how much time I need
             </button>
-        } else if (toggleEstimator == EstimatorState.ShowInputs)
-        {            
-            <div class="d-flex">
-                <div class="row g-2 justify-content-between">
-                    <div class="col-4 d-flex">
-                        <div class="container text-center border">
-                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectSize = Size.Small; })">Small</button>
+        </div>
+    } else {    
+        <div class="estimator-container mx-auto">
+            <div class="container border bg-light text-center rounded mx-auto" style="height: 100%">
+                <div class="mx-auto">
+                   My project is...
+                </div>
+                <div class="d-flex">
+                    <div class="row g-2 justify-content-between">
+                        <div class="col-4 d-flex">
+                            <div class="@SmallSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectSize = Size.Small;
+                                    EstimateProjectTime();
+                                    SetActiveSize();
+                                })"
+                            >
+                                Small
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <div class="container text-center border">
-                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectSize = Size.Medium; })">Medium</button>
+                        <div class="col-4 d-flex">
+                            <div class="@MedSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectSize = Size.Medium;
+                                    EstimateProjectTime();
+                                    SetActiveSize();
+                                })"
+                            >
+                                Medium
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <div class="container text-center border">
-                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectSize = Size.Large; })">Large</button>
+                        <div class="col-4 d-flex">
+                            <div class="@LargeSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectSize = Size.Large;
+                                    EstimateProjectTime();
+                                    SetActiveSize();
+                                })"
+                            >
+                                Large
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <div class="container text-center border">
-                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectComplexity = Complexity.Simple; })">Simple</button>
+                        <div class="col-4 d-flex">
+                            <div class="@SimpleSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectComplexity = Complexity.Simple;
+                                    EstimateProjectTime();
+                                    SetActiveComplexity();
+                                })"
+                            >
+                                Little detail
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <div class="container text-center border">
-                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectComplexity = Complexity.Simple; })">Medium</button>
+                        <div class="col-4 d-flex">
+                            <div class="@AvgSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectComplexity = Complexity.Average;
+                                    EstimateProjectTime();
+                                    SetActiveComplexity();
+                                })"                                
+                            >
+                                Some detail
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <div class="container text-center border">
-                            <button class="btn btn-secondary" @onclick="@(() => { @ProjectComplexity = Complexity.Simple; })">Complex</button>
+                        <div class="col-4 d-flex">
+                            <div class="@ComplexSelect container estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectComplexity = Complexity.Complex;
+                                    EstimateProjectTime();
+                                    SetActiveComplexity();
+                                })"
+                            >
+                                Quite detailed
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <button class="btn btn-primary" @onclick="@(() => EstimateProjectTime(@ProjectSize, @ProjectComplexity))">Estimate</button>
+                        @if (!(@ProjectSize == Size.Unknown) && !(@ProjectComplexity == Complexity.Unknown))
+                        {
+                            // only want to display this div if the size and complexity are known
+                            <div class="mx-auto">
+                                A @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hour(s)
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-        } else
-        {
-            <div>
-                Your @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hours
-            </div>
-            <button class="btn btn-primary" @onclick="@(
-                () => {
-                    ChangeEstimatorState(EstimatorState.ShowInputs); 
-                    @ProjectComplexity = Complexity.Unknown;
-                    @ProjectSize = Size.Unknown;
-                })"
-            >
-                Reestimate
-            </button>
-        }
-    </div>
+        </div>
+    }
 </div>
 
 @code {
 
+    // managing basic component state
     public enum EstimatorState
     {
         ShowInitial,
         ShowInputs,
-        ShowResults,
         Unknown
     }
+    EstimatorState toggleEstimator = EstimatorState.ShowInitial;        // start the component out in the initial state
+    public void ChangeEstimatorState(EstimatorState newState)
+    {
+        toggleEstimator = newState;
+    }
+
+    // enums for expressing project details
     public enum Size
     {
         Small,
@@ -85,39 +125,82 @@
         Complex,
         Unknown
     }
-
-    int ProjectTime = 0;
-
-    EstimatorState toggleEstimator = EstimatorState.ShowInitial;
-
-    public void ChangeEstimatorState(EstimatorState newState)
-    {
-        toggleEstimator = newState;
-    }
-
+    // variables for project details
     public Size ProjectSize { get; set; } = Size.Unknown;
     public Complexity ProjectComplexity { set; get; } = Complexity.Unknown;
+    int ProjectTime = 0;
 
-    public void EstimateProjectTime(Size projSize, Complexity projComplexity)
+    // state management for highlighting user's chosen UI elements
+    string SmallSelect { get; set; }
+    string MedSelect { get; set; }
+    string LargeSelect { get; set; }
+    string SimpleSelect { get; set; }
+    string AvgSelect { get; set; }
+    string ComplexSelect { get; set; }
+
+    // state switchers to keep track of which size and complexity have been highlighted
+    public void SetActiveSize() 
+    {
+        if (ProjectSize == Size.Small)
+        {
+            SmallSelect = "selected";
+            MedSelect = "";
+            LargeSelect = "";
+        } 
+        else if (ProjectSize == Size.Medium)
+        {
+            SmallSelect = "";
+            MedSelect = "selected";
+            LargeSelect = "";
+        }
+        else if (ProjectSize == Size.Large)
+        {
+            SmallSelect = "";
+            MedSelect = "";
+            LargeSelect = "selected";
+        }
+    }
+    public void SetActiveComplexity() 
+    {
+        if (ProjectComplexity == Complexity.Simple)
+        {
+            SimpleSelect = "selected";
+            AvgSelect = "";
+            ComplexSelect = "";
+        }
+        if (ProjectComplexity == Complexity.Average)
+        {
+            SimpleSelect = "";
+            AvgSelect = "selected";
+            ComplexSelect = "";
+        }
+        if (ProjectComplexity == Complexity.Complex)
+        {
+            SimpleSelect = "";
+            AvgSelect = "";
+            ComplexSelect = "selected";
+        }
+    }
+
+
+    // dynamically change project time based on the size and complexity
+    public void EstimateProjectTime()
     {
         // requires users to select a legitimate size and complexity
-        if (projSize == Size.Unknown || projComplexity == Complexity.Unknown)
+        if (ProjectSize == Size.Unknown || ProjectComplexity == Complexity.Unknown)
         {
             return;
         }
 
         // calculate the estimated project time
         int baseProjectTime = 3;
-        if (projSize == Size.Small) baseProjectTime--;
-        if (projComplexity == Complexity.Simple) baseProjectTime--;
+        if (ProjectSize == Size.Small) baseProjectTime--;
+        if (ProjectComplexity == Complexity.Simple) baseProjectTime--;
 
-        if (projSize == Size.Large) baseProjectTime++;
-        if (projComplexity == Complexity.Complex) baseProjectTime++;
+        if (ProjectSize == Size.Large) baseProjectTime++;
+        if (ProjectComplexity == Complexity.Complex) baseProjectTime++;
 
         ProjectTime = baseProjectTime;
-
-        // flip the view to show the results
-        toggleEstimator = EstimatorState.ShowResults;
     }
 
 }

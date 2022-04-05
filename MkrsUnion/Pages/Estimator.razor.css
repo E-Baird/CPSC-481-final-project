@@ -5,6 +5,23 @@
     margin: 10px;
 }
 
-btn:focus {
-    background-color: purple;
+.selected {
+    border-style: solid !important;
+    border-width: 3px !important;
+    border-color: #de1514 !important;
+    background: white;
+}
+
+.estimator-card {
+    width: 100%;
+    padding: 5px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    border-radius: 5px;
+    background: white;
+}
+
+.estimator-card:hover {
+    cursor: pointer;
 }
