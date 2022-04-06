@@ -51,7 +51,7 @@
                         <div class="col-4 d-flex">
                             <div class="@SimpleSelect estimator-card text-center" @onclick="@(
                                 () => {
-                                    @ProjectComplexity = Complexity.Simple;
+                                    @ProjectComplexity = Complexity.Low;
                                     EstimateProjectTime();
                                     SetActiveComplexity();
                                 })"
@@ -73,7 +73,7 @@
                         <div class="col-4 d-flex">
                             <div class="@ComplexSelect container estimator-card text-center" @onclick="@(
                                 () => {
-                                    @ProjectComplexity = Complexity.Complex;
+                                    @ProjectComplexity = Complexity.High;
                                     EstimateProjectTime();
                                     SetActiveComplexity();
                                 })"
@@ -120,9 +120,9 @@
     }
     public enum Complexity
     {
-        Simple,
+        Low,
         Average,
-        Complex,
+        High
         Unknown
     }
     // variables for project details
@@ -162,7 +162,7 @@
     }
     public void SetActiveComplexity() 
     {
-        if (ProjectComplexity == Complexity.Simple)
+        if (ProjectComplexity == Complexity.Low)
         {
             SimpleSelect = "selected";
             AvgSelect = "";
@@ -174,7 +174,7 @@
             AvgSelect = "selected";
             ComplexSelect = "";
         }
-        if (ProjectComplexity == Complexity.Complex)
+        if (ProjectComplexity == Complexity.High)
         {
             SimpleSelect = "";
             AvgSelect = "";
