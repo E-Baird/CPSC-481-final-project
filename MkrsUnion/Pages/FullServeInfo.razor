@@ -1,0 +1,78 @@
+﻿@page "/fullserveinfo"
+
+<style>
+
+    body {
+        font-family: 'Lato', sans-serif;
+        color: #64574F;
+    }
+    .ml-auto.col-10{
+        padding-left:100px;
+    }
+    .btn.btn-primary.back {
+        padding-left: 10px;
+        background-color:#DE1514;
+        border: #DE1514;
+    }
+    a.btn-primary.form {
+        width: 340px;
+        height: 150px;
+        font-size: 40px;
+        background-color: #DE1514;
+        border: #DE1514;  
+    }
+
+</style>
+
+
+<div class="d-flex justify-content-between">
+    <div class="mr-auto col-2"> <a class="btn btn-primary back" href="/" role="button">Back</a></div>
+    <div class="ml-auto col-10"><h1>Full Serve 3D-Printing </h1></div>
+</div>
+
+<div class="d-flex justify-content-around">
+    <div>
+        <h2>Frequently Asked Questions</h2>
+        <p>
+            <b>Q:Who is eligable?</b><br>
+            A: Full-Serve printing is available to anyone with a &#x00040 ucalgary.ca email and associated UCID#.<br />
+
+            <b>Q: What type of machine/printing material do we use?</b><br>
+            A: At the TFDL makerspace we have a Prusa MK3S 3D-Printer. We use  a thermoplastic polymer made strictly
+            from renewable resources called PLA filament. This material is BPA free.<br>
+
+            <b>Q: What is the cost to print?</b><br>
+            A: $2.00 set up fee + $ 0.30 per gram.<br>
+
+            <b>Q: Acceptable sizing for job submissions?</b><br>
+            A: The maximum dimensions for singular object designs are 200 x 200 x 180 mm. Weight limit is 180g.
+        </p>
+    </div>
+    <div>
+        <h2>Submit A Print Job</h2>
+        <p>
+            Once you have confirmed that your model is of acceptable sizing and weight, please ensure that your model <br>
+            is also watertight, more information available at https://transmagic.com/six-reasons-watertight-models-matter/.<br>
+            After the above steps are completed, save your model as a .stl file and submit it below. Please contact us if<br>
+            you are experiencing any errors with the online form or have questions not answered here.<br>
+        </p>
+        <div class="center"><a class="btn btn-primary form" href="/fullserveform" role="button">Online Form</a></div>
+    </div>
+</div>
+<div>
+    <h2>Printing Policies</h2>
+    <p>
+        1. TFDL 3D printers may only be used for academic purposes. Usage for commercial purposes is strictly prohibited.<br>
+        2. TFDL reserves the right to refuse any 3D printing request.<br>
+        3. TFDL is not responsible for model stability and quality. Please ensure that your model is watertight and<br>
+        structurally sound prior to submission.<br>
+        4. All models must be picked up within 30 days of completion. All models left for more than 30 days become property<br>
+        of the library.
+    </p>
+</div>
+
+@code {
+
+}
+
+

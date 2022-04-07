@@ -41,11 +41,13 @@
                             <option>9</option>
                             <option>10</option>
                         </select>
-                        <span id="helpBlock" class="help-block"> If you require more then 10 copies,
-                        please provide copy count in comments section below. </span>
+                        <span id="helpBlock" class="help-block">
+                            If you require more then 10 copies,
+                            please provide copy count in comments section below.
+                        </span>
                     </div>
                     <div class="row">
-                    <p>Dimensions(mm):</p>
+                        <p>Dimensions(mm):</p>
                         <div class="col">
                             <label for="dimxInput">X</label>
                             <InputNumber class="form-control" id="dimxInput" @bind-Value="fullserveform.DimensionX" />
@@ -69,7 +71,7 @@
                     </div>
                     <div class="form-group">
                         <label for="emailInput">Email</label>
-                        <InputText class="form-control" id="emailInput" placeholder="example@example.com" @bind-Value="fullserveform.Email" />
+                        <InputText class="form-control" id="emailInput" placeholder="youremail@ucalgary.ca" @bind-Value="fullserveform.Email" />
                     </div>
                     <div class="form-group">
                         <label for="ucidInput">UCID</label>
@@ -77,7 +79,7 @@
                     </div>
                     <div class="form-group">
                         <label for="commentsInput">Comments</label>
-                        <textarea class="form-control" id="commentsInput" placeholder="please dont break my model!" rows="3"></textarea>
+                        <textarea class="form-control" id="commentsInput" placeholder="Please dont break my model!" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
