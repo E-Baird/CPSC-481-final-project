@@ -20,6 +20,30 @@ Saturday & Sunday 12:00PM to 4:00PM
     height: 100vh;
   }
   
+  /* ID's */
+
+  /* s means selected */
+  #s{
+    background-color: #DAFFC9;
+  }
+  /* t means taken */
+  #t{
+    background-color: #FF9A9A;
+  }
+  /* x means out of order */
+  #x{
+    background-color: #DBDBDB;
+    text-align: center;
+    vertical-align: top;
+  }
+  /* o means open or available */
+  #o{
+    
+  }
+  #time{
+    background-color: #F9F2D2;
+  }
+
   
   
   /* MAIN */
@@ -59,6 +83,7 @@ Saturday & Sunday 12:00PM to 4:00PM
     grid-auto-columns: 20px;
     align-items: center;
     text-align: center;
+    border-bottom: 1px solid black;
   }
   
   .calendarWeekday {
@@ -85,7 +110,9 @@ Saturday & Sunday 12:00PM to 4:00PM
   
   .calendar {
     background-color: white;
-    border: 1px solid #e1e1e1;
+    border: 1px solid black;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
   
   .calendarHeader > div {
