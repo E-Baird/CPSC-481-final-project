@@ -9,7 +9,7 @@
         <h1>@title</h1>
         <div class="form-wrapper">
             <div class="form">
-                <div class="mb-3 row">
+                <div class="mb-3 row" hidden=@hide>
                     <label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
                     <div class="col-sm-10">
                         <input class="form-control form-control-sm" type="text" value="@date" disabled readonly>
@@ -30,10 +30,31 @@
                         <input class="form-control form-control-sm" type="text" value="@cat" disabled readonly>
                     </div>
                 </div>
-                <Textbox label="Name"/>
-                <Textbox label="Email"/>
-                <Textbox label="UCID"/>
-                <a class="btn btn-primary" href="#" role="button">Confirm</a>
+	            <div class="row" hidden=@hide>
+		            <label class="col-sm-2 col-form-label">Name</label>
+		            <div class="col-sm-10 mb-3">
+			            <input type="text" class="form-control" @bind=@name/>
+		            </div>
+                    <label class="col-sm-2 col-form-label">Email</label>
+		            <div class="col-sm-10 mb-3">
+			            <input type="text" class="form-control" @bind=@email/>
+		            </div>
+                    <label class="col-sm-2 col-form-label">UCID</label>
+                    <div class="col-sm-10 mb-3">
+			            <input type="text" class="form-control" @bind=@ucid/>
+		            </div>
+	            </div>
+                <a class="btn btn-primary" role="button" onclick="@hideDisplay" hidden=@hide>Confirm</a>
+                @if (hide) {
+                    <div class="mb-3 row">
+                        <p> You're booking for @title was successful. You are booked for:</p>
+                        <ul>
+                            <li>Date: @date</li>
+                            <li>Time: @time</li>
+                            <li>Location: @loc</li>
+                        </ul>
+                    </div>
+                }
             </div>
 
             <div class="image">
@@ -50,6 +71,15 @@
 </div>
 
 @code {
+    public string name = "";
+    public string email = "";
+    public string ucid = "";
+    public bool hide = false;
+
+    public void hideDisplay() {
+        hide = !hide;
+    }
+
     [Parameter]
     public int? imgnum { get; set; }
 
