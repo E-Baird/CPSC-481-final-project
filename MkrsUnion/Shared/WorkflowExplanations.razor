@@ -1,0 +1,15 @@
+﻿<div class="workflow-container">
+    <div class="workflow">
+        @foreach (string exp in Explanations)
+        {
+            <div class="explanation">
+                @exp
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<string> Explanations { set; get; }
+}

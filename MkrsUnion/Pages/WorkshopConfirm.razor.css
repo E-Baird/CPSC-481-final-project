@@ -1,0 +1,41 @@
+﻿.layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.back {
+    flex: 1;
+    padding: 5px;
+}
+
+h1 {
+    padding-bottom: 1rem;
+}
+ul {
+    padding-left: 5vw;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 3.5rem;
+    flex: 10;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.form {
+    padding-right: 0.75rem;
+    flex: 1;
+}
+
+.image {
+    padding-left: 0.75rem;
+    flex: 1;
+}
+
+button {
+    align-self: center;
+}

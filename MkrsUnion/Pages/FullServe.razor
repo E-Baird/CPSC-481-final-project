@@ -1,9 +1,44 @@
 ﻿@page "/fullserveform"
 @using MkrsUnion.Components;
 
-<h3>Full Serve 3D-Printing Submission Form</h3>
+<style>
+    .ml-auto.col-10 {
+        padding-left: 100px;
+    }
+
+    .btn.btn-primary {
+        padding-left: 10px;
+        background-color: #DE1514;
+        border: #DE1514;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+        color: #64574F;
+    }
+
+    .help-block {
+        color: gray;
+    }
+
+    .btn.btn-primary.btn-lg {
+        width: 300px;
+        height: 100px;
+        font-size: 30px;
+        background-color: #DE1514;
+        border: #DE1514;
+    }
+</style>
+
+
+<div class="d-flex justify-content-between">
+    <div class="mr-auto col-2"><a class="btn btn-primary" href="/fullserveinfo" role="button">Back</a></div>
+    <div class="ml-auto col-10"><h1>Full Serve 3D-Printing Submission Form</h1></div>
+</div>
+
 <FullServeForm></FullServeForm>
 @code {
 
 }
+
 

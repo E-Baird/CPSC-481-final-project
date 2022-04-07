@@ -1,0 +1,206 @@
+﻿
+<div class="container m-3">
+    @if (toggleEstimator == EstimatorState.ShowInitial)
+    {
+        <div class="container mx-auto text-center">
+            <button class="btn text-center" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
+                Estimate how much time I need
+            </button>
+        </div>
+    } else {    
+        <div class="estimator-container mx-auto">
+            <div class="container border bg-light text-center rounded mx-auto" style="height: 100%">
+                <div class="mx-auto">
+                   My project is...
+                </div>
+                <div class="d-flex">
+                    <div class="row g-2 justify-content-between">
+                        <div class="col-4 d-flex">
+                            <div class="@SmallSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectSize = Size.Small;
+                                    EstimateProjectTime();
+                                    SetActiveSize();
+                                })"
+                            >
+                                Small
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                            <div class="@MedSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectSize = Size.Medium;
+                                    EstimateProjectTime();
+                                    SetActiveSize();
+                                })"
+                            >
+                                Medium
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                            <div class="@LargeSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectSize = Size.Large;
+                                    EstimateProjectTime();
+                                    SetActiveSize();
+                                })"
+                            >
+                                Large
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                            <div class="@SimpleSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectComplexity = Complexity.Low;
+                                    EstimateProjectTime();
+                                    SetActiveComplexity();
+                                })"
+                            >
+                                Little detail
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                            <div class="@AvgSelect estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectComplexity = Complexity.Average;
+                                    EstimateProjectTime();
+                                    SetActiveComplexity();
+                                })"                                
+                            >
+                                Some detail
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                            <div class="@ComplexSelect container estimator-card text-center" @onclick="@(
+                                () => {
+                                    @ProjectComplexity = Complexity.High;
+                                    EstimateProjectTime();
+                                    SetActiveComplexity();
+                                })"
+                            >
+                                Quite detailed
+                            </div>
+                        </div>
+                        @if (!(@ProjectSize == Size.Unknown) && !(@ProjectComplexity == Complexity.Unknown))
+                        {
+                            // only want to display this div if the size and complexity are known
+                            <div class="mx-auto">
+                                A @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hour(s)
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    // managing basic component state
+    public enum EstimatorState
+    {
+        ShowInitial,
+        ShowInputs,
+        Unknown
+    }
+    EstimatorState toggleEstimator = EstimatorState.ShowInitial;        // start the component out in the initial state
+    public void ChangeEstimatorState(EstimatorState newState)
+    {
+        toggleEstimator = newState;
+    }
+
+    // enums for expressing project details
+    public enum Size
+    {
+        Small,
+        Medium,
+        Large,
+        Unknown
+    }
+    public enum Complexity
+    {
+        Low,
+        Average,
+        High,
+        Unknown
+    }
+    // variables for project details
+    public Size ProjectSize { get; set; } = Size.Unknown;
+    public Complexity ProjectComplexity { set; get; } = Complexity.Unknown;
+    int ProjectTime = 0;
+
+    // state management for highlighting user's chosen UI elements
+    string SmallSelect { get; set; }
+    string MedSelect { get; set; }
+    string LargeSelect { get; set; }
+    string SimpleSelect { get; set; }
+    string AvgSelect { get; set; }
+    string ComplexSelect { get; set; }
+
+    // state switchers to keep track of which size and complexity have been highlighted
+    public void SetActiveSize() 
+    {
+        if (ProjectSize == Size.Small)
+        {
+            SmallSelect = "selected";
+            MedSelect = "";
+            LargeSelect = "";
+        } 
+        else if (ProjectSize == Size.Medium)
+        {
+            SmallSelect = "";
+            MedSelect = "selected";
+            LargeSelect = "";
+        }
+        else if (ProjectSize == Size.Large)
+        {
+            SmallSelect = "";
+            MedSelect = "";
+            LargeSelect = "selected";
+        }
+    }
+    public void SetActiveComplexity() 
+    {
+        if (ProjectComplexity == Complexity.Low)
+        {
+            SimpleSelect = "selected";
+            AvgSelect = "";
+            ComplexSelect = "";
+        }
+        if (ProjectComplexity == Complexity.Average)
+        {
+            SimpleSelect = "";
+            AvgSelect = "selected";
+            ComplexSelect = "";
+        }
+        if (ProjectComplexity == Complexity.High)
+        {
+            SimpleSelect = "";
+            AvgSelect = "";
+            ComplexSelect = "selected";
+        }
+    }
+
+
+    // dynamically change project time based on the size and complexity
+    public void EstimateProjectTime()
+    {
+        // requires users to select a legitimate size and complexity
+        if (ProjectSize == Size.Unknown || ProjectComplexity == Complexity.Unknown)
+        {
+            return;
+        }
+
+        // calculate the estimated project time
+        int baseProjectTime = 3;
+        if (ProjectSize == Size.Small) baseProjectTime--;
+        if (ProjectComplexity == Complexity.Simple) baseProjectTime--;
+
+        if (ProjectSize == Size.Large) baseProjectTime++;
+        if (ProjectComplexity == Complexity.Complex) baseProjectTime++;
+
+        ProjectTime = baseProjectTime;
+    }
+
+}

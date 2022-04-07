@@ -1,0 +1,27 @@
+.workflow-container {
+    height: 600px;
+    position: relative;
+    margin: 20px auto;
+    background-color: inherit;
+}
+
+.workflow {
+    height: inherit;
+    flex: 1 1 auto;
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    z-index: 2
+}
+
+.explanation {
+    height: 100px;
+    width: 800px;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #2d2d2d !important;
+    background-color: #bcbbc3;
+    padding: 10px;
+}
