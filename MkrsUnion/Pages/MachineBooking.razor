@@ -1,18 +1,135 @@
 ﻿@page "/MachineBooking"
 <PageTitle>Machines</PageTitle>
 
-<div class="text-center">
-    <h1>Machines</h1>
+<h1>Machine Booking</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <img src="@Printerimg" />
+                                            </div>
+                                            <div class="card-title">
+                                                <span class="name"> Self-Serve 3D Print</span>
+                                            </div>
+                                            <div class="button">
+                                                <button class="btn btn-primary">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <img src="@Printerimg" />
+                                            </div>
+                                            <div class="card-title">
+                                                <span class="name"> Self-Serve 3D Print</span>
+                                            </div>
+                                            <div class="button">
+                                                <button class="btn btn-primary">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <img src="@Printerimg" />
+                                            </div>
+                                            <div class="card-title">
+                                                <span class="name"> Self-Serve 3D Print</span>
+                                            </div>
+                                            <div class="button">
+                                                <button class="btn btn-primary">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <img src="@Cricutimg" />
+                                            </div>
+                                            <div class="card-title">
+                                                <span class="name"> Self-Serve 3D Print</span>
+                                            </div>
+                                            <div class="button">
+                                                <button class="btn btn-primary">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <img src="@Cricutimg" />
+                                            </div>
+                                            <div class="card-title">
+                                                <span class="name"> Self-Serve 3D Print</span>
+                                            </div>
+                                            <div class="button">
+                                                <button class="btn btn-primary">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <img src="@Cricutimg" />
+                                            </div>
+                                            <div class="card-title">
+                                                <span class="name"> Self-Serve 3D Print</span>
+                                            </div>
+                                            <div class="button">
+                                                <button class="btn btn-primary">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<ToggleList>
-    <CardHeader0>3D Printing Self Service</CardHeader0>
-    <CardBody0>3D Printing self service description goes here</CardBody0>
-    <CardHeader1>3D Printing Full Service</CardHeader1>
-    <CardBody1>3D Printing full service description goes here</CardBody1>
-    <CardHeader2>Carvey Milling Machine</CardHeader2>
-    <CardBody2>Milling machine description goes here</CardBody2>
-</ToggleList>
+
 
 @code {
+    private string? Printerimg = "images/3dPrintSS.jpg";
+    private string? Cricutimg = "images/cricut.jpg";
+
 }
