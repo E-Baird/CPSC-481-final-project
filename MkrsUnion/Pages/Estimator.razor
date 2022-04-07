@@ -195,10 +195,10 @@
         // calculate the estimated project time
         int baseProjectTime = 3;
         if (ProjectSize == Size.Small) baseProjectTime--;
-        if (ProjectComplexity == Complexity.Simple) baseProjectTime--;
+        if (ProjectComplexity == Complexity.Low) baseProjectTime--;
 
         if (ProjectSize == Size.Large) baseProjectTime++;
-        if (ProjectComplexity == Complexity.Complex) baseProjectTime++;
+        if (ProjectComplexity == Complexity.High) baseProjectTime++;
 
         ProjectTime = baseProjectTime;
     }
