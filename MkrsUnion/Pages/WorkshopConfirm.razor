@@ -1,4 +1,8 @@
-﻿@page "/workshopconfirm/{title}/{date}/{time}/{loc}/{imgnum:int}"
+@page "/workshopconfirm/{title}/{date}/{time}/{loc}/{description}/{imgnum:int}"
+
+@using System;
+@using System.Text.RegularExpressions;
+@inject NavigationManager NavMan;
 
 <div class="layout">
     <div class="back">
@@ -7,6 +11,7 @@
 
     <div class="container">
         <h1>@title</h1>
+        <p style="color: dimgray;">@description</p>
         <div class="form-wrapper">
             <div class="form">
                 <div class="mb-3 row" hidden=@hide>
@@ -38,27 +43,48 @@
                     <label class="col-sm-2 col-form-label">UCID</label>
                     <div class="col-sm-10 mb-3">
 			            <input type="text" class="form-control" @bind=@ucid/>
-		            </div>
-	            </div>
+                        @if (validUCID(@ucid)) {
+                            if (ucidCompletedSafety(@ucid) && !@title.Contains("Safety")){
+                                <p id="completed">Safety orientation completed</p>
+                            } else if (!@title.Contains("Safety")) {
+                                <p id="noSafety">
+                                    The UCID you have entered has not completed the mandatory
+                                    safety orientation. Please sign up for one through the workshop
+                                    & Events page.
+                                </p>
+                            }
+                        } else if (ucid.Length < 8 && ucid.Length > 0) {
+                            <p id="noSafety">Not valid UCID</p>
+                        }
+                    </div>
+                </div>
                 <a class="btn btn-primary" role="button" onclick="@hideDisplay" hidden=@hide>Confirm</a>
                 @if (hide) {
                     <div class="mb-3 row">
-                        <p> You're booking for @title was successful. You are booked for:</p>
-                        <ul>
-                            <li>Date: @date</li>
-                            <li>Time: @time</li>
-                            <li>Location: @loc</li>
-                        </ul>
+                        <b>
+                            <p> You're booking for @title was successful. You are booked for:</p>
+                            <ul>
+                                <li>Date: @date</li>
+                                <li>Time: @time</li>
+                                <li>Location: @loc</li>
+                            </ul>
+                        </b>
+                        <div class="row justify-content-between"> 
+                            <button class="btn col-3" id="cal" @onclick="@(() => calendarRedirect(@title, @date, @time, @description))">
+                                Add to Calendar
+                            </button>
+                            <button class="btn col-3" id="home" @onclick="@(()=>NavMan.NavigateTo("/"))">
+                                Back to Homepage
+                            </button>
+                        </div>
                     </div>
                 }
             </div>
 
             <div class="image">
-                @if (@imgnum == 1 || @imgnum == 3)
-                {
+                @if (@imgnum == 1 || @imgnum == 3) {
                     <img src="images/safetyworkshop.jpg" width="500" height="325"/>
-                } else if (imgnum == 2)
-                {
+                } else if (imgnum == 2) {
                     <img src="images/3dworkshop.jpg" width="500" height="325"/>
                 }
             </div>
@@ -71,9 +97,64 @@
     public string email = "";
     public string ucid = "";
     public bool hide = false;
+    public string href = "";
 
     public void hideDisplay() {
-        hide = !hide;
+        if (ucidCompletedSafety(ucid) && validUCID(ucid)) {
+            hide = true;
+        }
+    }
+
+    public string[] completedSafety = new string[] { "12345678", "87654321", "34509876" };
+    public bool ucidCompletedSafety(string ucid) {
+        foreach (string id in completedSafety){
+            if (ucid.Equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool validUCID(string ucid) {
+        Regex rx = new Regex(@"^[0-9]*$", RegexOptions.Compiled);
+        bool match = rx.IsMatch(ucid);
+        if (ucid.Length == 8 && match) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    bool notEmpty (string s) {
+        return (s == string.Empty);
+    }
+
+    public string calendar(string title, string dates, string time, string desc) {
+        string baseHref = "https://calendar.google.com/calendar/r/eventedit?";
+
+        Regex noSpace = new Regex(@"\s+");
+
+        string eventName = "text=" + noSpace.Replace(title, "+");
+
+
+        string parsedDate = DateTime.Parse(dates).ToString("yyyyMMdd");
+        string temp = time.Substring(0, time.IndexOf(" "));
+        string[] times = temp.Split('-');
+
+        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss") + "Z";
+        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss") + "Z";
+
+        string date = "&dates=" + parsedDate + "T" + parsedTime1 + "/" + parsedDate + "T" + parsedTime2;
+
+        string description = "&details=" + noSpace.Replace(desc, "+");
+        string location = "&location=Taylor+Family+Digital+Library,+410+University+Ct+NW,+Calgary,+AB+T2N+1N4,+Canada";
+
+        return baseHref + eventName + date + description + location;
+    }
+
+    private void calendarRedirect(string title, string date, string time, string desc) {
+        string redirect = calendar(title, date, time, desc);
+        NavMan.NavigateTo(redirect);
     }
 
     [Parameter]
@@ -91,4 +172,6 @@
     [Parameter]
     public string? loc { get; set; }
 
+    [Parameter]
+    public string? description { get; set; }
 }
