@@ -1,16 +1,16 @@
 ﻿<div class="workshop">
     <div class="row row-cols-2">
         <div class="col">
-            <h4>@title</h4>
+            <h4>@details.title</h4>
             <p>
-                Date: @date <br>
-                Time: @time <br>
+                Date: @details.date <br>
+                Time: @details.time <br>
                 Location: @loc <br>
-                Categories: @cat<br>
+                Categories: @details.categories<br>
             </p>
         </div>
         <div class="col">
-            <img src=@img width="200" height="130"/>
+            <img src=@details.imgSrc width="200" height="130"/>
         </div>
         <div class="col">
             <button class="btn btn-outline-primary btn-sm" type="button" @onclick="Toggle">
@@ -19,7 +19,7 @@
         </div>
         <div class="col">
             <a class="btn btn-primary" 
-                href="/workshopconfirm/@title/@date/@time/@loc/@cat/@imgnum" 
+                href="/workshopconfirm/@details.title/@details.date/@details.time/@loc/@details.categories/@details.imgNum" 
                 role="button"
             >
                 Register
@@ -30,13 +30,16 @@
     {
         <p class="description">
             <div class="card card-body">
-                @description
+                @details.description
             </div>
         </p>
     }
 </div>
 
 @code {
+    [Parameter]
+    public WorkshopDetails details { get; set; }
+
     string loc = "TDFL Makerspace";
 
     bool toggle = false;
@@ -44,25 +47,4 @@
     public void Toggle() {
         toggle = !toggle;
     }
-
-    [Parameter]
-	public string title { get; set; }
-
-	[Parameter]
-    public string? date { get; set; }
-
-    [Parameter]
-    public string? time { get; set; }
-
-    [Parameter]
-    public string? cat { get; set; }
-
-    [Parameter]
-    public string? img { get; set; }
-
-    [Parameter]
-    public int? imgnum { get; set; }
-
-    [Parameter]
-    public string? description { get; set; }
 }
