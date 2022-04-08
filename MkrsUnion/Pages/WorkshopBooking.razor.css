@@ -23,9 +23,9 @@ button {
     border-right-width: 0px;
     border-top-width: thin;
     border-bottom-width: thin;
-    border-bottom-color: #3391ff;
-    border-top-color: #3391ff;
-    background-color: #a6cfff;
+    border-bottom-color: #2d2d2d;
+    border-top-color: #2d2d2d;
+    background-color: #ffc630;
     color: white;
     font-size: medium;
     padding: 0.5rem 1rem;
