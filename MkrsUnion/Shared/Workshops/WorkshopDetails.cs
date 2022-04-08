@@ -24,6 +24,7 @@ namespace MkrsUnion.Shared.Workshops {
             this.weekday = weekday;
             this.time = time;
             this.imgSrc = imgSrc;
+            this.imgNum = imgNum;
             this.description = description;
             this.categories = categories;
         }
