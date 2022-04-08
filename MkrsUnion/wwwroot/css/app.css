@@ -14,12 +14,44 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #fb992b !important;
+    border-color: #fb992b !important;
+}
+
+.btn-secondary {
+    background-color: #2d2d2d !important;
+    border-color: #2d2d2d !important;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #ffc630 !important;
+    border-color: #ffc630 !important;
+}
+
+.btn-outline-primary {
+    border-color: #2d2d2d !important;
+    color: #2d2d2d !important;
+}
+.btn-outline-primary:hover {
+    border-color: #2d2d2d !important;
+    color: #2d2d2d !important;
+    border-color: #2d2d2d !important;
+    background-color: #fb992b !important;
 }
 
 .content {
     padding-top: 1.1rem;
+}
+
+.navbar-brand {
+    font-weight: bolder;
+    font-size: calc(18px + 1.5vw);
+    color: #fb992b !important;
+}
+
+.nav-item .nav-link {
+    color: #bcbbb3 !important;
 }
 
 .valid.modified:not([type=checkbox]) {

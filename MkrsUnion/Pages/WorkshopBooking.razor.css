@@ -1,2 +1,39 @@
-﻿body {
+﻿h1 {
+    padding: 20px;
 }
+
+.wrksp-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 40px 40px 40px;
+}
+
+.filter {
+    flex: 1;
+}
+
+.workshop-list {
+    display: flex;
+    flex-direction: column;
+    flex: 3.5;
+}
+
+button {
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: thin;
+    border-bottom-width: thin;
+    border-bottom-color: #2d2d2d;
+    border-top-color: #2d2d2d;
+    background-color: #ffc630;
+    color: white;
+    font-size: medium;
+    padding: 0.5rem 1rem;
+    width: 17vw;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+ .card-body {
+     margin-top: 0;
+     padding-top: 0;
+ }

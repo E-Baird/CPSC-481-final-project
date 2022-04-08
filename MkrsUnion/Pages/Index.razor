@@ -1,18 +1,58 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<div class="text-center">
+    <h1>Welcome to MkrsUnion</h1>
+</div>
 
-<h1>Hello, world!</h1>
+<div class="d-flex">
+    <div class="container">
+      <div class="row g-2">
+        <div class="col-md-4 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>I'm New Here</h3>
+                <p>
+                    Want to learn what the makerspace is all about? We'll walk you through
+                    all the steps you need to get acquainted with the space, and help make 
+                    sure you have all the necessary knowledge to use our machines safely and
+                    confidently. This includes getting you signed up for a safety orientation,
+                    and booking your first machine.
+                </p>
+                <a class="btn btn-primary" href="GettingStarted">Let's get started!</a>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>Browse Events</h3>
+                <p>
+                    The makerspace offers a variety of programming. Even if you've already 
+                    done the safety orientation, there are lots of options for workshops, 
+                    classes, meetups, and more. Click here to browse our upcoming events.
+                </p>
+                <a class="btn btn-primary" href="WorkshopBooking">Sign me up!</a>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex">
+          <div class="p-3 border bg-light rounded">
+              <div class="container">
+                <h3>Book a Machine</h3>
+                <p>
+                    So you're an old hand at this? Welcome back! If you've already completed
+                    an orientation and know exactly what you're looking for, click here to 
+                    book a machine timeslot.
+                </p>
+                <a class="btn btn-primary" href="MachineBooking">Go make it!</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
 
-<ToggleList>
-    <CardHeader0>3D Printing Self Service</CardHeader0>
-    <CardBody0>3D Printing self service description goes here</CardBody0>
-    <CardHeader1>3D Printing Full Service</CardHeader1>
-    <CardBody1>3D Printing full service description goes here</CardBody1>
-    <CardHeader2>Carvey Milling Machine</CardHeader2>
-    <CardBody2>Milling machine description goes here</CardBody2>
-</ToggleList>
+}
