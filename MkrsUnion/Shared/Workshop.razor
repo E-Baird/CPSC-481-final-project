@@ -6,7 +6,12 @@
                 Date: @details.date <br>
                 Time: @details.time <br>
                 Location: @loc <br>
-                Categories: @details.categories<br>
+                Categories: 
+                @foreach (var category in details.categories)
+                {
+                    <span>@category &nbsp;</span>
+                } 
+                <br>
             </p>
         </div>
         <div class="col">
@@ -19,7 +24,7 @@
         </div>
         <div class="col">
             <a class="btn btn-primary" 
-                href="/workshopconfirm/@details.title/@details.date/@details.time/@loc/@details.categories/@details.imgNum" 
+                href="/workshopconfirm/@details.title/@details.date/@details.time/@loc/@details.imgNum" 
                 role="button"
             >
                 Register
