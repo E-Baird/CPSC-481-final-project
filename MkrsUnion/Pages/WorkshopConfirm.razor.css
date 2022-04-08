@@ -39,3 +39,23 @@ ul {
 button {
     align-self: center;
 }
+
+#completed {
+    margin-top: 2px;
+    color: mediumseagreen;
+    font-size: smaller;
+}
+
+#noSafety {
+    margin-top:2px;
+    color: orangered;
+    font-size: smaller;
+}
+
+#cal {
+    color: orangered;
+}
+
+#home {
+    color: orangered;
+}
