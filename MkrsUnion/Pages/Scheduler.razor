@@ -1,4 +1,5 @@
 @page "/scheduler"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 
 @using Microsoft.AspNetCore.Components.Rendering
 @using System;
@@ -7,11 +8,17 @@
 <PageTitle>Scheduler</PageTitle>
 
 
-<h1 class="text-center mb-5">Scheduler</h1>
+<h1 class="text-center">Scheduler</h1>
 
-<div class="container row">
-	<div class="form-wrapper col-4">
-		<h3 class="text-center mb-5">Confirm Booking Details</h3>
+<div class="d-flex">
+	@if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
+    }
+
+	<div class="form-wrapper">
+		<h3 class="text-center mb-5">Booking Details</h3>
 		<div class="mb-3 row">
 			<label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
 			<div class="col-sm-10">
@@ -54,7 +61,7 @@
 		</div>
 	</div>
 
-	<div class="calendar-wrapper col-8">
+	<div class="calendar-wrapper">
 		<div class="mx-auto">
 			<Estimator />
 		</div>
@@ -156,11 +163,20 @@
 	</div>
 </div>
 
-
 @code {
 	public string name = "";
 	public string email = "";
 	public string ucid = "";
+	public string isNewUser { get; set; }
+    public int currentWorkflowStep { get; set; }
+
+    protected override void OnInitialized()
+    {
+        isNewUser = sessionStorage.GetItem<string>("isNewUser");
+        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+    }
 
 	public string[] completedSafety = new string[] { "12345678", "87654321", "34509876" };
 	public bool ucidCompletedSafety(string ucid) {
