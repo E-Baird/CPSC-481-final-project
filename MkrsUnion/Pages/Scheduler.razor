@@ -159,37 +159,37 @@
 
 @code {
 	public string name = "";
-    public string email = "";
-    public string ucid = "";
+	public string email = "";
+	public string ucid = "";
 
 	public string[] completedSafety = new string[] { "12345678", "87654321", "34509876" };
-    public bool ucidCompletedSafety(string ucid) {
-        foreach (string id in completedSafety){
-            if (ucid.Equals(id)){
-                return true;
-            }
-        }
-        return false;
-    }
+	public bool ucidCompletedSafety(string ucid) {
+		foreach (string id in completedSafety){
+			if (ucid.Equals(id)){
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public bool validUCID(string ucid) {
-        Regex rx = new Regex(@"^[0-9]*$", RegexOptions.Compiled);
-        bool match = rx.IsMatch(ucid);
-        if (ucid.Length == 8 && match) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	public bool validUCID(string ucid) {
+		Regex rx = new Regex(@"^[0-9]*$", RegexOptions.Compiled);
+		bool match = rx.IsMatch(ucid);
+		if (ucid.Length == 8 && match) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	private String[,] statuses =
-		  {{"o", "x", "o", "o", "o", "t", "t"},
-	{"o", "x", "o", "o", "o", "t", "t"},
-	{"o", "x", "o", "t", "o", "t", "o"},
-	{"o", "x", "o", "t", "o", "o", "t"},
-	{"o", "x", "o", "t", "o", "t", "t"},
-	{"t", "x", "o", "o", "o", "t", "o"},
-	{"t", "x", "o", "o", "o", "t", "o"}};
+			{{"o", "x", "o", "o", "o", "t", "t"},
+			{"o", "x", "o", "o", "o", "t", "t"},
+			{"o", "x", "o", "t", "o", "t", "o"},
+			{"o", "x", "o", "t", "o", "o", "t"},
+			{"o", "x", "o", "t", "o", "t", "t"},
+			{"t", "x", "o", "o", "o", "t", "o"},
+			{"t", "x", "o", "o", "o", "t", "o"}};
 
 	private void occupy(int hour, int weekday)
 	{
@@ -198,5 +198,4 @@
 			statuses[hour, weekday] = "s";
 		}
 	}
-
 }
