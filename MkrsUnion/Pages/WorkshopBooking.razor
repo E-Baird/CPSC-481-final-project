@@ -1,4 +1,4 @@
-﻿@page "/WorkshopBooking"
+﻿@page "/WorkshopBooking/{initialFilter?}"
 <PageTitle>Events</PageTitle>
 
 <div class="text-center">
@@ -28,15 +28,15 @@
                     >
                         <label for="c2">Orientation</label>
                     </div>
-                    <div><input type="checkbox" id="c2"
+                    <div><input type="checkbox" id="c3"
                         @onclick='() => toggleShownCategories("Technology Training")'
                     >
-                        <label for="c2">Technology Training</label>
+                        <label for="c3">Technology Training</label>
                     </div>
-                    <div><input type="checkbox" id="c2"
+                    <div><input type="checkbox" id="c4"
                         @onclick='() => toggleShownCategories("Community Event")'
                     >
-                        <label for="c2">Community Event</label>
+                        <label for="c4">Community Event</label>
                     </div>
                 </div>
             }
@@ -52,35 +52,35 @@
                     >
                         <label for="d0">Sunday</label>
                     </div>
-                    <div><input type="checkbox" id="d0"
+                    <div><input type="checkbox" id="d1"
                         @onclick='() => toggleShownDays("Monday")'
                     >
-                        <label for="d0">Monday</label>
+                        <label for="d1">Monday</label>
                     </div>
-                    <div><input type="checkbox" id="d0"
+                    <div><input type="checkbox" id="d2"
                         @onclick='() => toggleShownDays("Tuesday")'
                     >
-                        <label for="d0">Tuesday</label>
+                        <label for="d2">Tuesday</label>
                     </div>
-                    <div><input type="checkbox" id="d0"
+                    <div><input type="checkbox" id="d3"
                         @onclick='() => toggleShownDays("Wednesday")'
                     >
-                        <label for="d0">Wednesday</label>
+                        <label for="d3">Wednesday</label>
                     </div>
-                    <div><input type="checkbox" id="d0"
+                    <div><input type="checkbox" id="d4"
                         @onclick='() => toggleShownDays("Thursday")'
                     >
-                        <label for="d0">Thursday</label>
+                        <label for="d4">Thursday</label>
                     </div>
-                    <div><input type="checkbox" id="d0"
+                    <div><input type="checkbox" id="d5"
                         @onclick='() => toggleShownDays("Friday")'
                     >
-                        <label for="d0">Friday</label>
+                        <label for="d5">Friday</label>
                     </div>
-                    <div><input type="checkbox" id="d0"
+                    <div><input type="checkbox" id="d6"
                         @onclick='() => toggleShownDays("Saturday")'
                     >
-                        <label for="d0">Saturday</label>
+                        <label for="d6">Saturday</label>
                     </div>
                 </div>
             }
@@ -121,6 +121,16 @@
 </div>
 
 @code {
+    [Parameter]
+    public string InitialFilter { set; get; }
+    protected override void OnInitialized() {
+        InitialFilter = InitialFilter ?? "none";
+        if (InitialFilter != "none")
+        {
+            selectedCategories.Add(InitialFilter);        
+        }
+    }
+
     bool toggle1 = false;
     bool toggle2 = false;
 
