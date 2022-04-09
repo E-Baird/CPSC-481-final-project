@@ -1,16 +1,24 @@
 @page "/workshopconfirm/{title}/{date}/{time}/{loc}/{description}/{imgnum:int}"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 
 @using System;
 @using System.Text.RegularExpressions;
 @inject NavigationManager NavMan;
 
+<div class="text-center">
+    <h1>@title</h1>
+</div>
 <div class="layout">
+    @if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
+    }
     <div class="back">
         <button type="button" onclick="history.back()" class="btn btn-danger">Back</button>
     </div>
 
     <div class="container">
-        <h1>@title</h1>
         <p style="color: dimgray;">@description</p>
         <div class="form-wrapper">
             <div class="form">
@@ -58,11 +66,11 @@
                         }
                     </div>
                 </div>
-                <a class="btn btn-primary" role="button" onclick="@hideDisplay" hidden=@hide>Confirm</a>
+                <a class="btn btn-primary" role="button" onclick="@handleSignup" hidden=@hide>Confirm</a>
                 @if (hide) {
                     <div class="mb-3 row">
                         <b>
-                            <p> You're booking for @title was successful. You are booked for:</p>
+                            <p> Your booking for @title was successful. You are booked for:</p>
                             <ul>
                                 <li>Date: @date</li>
                                 <li>Time: @time</li>
@@ -99,9 +107,30 @@
     public bool hide = false;
     public string href = "";
 
-    public void hideDisplay() {
+    public string isNewUser { get; set; }
+    public int currentWorkflowStep { get; set; }
+
+    protected override void OnInitialized()
+    {
+        isNewUser = sessionStorage.GetItem<string>("isNewUser");
+        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+    }
+
+    // determines if the user's signup was successful and
+    // does any tidying necessary when that happens
+    public void handleSignup() {
         if (ucidCompletedSafety(ucid) && validUCID(ucid)) {
             hide = true;
+
+            // if the user is successful, also advance their 'getting started'
+            // sidebar state if needed
+            if (isNewUser == "true")
+            {
+                sessionStorage.SetItem("currentWorkflowStep", "1");
+                currentWorkflowStep = 1;
+            }
         }
     }
 

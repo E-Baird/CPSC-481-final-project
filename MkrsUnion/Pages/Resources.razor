@@ -1,26 +1,20 @@
 ﻿@page "/resources"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
+
 <PageTitle>Resources</PageTitle>
 
 <div class="text-center">
     <h1>Resources</h1>
 </div>
 
-<div>
-    <button class="btn btn-secondary" @onclick=ToggleSidebarFilter>To-Do List</button>
-</div>
-
 <div class="d-flex">
-    @if (toggleSidebar)
-    {        
-        <div class="sidebar">
-            <Workflow
-                WorkflowSteps="workflowSteps"
-                CurrentStep=1
-            />
-        </div>
+
+    @if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
     }
-
-
+      
     <div class="container">
       <div class="row g-2">
         <div class="col-6 d-flex">
@@ -32,7 +26,7 @@
                     360 interactive tour of the space accompanied by annotated 
                     descriptions of the various machines and resources offered. 
                 </p>
-                <button type="button" class="btn btn-primary">View More</button>
+                <button type="button" class="btn btn-primary" onclick="location.href = 'https://www.thinglink.com/video/1504927955728465921';" >View More</button>
               </div>
           </div>
         </div>
@@ -45,7 +39,7 @@
                     offered by the space? Get an indepth walkthrough of 
                     everything you need to know here. 
                 </p>
-                <button type="button" class="btn btn-primary">View More</button>
+                <button type="button" class="btn btn-primary" onclick="location.href = 'https://library.ucalgary.ca/makerspace_training/home';" >View More</button>
               </div>
           </div>
         </div>
@@ -59,7 +53,7 @@
                     Get inspired with various 3D-Printing, sewing, carving, 
                     game design ideas and so much more here.  
                 </p>
-                <button type="button" class="btn btn-primary">View More</button>
+                <button type="button" class="btn btn-primary" onclick="location.href = 'https://www.pinterest.ca/uwec_library/makerspace-3d-printing/';" >View More</button>
               </div>
           </div>
         </div>
@@ -71,7 +65,7 @@
                     Have a question and not sure how to contact us? 
                     We’d love to hear from you, send us a message!
                 </p>
-                <button type="button" class="btn btn-primary">Send Us an Email</button>
+                <button type="button" class="btn btn-primary" onclick="location.href = 'mailto: mrksunion@ucalgary.ca';">Send Us an Email</button>
               </div>
           </div>
         </div>
@@ -81,18 +75,14 @@
 
 
 @code {
-    bool toggleSidebar = true;
+    public string isNewUser { get; set; }
+    public int currentWorkflowStep { get; set; }
 
-    public void ToggleSidebarFilter()
+    protected override void OnInitialized()
     {
-        toggleSidebar = !toggleSidebar;
+        isNewUser = sessionStorage.GetItem<string>("isNewUser");
+        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
     }
-
-    List<string> workflowSteps = new List<string>
-    {
-        "Safety Orientation",
-        "Select a Machine",
-        "Book a Time",
-        "Go make it!"
-    };
 }
