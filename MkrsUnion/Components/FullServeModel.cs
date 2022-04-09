@@ -14,7 +14,7 @@ namespace MkrsUnion.Components
         public int DimensionY { get; set; }
 
         [Required]
-        [Range(0, 200)]
+        [Range(0, 180)]
         public int DimensionZ { get; set; }
 
         [Required]
