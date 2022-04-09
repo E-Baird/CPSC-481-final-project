@@ -3,7 +3,7 @@
     @if (toggleEstimator == EstimatorState.ShowInitial)
     {
         <div class="container mx-auto text-center">
-            <button class="btn text-center" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
+            <button class="btn text-center border border-danger" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
                 Estimate how much time I need
             </button>
         </div>
