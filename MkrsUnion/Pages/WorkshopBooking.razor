@@ -130,22 +130,24 @@
 </div>
 
 @code {
+    [Parameter]
+    public string InitialFilter { set; get; }
+    
     public string isNewUser { get; set; }
     public int currentWorkflowStep { get; set; }
-    public string InitialFilter { set; get; }
 
     protected override void OnInitialized()
     {
-        isNewUser = sessionStorage.GetItem<string>("isNewUser");
-        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
-        Console.WriteLine($"Value for isNewUser = {isNewUser}");
-        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
-
         InitialFilter = InitialFilter ?? "none";
         if (InitialFilter != "none")
         {
             selectedCategories.Add(InitialFilter);        
         }
+
+        isNewUser = sessionStorage.GetItem<string>("isNewUser");
+        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
     }
 
     bool toggle1 = false;
