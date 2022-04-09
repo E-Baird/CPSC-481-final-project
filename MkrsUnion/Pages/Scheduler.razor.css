@@ -47,6 +47,11 @@ Saturday & Sunday 12:00PM to 4:00PM
     border-left: solid 1px;
 }
 
+.form-wrapper {
+    max-width: 20%;
+    margin: 20px;
+}
+
 /* MAIN */
 main {
     grid-area: content;

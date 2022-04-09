@@ -1,134 +1,153 @@
-﻿@page "/WorkshopBooking/{initialFilter?}"
+@page "/WorkshopBooking/{initialFilter?}"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
+
 <PageTitle>Events</PageTitle>
 
 <div class="text-center">
     <h1>Upcoming Events</h1>
 </div>
 
-<div class="wrksp-container">
-    <div class="filter">
-        <div class="filter1">
-            <h5><button type="button" @onclick="ToggleFilter1">
-                Category
-            </button></h5>
-            @if (toggle1) {
-                <div class="card-body">
-                    <div><input type="checkbox" id="c0"
-                        @onclick='() => toggleShownCategories("Virtual")'
-                    >
-                        <label for="c0">Virtual</label>
+<div class="d-flex">
+    @if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
+    }
+    <div class="wrksp-container">
+        <div class="filter">
+            <div class="filter1">
+                <h5><button type="button" @onclick="ToggleFilter1">
+                    Category
+                </button></h5>
+                @if (toggle1) {
+                    <div class="card-body">
+                        <div><input type="checkbox" id="c0"
+                            @onclick='() => toggleShownCategories("Virtual")'
+                        >
+                            <label for="c0">Virtual</label>
+                        </div>
+                        <div><input type="checkbox" id="c1"
+                            @onclick='() => toggleShownCategories("In-person")'
+                        > 
+                            <label for="c1">In-person</label>
+                        </div>
+                        <div><input type="checkbox" id="c2"
+                            @onclick='() => toggleShownCategories("Orientation")'
+                        >
+                            <label for="c2">Orientation</label>
+                        </div>
+                        <div><input type="checkbox" id="c3"
+                            @onclick='() => toggleShownCategories("Technology Training")'
+                        >
+                            <label for="c3">Technology Training</label>
+                        </div>
+                        <div><input type="checkbox" id="c4"
+                            @onclick='() => toggleShownCategories("Community Event")'
+                        >
+                            <label for="c4">Community Event</label>
+                        </div>
                     </div>
-                    <div><input type="checkbox" id="c1"
-                        @onclick='() => toggleShownCategories("In-person")'
-                    > 
-                        <label for="c1">In-person</label>
-                    </div>
-                    <div><input type="checkbox" id="c2"
-                        @onclick='() => toggleShownCategories("Orientation")'
-                    >
-                        <label for="c2">Orientation</label>
-                    </div>
-                    <div><input type="checkbox" id="c3"
-                        @onclick='() => toggleShownCategories("Technology Training")'
-                    >
-                        <label for="c3">Technology Training</label>
-                    </div>
-                    <div><input type="checkbox" id="c4"
-                        @onclick='() => toggleShownCategories("Community Event")'
-                    >
-                        <label for="c4">Community Event</label>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="filter2">
-            <h5><button type="button" @onclick="ToggleFilter2">
-                Weekday
-            </button></h5>
-            @if (toggle2) {
-                <div class="card-body">
-                    <div><input type="checkbox" id="d0"
-                        @onclick='() => toggleShownDays("Sunday")'
-                    >
-                        <label for="d0">Sunday</label>
-                    </div>
-                    <div><input type="checkbox" id="d1"
-                        @onclick='() => toggleShownDays("Monday")'
-                    >
-                        <label for="d1">Monday</label>
-                    </div>
-                    <div><input type="checkbox" id="d2"
-                        @onclick='() => toggleShownDays("Tuesday")'
-                    >
-                        <label for="d2">Tuesday</label>
-                    </div>
-                    <div><input type="checkbox" id="d3"
-                        @onclick='() => toggleShownDays("Wednesday")'
-                    >
-                        <label for="d3">Wednesday</label>
-                    </div>
-                    <div><input type="checkbox" id="d4"
-                        @onclick='() => toggleShownDays("Thursday")'
-                    >
-                        <label for="d4">Thursday</label>
-                    </div>
-                    <div><input type="checkbox" id="d5"
-                        @onclick='() => toggleShownDays("Friday")'
-                    >
-                        <label for="d5">Friday</label>
-                    </div>
-                    <div><input type="checkbox" id="d6"
-                        @onclick='() => toggleShownDays("Saturday")'
-                    >
-                        <label for="d6">Saturday</label>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="workshop-list">
-        @{
-            int i=0;
-        }
-        @foreach (var w in workshops)
-        {
-            if (
-                // this is the case where no categories have been selected
-                (!selectedCategories.Any() && 
-                    (!selectedWeekdays.Any() ||
-                    selectedWeekdays.Contains(w.weekday))
-                ) ||
-                // this is the case where no weekdays have been selected
-                (!selectedWeekdays.Any() && 
-                    compareSelectedCategories(selectedCategories, w.categories)
-                ) ||
-                // otherwise, both weekday and category must match
-                (selectedWeekdays.Contains(w.weekday) && 
-                compareSelectedCategories(selectedCategories, w.categories))
-            )
-            {
-                <Workshop details=@w />
-                i++;
-            }
-        }
-        @if (i==0)
-        {
-            <div class="container text-center">
-                <h4>Sorry, no events match your search.</h4>
+                }
             </div>
-        }
+            <div class="filter2">
+                <h5><button type="button" @onclick="ToggleFilter2">
+                    Weekday
+                </button></h5>
+                @if (toggle2) {
+                    <div class="card-body">
+                        <div><input type="checkbox" id="d0"
+                            @onclick='() => toggleShownDays("Sunday")'
+                        >
+                            <label for="d0">Sunday</label>
+                        </div>
+                        <div><input type="checkbox" id="d1"
+                            @onclick='() => toggleShownDays("Monday")'
+                        >
+                            <label for="d1">Monday</label>
+                        </div>
+                        <div><input type="checkbox" id="d2"
+                            @onclick='() => toggleShownDays("Tuesday")'
+                        >
+                            <label for="d2">Tuesday</label>
+                        </div>
+                        <div><input type="checkbox" id="d3"
+                            @onclick='() => toggleShownDays("Wednesday")'
+                        >
+                            <label for="d3">Wednesday</label>
+                        </div>
+                        <div><input type="checkbox" id="d4"
+                            @onclick='() => toggleShownDays("Thursday")'
+                        >
+                            <label for="d4">Thursday</label>
+                        </div>
+                        <div><input type="checkbox" id="d5"
+                            @onclick='() => toggleShownDays("Friday")'
+                        >
+                            <label for="d5">Friday</label>
+                        </div>
+                        <div><input type="checkbox" id="d6"
+                            @onclick='() => toggleShownDays("Saturday")'
+                        >
+                            <label for="d6">Saturday</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="workshop-list">
+            @{
+                int i=0;
+            }
+            @foreach (var w in workshops)
+            {
+                if (
+                    // this is the case where no categories have been selected
+                    (!selectedCategories.Any() && 
+                        (!selectedWeekdays.Any() ||
+                        selectedWeekdays.Contains(w.weekday))
+                    ) ||
+                    // this is the case where no weekdays have been selected
+                    (!selectedWeekdays.Any() && 
+                        compareSelectedCategories(selectedCategories, w.categories)
+                    ) ||
+                    // otherwise, both weekday and category must match
+                    (selectedWeekdays.Contains(w.weekday) && 
+                    compareSelectedCategories(selectedCategories, w.categories))
+                )
+                {
+                    <Workshop details=@w />
+                    i++;
+                }
+            }
+            @if (i==0)
+            {
+                <div class="container text-center">
+                    <h4>Sorry, no events match your search.</h4>
+                </div>
+            }
+        </div>
     </div>
 </div>
 
 @code {
     [Parameter]
     public string InitialFilter { set; get; }
-    protected override void OnInitialized() {
+    
+    public string isNewUser { get; set; }
+    public int currentWorkflowStep { get; set; }
+
+    protected override void OnInitialized()
+    {
         InitialFilter = InitialFilter ?? "none";
         if (InitialFilter != "none")
         {
             selectedCategories.Add(InitialFilter);        
         }
+
+        isNewUser = sessionStorage.GetItem<string>("isNewUser");
+        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
     }
 
     bool toggle1 = false;

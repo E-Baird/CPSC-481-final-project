@@ -1,4 +1,5 @@
 ﻿@page "/GettingStarted"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 
 <div class="text-center">
     <h1>Getting Started</h1>
@@ -15,8 +16,8 @@
 
     <div class="d-flex justify-content-start align-items-start bg-light rounded m-2">   
             <Workflow
-                WorkflowSteps="workflowSteps"
                 CurrentStep=5
+                Arrow=false
             />
             <WorkflowExplanations
                 Explanations="expList"
@@ -24,7 +25,13 @@
     </div>
 
     <div class="mb-5 text-center">
-        <a href="WorkshopBooking/Orientation" class="btn btn-primary">Let's go!</a>
+        <a 
+            href="WorkshopBooking" 
+            class="btn btn-primary"
+            @onclick="setNewUserStatus"
+        >
+            Let's go!
+        </a>
     </div>
 
 </div>
@@ -47,4 +54,10 @@
         "Machines must be prebooked. We'll help you estimate how much time you need, and get your booking set up.",
         "Show up to the space, and have fun!"
     };
+
+    public void setNewUserStatus()
+    {
+        sessionStorage.SetItem("isNewUser", "true");
+        sessionStorage.SetItem("currentWorkflowStep", "0");
+    }
 }
