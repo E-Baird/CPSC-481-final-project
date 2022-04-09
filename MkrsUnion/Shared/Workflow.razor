@@ -1,29 +1,57 @@
-﻿<div class="workflow-container">
-    <div class="line"/>
-    <div class="workflow">
-        @{int i=0;}
-        @foreach (string step in WorkflowSteps)
-        {
-            @if (i < CurrentStep)
-            {                
-                <div class="circle workflow-row success d-flex align-items-center justify-content-center text-center">
-                    @step
-                </div>
-            } 
-            else if (i == CurrentStep) {
-                <div class="circle workflow-row in-progress d-flex align-items-center justify-content-center text-center">
-                    @step
-                </div>
-            }
-            else
-            {
-                <div class="circle workflow-row to-do d-flex align-items-center justify-content-center text-center">
-                    @step
-                </div>               
-            }
-            i++;
-        }
-    </div>
+﻿<div class="sidebar bg-light rounded">
+    @if (!toggleSidebar)
+    {
+        <div class="arrow-container">
+            <span 
+                class="oi oi-chevron-bottom" 
+                title="chevron bottom" 
+                aria-hidden="true"
+                @onclick=ToggleSidebarFilter
+            >
+            </span>
+        </div>        
+    }
+    else
+    {
+        <div class="arrow-container">
+            <span 
+                class="oi oi-chevron-top" 
+                title="chevron top" 
+                aria-hidden="true"
+                @onclick=ToggleSidebarFilter
+            >
+            </span>
+        </div> 
+
+        <div class="workflow-container">
+            <div class="line"/>
+            <div class="workflow">
+                @{int i=0;}
+                @foreach (string step in WorkflowSteps)
+                {
+                    @if (i < CurrentStep)
+                    {                
+                        <div class="circle workflow-row success d-flex align-items-center justify-content-center text-center">
+                            @step
+                        </div>
+                    } 
+                    else if (i == CurrentStep) {
+                        <div class="circle workflow-row in-progress d-flex align-items-center justify-content-center text-center">
+                            @step
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="circle workflow-row to-do d-flex align-items-center justify-content-center text-center">
+                            @step
+                        </div>               
+                    }
+                    i++;
+                }
+            </div>
+        </div>     
+    }
+
 </div>
 
 @code {
@@ -32,4 +60,11 @@
 
     [Parameter]
     public int CurrentStep { set; get; }
+
+    bool toggleSidebar = true;
+
+    public void ToggleSidebarFilter()
+    {
+        toggleSidebar = !toggleSidebar;
+    }
 }
