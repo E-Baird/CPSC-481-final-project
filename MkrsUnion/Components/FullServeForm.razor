@@ -1,5 +1,9 @@
 ﻿<form>
     <div class="form-body">
+        <div class="d-flex justify-content-between">
+            <div class="mr-auto col-2"><a class="btn btn-primary" href="/fullserveinfo" role="button">Back</a></div>
+            <div class="ml-auto col-10"><h1><b>Full Serve 3D-Printing Submission Form</b></h1></div>
+        </div>
         <EditForm Model="@fullserveform" OnValidSubmit="@HandleValidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -98,7 +102,7 @@
                 </div>
             </div>
         </EditForm>
-        <div>@success</div>
+        <div class="success"><b>@success</b></div>
     </div>
 </form>
 
