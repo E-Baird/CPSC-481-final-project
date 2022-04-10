@@ -25,13 +25,13 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash-->
                                                     <img src="@Printerimg" />
                                                 </div>
                                                 <div class="card-title">
-                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                    <span class="name">Self-Serve 3D Print</span>
                                                 </div>
-                                                <div class="button">
+                                                <div class="button" @onclick="ShowSSPrint">
                                                     <button class="btn btn-primary">Select</button>
                                                 </div>
                                             </div>
@@ -40,13 +40,13 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
-                                                    <img src="@Printerimg" />
+                                                <div class="image"> <!--Photo by Osman Talha Dikyar on Unsplash-->
+                                                    <img src="@FSPrintimg" />
                                                 </div>
                                                 <div class="card-title">
-                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                    <span class="name">Full-Serve 3D Print</span>
                                                 </div>
-                                                <div class="button">
+                                                <div class="button" @onclick="ShowFSPrint">
                                                     <button class="btn btn-primary">Select</button>
                                                 </div>
                                             </div>
@@ -55,88 +55,34 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
-                                                    <img src="@Printerimg" />
+                                                <div class="image"> <!--Photo by Opt Lasers on Unsplash-->
+                                                    <img src="@LaserCutimg" />
                                                 </div>
                                                 <div class="card-title">
-                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                    <span class="name">Laser Cutting Service</span>
                                                 </div>
-                                                <div class="button">
+                                                <div class="button" @onclick="ShowLaserCutter">
                                                     <button class="btn btn-primary">Select</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Gavin Allanwood on Unsplash-->
-                                                <img src="@Printerimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Self-Serve 3D Print</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowSSPrint">
-                                                <button class="btn btn-primary">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Osman Talha Dikyar on Unsplash-->
-                                                <img src="@FSPrintimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Full-Serve 3D Print</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowFSPrint">
-                                                <button class="btn btn-primary">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Opt Lasers on Unsplash-->
-                                                <img src="@LaserCutimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Laser Cutting Service</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowLaserCutter">
-                                                <button class="btn btn-primary">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item active">
+                        <div class="carousel-item">
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
-                                                    <img src="@Cricutimg" />
+                                                <div class="image"> <!--Photo by Daniel Smyth on Unsplash-->
+                                                    <img src="@CNCMillimg" />
                                                 </div>
                                                 <div class="card-title">
-                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                    <span class="name">Carvey CNC Milling Machine</span>
                                                 </div>
-                                                <div class="button">
+                                                <div class="button" @onclick="ShowCarvey">
                                                     <button class="btn btn-primary">Select</button>
                                                 </div>
                                             </div>
@@ -145,13 +91,13 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                <div class="image"> <!--Photo by Nathan Langer on Unsplash-->
                                                     <img src="@Cricutimg" />
                                                 </div>
                                                 <div class="card-title">
-                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                    <span class="name">Cricut Vinyl Cutter</span>
                                                 </div>
-                                                <div class="button">
+                                                <div class="button" @onclick="ShowCricut">
                                                     <button class="btn btn-primary">Select</button>
                                                 </div>
                                             </div>
@@ -160,70 +106,54 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
-                                                    <img src="@Cricutimg" />
+                                                <div class="image"> <!--Photo by Bozhin Karaivanov on Unsplash-->
+                                                    <img src="@Embroiderimg" />
                                                 </div>
                                                 <div class="card-title">
-                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                    <span class="name">Sewing and Embroidery</span>
                                                 </div>
-                                                <div class="button">
+                                                <div class="button" @onclick="ShowEmbroidery">
                                                     <button class="btn btn-primary">Select</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Daniel Smyth on Unsplash-->
-                                                <img src="@CNCMillimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Carvey CNC Milling Machine</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowCarvey">
-                                                <button class="btn btn-primary">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Nathan Langer on Unsplash-->
-                                                <img src="@Cricutimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Cricut Vinyl Cutter</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowCricut">
-                                                <button class="btn btn-primary">Select</button>
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Harrison Broadbent on Unsplash-->
+                                                    <img src="@Raspberrimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name">Raspberry Pis</span>
+                                                </div>
+                                                <div class="button" @onclick="ShowRaspberry">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Bozhin Karaivanov on Unsplash-->
-                                                <img src="@Embroiderimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Sewing and Embroidery</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowEmbroidery">
-                                                <button class="btn btn-primary">Select</button>
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Vishnu Mohanan on Unsplash-->
+                                                    <img src="@Arduinoimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name">Arduinos</span>
+                                                </div>
+                                                <div class="button" @onclick="ShowArduino">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
                                 </div>
                             </div>
                         </div>
@@ -232,142 +162,89 @@
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
             </div>
         </div>
-    </div>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class= "card" id="description-box">
+                @if (text == 0)
+                {
+                    <div class="card-title"> 
+                        <b> Book a Machine</b>
                     </div>
-                    <div class="carousel-item">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Harrison Broadbent on Unsplash-->
-                                                <img src="@Raspberrimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Raspberry Pis</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowRaspberry">
-                                                <button class="btn btn-primary">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="image"> <!--Photo by Vishnu Mohanan on Unsplash-->
-                                                <img src="@Arduinoimg" />
-                                            </div>
-                                            <div class="card-title">
-                                                <span class="name">Arduinos</span>
-                                            </div>
-                                            <div class="button" @onclick="ShowArduino">
-                                                <button class="btn btn-primary">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-body"> Please select a machine from the section above to view its description.</div>
+                }
+                @if (text == 1)
+                {
+                    <div class="card-title"> 
+                        <b> Self-Serve 3D Printing</b>
                     </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                    <div class="card-body">Make your own three-dimensional object in almost any shape from a 3D model.
+                        Use our DIY printer in the makerspace or request a full service 3D print job.</div>
+                }
+                @if (text == 2)
+                {
+                    <div class="card-title"> 
+                        <b> Full-Serve 3D Printing Service</b>
+                    </div>
+                    <div class="card-body">Submit a print using our online form. 
+                        The TFDL 3D print service is available to people with a ucalgary.ca e-mail address.
+                        We prioritize academic prints.Once we receive the model, we will use our slicing software
+                        to estimate the cost and check the model for possible print issues. 
+                        After receiving the estimate, you must approve (or deny) the print.  
+                        Once approved, the model goes into the print queue and is printed as time allows.
+                        After the print is finished, an invoice is emailed and the print is taken to the first floor TFDL service desk to await pickup.</div>
+                }
+                @if (text == 3)
+                {
+                    <div class="card-title"> 
+                        <b> Laser Cutting Service</b>
+                    </div>
+                    <div class="card-body">Submit designs to be laser cut by library staff on birch or acrylic.</div>
+                }
+                @if (text == 4)
+                {
+                    <div class="card-title"> 
+                        <b> Carvey CNC Milling Machine</b>
+                    </div>
+                    <div class="card-body">An entry-level, fully enclosed desktop CNC milling machine that you can use to create 3D carved objects out of materials like wood, plastic, wax and foam using digital designs.
+                        It is set up with a PC in the makerspace so that you can import images and set up your milling job on the spot.</div>
+                }
+                @if (text == 5)
+                {
+                    <div class="card-title"> 
+                        <b> Cricut Vinyl Cutter</b>
+                    </div>
+                    <div class="card-body">Design and print shapes and letters using our vinyl cutter.</div>
+                }
+                @if (text == 6)
+                {
+                    <div class="card-title"> 
+                        <b> Sewing and Embroidery</b>
+                    </div>
+                    <div class="card-body">Create your own embroidery design using our software or use one of the preset designs to embellish wearable technology or garments that you’ve created yourself.</div>
+                }
+                @if (text == 7)
+                {
+                    <div class="card-title"> 
+                        <b> Raspberry Pis</b>
+                    </div>
+                    <div class="card-body">A credit-card sized computer that is helpful for learning about programming and computer science. We can supply a wireless keyboard/mouse and screen for use with the Pis.</div>
+                }
+                @if (text == 8)
+                {
+                    <div class="card-title"> 
+                        <b> Arduinos</b>
+                    </div>
+                    <div class="card-body">Arduino is an open-source hardware development board that is programmed with a simplified, easy-to-learn programming language. We can supply you with a laptop for use with the Arduino.</div>
+                }
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class= "card" id="description-box">
-            @if (text == 0)
-            {
-                <div class="card-title"> 
-                    <b> Book a Machine</b>
-                </div>
-                <div class="card-body"> Please select a machine from the section above to view its description.</div>
-            }
-            @if (text == 1)
-            {
-                <div class="card-title"> 
-                    <b> Self-Serve 3D Printing</b>
-                </div>
-                <div class="card-body">Make your own three-dimensional object in almost any shape from a 3D model.
-                    Use our DIY printer in the makerspace or request a full service 3D print job.</div>
-            }
-            @if (text == 2)
-            {
-                <div class="card-title"> 
-                    <b> Full-Serve 3D Printing Service</b>
-                </div>
-                <div class="card-body">Submit a print using our online form. 
-                    The TFDL 3D print service is available to people with a ucalgary.ca e-mail address.
-                    We prioritize academic prints.Once we receive the model, we will use our slicing software
-                    to estimate the cost and check the model for possible print issues. 
-                    After receiving the estimate, you must approve (or deny) the print.  
-                    Once approved, the model goes into the print queue and is printed as time allows.
-                    After the print is finished, an invoice is emailed and the print is taken to the first floor TFDL service desk to await pickup.</div>
-            }
-            @if (text == 3)
-            {
-                <div class="card-title"> 
-                    <b> Laser Cutting Service</b>
-                </div>
-                <div class="card-body">Submit designs to be laser cut by library staff on birch or acrylic.</div>
-            }
-            @if (text == 4)
-            {
-                <div class="card-title"> 
-                    <b> Carvey CNC Milling Machine</b>
-                </div>
-                <div class="card-body">An entry-level, fully enclosed desktop CNC milling machine that you can use to create 3D carved objects out of materials like wood, plastic, wax and foam using digital designs.
-                    It is set up with a PC in the makerspace so that you can import images and set up your milling job on the spot.</div>
-            }
-            @if (text == 5)
-            {
-                <div class="card-title"> 
-                    <b> Cricut Vinyl Cutter</b>
-                </div>
-                <div class="card-body">Design and print shapes and letters using our vinyl cutter.</div>
-            }
-            @if (text == 6)
-            {
-                <div class="card-title"> 
-                    <b> Sewing and Embroidery</b>
-                </div>
-                <div class="card-body">Create your own embroidery design using our software or use one of the preset designs to embellish wearable technology or garments that you’ve created yourself.</div>
-            }
-            @if (text == 7)
-            {
-                <div class="card-title"> 
-                    <b> Raspberry Pis</b>
-                </div>
-                <div class="card-body">A credit-card sized computer that is helpful for learning about programming and computer science. We can supply a wireless keyboard/mouse and screen for use with the Pis.</div>
-            }
-            @if (text == 8)
-            {
-                <div class="card-title"> 
-                    <b> Arduinos</b>
-                </div>
-                <div class="card-body">Arduino is an open-source hardware development board that is programmed with a simplified, easy-to-learn programming language. We can supply you with a laptop for use with the Arduino.</div>
-            }
-        </div>
-    </div>
-</div>
-
 </div>
 
 
