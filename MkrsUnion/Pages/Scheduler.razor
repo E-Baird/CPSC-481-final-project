@@ -10,6 +10,26 @@
 
 <h1 class="text-center">Scheduler</h1>
 
+<div>
+	@startSelected[0]
+</div>
+<div>
+	@startSelected[1]
+</div>
+<div>
+	just clicked hour ind: @hh
+</div>
+<div>
+	just clicked weekday ind: @ww
+</div>
+<div>
+	blockage: @bb
+</div>
+
+<div class="back">
+    <button type="button" onclick="history.back()" class="btn btn-danger">Back</button>
+</div>
+
 <div class="d-flex">
 	@if(isNewUser == "true") {
         <Workflow
@@ -22,15 +42,15 @@
 		<div class="mb-3 row">
 			<label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
 			<div class="col-sm-10">
-				<input class="form-control form-control-sm" type="date" value="2022-01-30">
+				<input class="form-control form-control-sm" type="date" value=@selectedDate>
 			</div>
 			<label for="staticDate" class="col-sm-2 col-form-label">From:</label>
 			<div class="col-sm-10">
-				<input class="form-control form-control-sm" type="time">
+				<input class="form-control form-control-sm" type="time" @bind="selectedStartTime" @bind:format="HH:mm">
 			</div>
 			<label for="staticDate" class="col-sm-2 col-form-label">To:</label>
 			<div class="col-sm-10 mb-5">
-				<input class="form-control form-control-sm" type="time">
+				<input class="form-control form-control-sm" type="time" @bind="selectedEndTime" @bind:format="HH:mm">
 			</div>
 			<label class="col-sm-2 col-form-label">Name</label>
 		    <div class="col-sm-10 mb-3">
@@ -71,20 +91,20 @@
 
 				<div class="toolBar">
 					<button type="button" class="btn btn-primary">Previous</button>
-					<div class="currentMonth">January 30 - February 2</div>
+					<div class="currentMonth">2022 January 30 - 2022 February 2</div>
 					<button type="button" class="btn btn-primary">Next</button>
 				</div>
 
 				<div class="calendar">
 					<div class="calendarHeader">
 						<div>Time</div>
-						<div>Sunday Jan 30</div>
-						<div>Monday Jan 31</div>
-						<div>Tuesday Feb 1</div>
-						<div>Wednesday Feb 2</div>
-						<div>Thursday Feb 3</div>
-						<div>Friday Feb 4</div>
-						<div>Saturday Feb 5</div>
+						<div>Sun Jan 30</div>
+						<div>Mon Jan 31</div>
+						<div>Tue Feb 1</div>
+						<div>Wed Feb 2</div>
+						<div>Thu Feb 3</div>
+						<div>Fri Feb 4</div>
+						<div>Sat Feb 5</div>
 					</div>
 
 					<div class="calendarHourRow">
@@ -169,6 +189,9 @@
 	public string ucid = "";
 	public string isNewUser { get; set; }
     public int currentWorkflowStep { get; set; }
+	public string selectedDate = "YYYY-MM-DD";
+	public DateTime selectedStartTime { get; set; }
+	public DateTime selectedEndTime { get; set; }
 
     protected override void OnInitialized()
     {
@@ -207,11 +230,80 @@
 			{"t", "x", "o", "o", "o", "t", "o"},
 			{"t", "x", "o", "o", "o", "t", "o"}};
 
-	private void occupy(int hour, int weekday)
+	private String selectDate(int weekdayInd){
+		if (weekdayInd <=1){
+			return "2022-01-" + (30 + weekdayInd).ToString();
+		}
+		return "2022-02-0" + (weekdayInd - 1).ToString();
+	}
+
+	private DateTime selectTime(int hourInd){
+		return DateTime.Parse((10 + hourInd).ToString() + ":00:00", System.Globalization.CultureInfo.CurrentCulture);
+
+	}
+
+
+	private void clearPreviousStart(int hourInd, int weekdayInd){
+		for (int i = 0; i < 7; i++){
+			if (i != weekdayInd){
+				for (int j = 0; j < 7; j++){
+					if (statuses[j, i].Equals("s", StringComparison.Ordinal)){
+						statuses[j, i] = "o";
+					}
+				}
+			}
+			else{
+				for (int j = hourInd; j < 7; j++){
+					if (statuses[j, i].Equals("s", StringComparison.Ordinal)){
+						statuses[j, i] = "o";
+					}
+				}
+			}
+				
+		}
+	}
+
+	private Boolean blockage(int start, int end, int weekdayInd){
+		for (int i = start+1; i <= end; i++){
+			if (!statuses[i, weekdayInd].Equals("o", StringComparison.Ordinal) &&
+				!statuses[i, weekdayInd].Equals("s", StringComparison.Ordinal)
+			){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	private int[] startSelected = {8, 8};
+	private String bb = "";
+	private String hh = "";
+	private String ww = "";
+	private void occupy(int hourInd, int weekdayInd)
 	{
-		if (statuses[hour, weekday].Equals("o", StringComparison.Ordinal))
+		if (statuses[hourInd, weekdayInd].Equals("o", StringComparison.Ordinal))
 		{
-			statuses[hour, weekday] = "s";
+			if (startSelected[0] < hourInd &&  startSelected[1] == weekdayInd){
+				bb = blockage(startSelected[0], hourInd, weekdayInd).ToString();
+				hh = hourInd.ToString();
+				ww = weekdayInd.ToString();
+				if (!blockage(startSelected[0], hourInd, weekdayInd)){
+					for (int i = startSelected[0]; i <= hourInd; i++){
+						statuses[i, weekdayInd] = "s";
+					}
+					selectedEndTime = selectTime(hourInd + 1);
+				}
+			}
+			else {
+				clearPreviousStart(hourInd, weekdayInd);
+				statuses[hourInd, weekdayInd] = "s";
+			
+				selectedDate = selectDate(weekdayInd);
+				selectedStartTime = selectTime(hourInd);
+				selectedEndTime = selectTime(hourInd + 1);
+				startSelected[0] = hourInd;
+				startSelected[1] = weekdayInd;
+			}
 		}
 	}
 }
