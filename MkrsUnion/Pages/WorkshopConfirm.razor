@@ -1,16 +1,24 @@
-﻿@page "/workshopconfirm/{title}/{date}/{time}/{loc}/{cat}/{description}/{imgnum:int}"
+@page "/workshopconfirm/{title}/{date}/{time}/{loc}/{description}/{imgnum:int}"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 
 @using System;
 @using System.Text.RegularExpressions;
 @inject NavigationManager NavMan;
 
+<div class="text-center">
+    <h1>@title</h1>
+</div>
 <div class="layout">
+    @if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
+    }
     <div class="back">
         <button type="button" onclick="history.back()" class="btn btn-danger">Back</button>
     </div>
 
     <div class="container">
-        <h1>@title</h1>
         <p style="color: dimgray;">@description</p>
         <div class="form-wrapper">
             <div class="form">
@@ -30,10 +38,6 @@
                         <input class="form-control form-control-sm" type="text" value="@loc" disabled readonly>
                     </div>
 
-                    <label for="staticDate" class="col-sm-2 col-form-label">Topic:</label>
-                    <div class="col-sm-10">
-                        <input class="form-control form-control-sm" type="text" value="@cat" disabled readonly>
-                    </div>
                 </div>
 	            <div class="row" hidden=@hide>
 		            <label class="col-sm-2 col-form-label">Name</label>
@@ -62,11 +66,11 @@
                         }
                     </div>
                 </div>
-                <a class="btn btn-primary" role="button" onclick="@hideDisplay" hidden=@hide>Confirm</a>
+                <a class="btn btn-primary" role="button" onclick="@handleSignup" hidden=@hide>Confirm</a>
                 @if (hide) {
                     <div class="mb-3 row">
                         <b>
-                            <p> You're booking for @title was successful. You are booked for:</p>
+                            <p> Your booking for @title was successful. You are booked for:</p>
                             <ul>
                                 <li>Date: @date</li>
                                 <li>Time: @time</li>
@@ -103,9 +107,37 @@
     public bool hide = false;
     public string href = "";
 
-    public void hideDisplay() {
+	public string isNewUser { get; set; } = "false";
+	public int currentWorkflowStep { get; set; } = -1;
+
+	protected override void OnInitialized()
+	{
+		try
+		{
+			isNewUser = sessionStorage.GetItem<string>("isNewUser");
+			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+		} catch (Exception)
+		{
+			Console.WriteLine("failed to read session data");
+		}
+
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+    }
+
+    // determines if the user's signup was successful and
+    // does any tidying necessary when that happens
+    public void handleSignup() {
         if (ucidCompletedSafety(ucid) && validUCID(ucid)) {
             hide = true;
+
+            // if the user is successful, also advance their 'getting started'
+            // sidebar state if needed
+            if (isNewUser == "true")
+            {
+                sessionStorage.SetItem("currentWorkflowStep", "1");
+                currentWorkflowStep = 1;
+            }
         }
     }
 
@@ -175,9 +207,6 @@
 
     [Parameter]
     public string? loc { get; set; }
-
-    [Parameter]
-    public string? cat { get; set; }
 
     [Parameter]
     public string? description { get; set; }

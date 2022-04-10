@@ -16,117 +16,143 @@ Saturday & Sunday 12:00PM to 4:00PM
     grid-template-rows: 10px 1fr 10px;
     grid-template-columns: 1fr;
     grid-template-areas: "content";
-    width: 85vw; /* unnecessary, but let's keep things consistent */
     height: 100vh;
-  }
-  
-  /* ID's */
+}
 
-  /* s means selected */
-  #s{
+/* ID's */
+
+/* s means selected */
+#s {
     background-color: #DAFFC9;
-  }
-  /* t means taken */
-  #t{
+}
+/* t means taken */
+#t {
     background-color: #FF9A9A;
-  }
-  /* x means out of order */
-  #x{
+}
+/* x means out of order */
+#x {
     background-color: #DBDBDB;
     text-align: center;
     vertical-align: top;
-  }
-  /* o means open or available */
-  #o{
-    
-  }
-  #time{
-    background-color: #F9F2D2;
-  }
+}
+/* o means open or available */
+#o {
+}
 
-  
-  
-  /* MAIN */
-  main {
+#time {
+    background-color: #F9F2D2;
+}
+
+.calendar-wrapper {
+    border-left: solid 1px;
+}
+
+.form-wrapper {
+    max-width: 20%;
+    margin: 20px;
+}
+
+/* MAIN */
+main {
     grid-area: content;
     padding: 48px;
-  }
+}
 
-  .toolBar{
+.toolBar {
     display: flex;
     align-items: center;
     margin-bottom: 0px;
     padding-bottom: 3px;
-  }
-  .calendar{}
-  .currentMonth{
+}
+
+.calendar {
+}
+
+.currentMonth {
     color: red;
     text-align: center;
     margin: auto;
     width: 50%;
     border: 3px solid green;
     padding: 10px;
-  }
-  
-  .calendarHourRow,
-  .calendarHeader {
+}
+
+.calendarHourRow,
+.calendarHeader {
     display: grid;
-    grid-template-columns: 0.5fr repeat(7, 1fr);  
-  }
-  .calendarHourRow {
+    grid-template-columns: 0.5fr repeat(7, 1fr);
+}
+
+.calendarHourRow {
     grid-auto-rows: 50px;
     grid-auto-columns: 20px;
     text-align: right;
-  }
-  
-  .calendarHeader {
+}
+
+.calendarHeader {
     grid-auto-columns: 20px;
     align-items: center;
     text-align: center;
     border-bottom: 1px solid black;
-  }
-  
-  .calendarWeekday {
+}
+
+.calendarWeekday {
     padding: 2px;
     text-align: right;
     vertical-align: top;
-  }
-  
-  
-  
-  
-  /* COSMETIC STYLING */
-    
-  body {
+}
+
+
+
+
+/* COSMETIC STYLING */
+
+body {
     font-family: Montserrat;
     font-weight: 100;
     color: #A8B2B9;
-  }
-  
-  main {
+}
+
+main {
     background-color: #FCFBFC;
-  }
-  
-  
-  .calendar {
+}
+
+
+.calendar {
     background-color: white;
     border: 1px solid black;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-  }
-  
-  .calendarHeader > div {
+}
+
+.calendarHeader > div {
     text-transform: uppercase;
     font-size: 0.8em;
     font-weight: bold;
-  }
-  
-  .calendarWeekday {
+}
+
+.calendarWeekday {
     border-left: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
-  }
-  
-  .calendarWeekday:last-child {
+}
+
+.calendarWeekday:last-child {
     border-right: 0;
-  }
-  
+}
+
+#completed {
+    margin-top: 2px;
+    color: mediumseagreen;
+    font-size: smaller;
+}
+
+#noSafety {
+    margin-top: 2px;
+    color: orangered;
+    font-size: smaller;
+}
+
+#confirm {
+    position: relative;
+    left: 40%;
+}

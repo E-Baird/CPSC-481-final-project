@@ -1,125 +1,224 @@
 @page "/scheduler"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
+
+@using Microsoft.AspNetCore.Components.Rendering
+@using System;
+@using System.Text.RegularExpressions;
+
 <PageTitle>Scheduler</PageTitle>
 
 
-<h1>Scheduler</h1>
+<h1 class="text-center">Scheduler</h1>
 
-<div class="mx-auto">
-    <Estimator/>
-</div>
-
-
-<div class="wrapper">
-  <main>
-
-    <div class="toolBar">
-      <button type="button" class="btn btn-primary">Previous</button>
-      <div class="currentMonth">January 30 - February 2</div>
-      <button type="button" class="btn btn-primary">Next</button>
-    </div>
-
-    <div class="calendar">
-      <div class="calendarHeader">
-        <div>Time</div>
-        <div>Sunday Jan 30</div>
-        <div>Monday Jan 31</div>
-        <div>Tuesday Feb 1</div>
-        <div>Wednesday Feb 2</div>
-        <div>Thursday Feb 3</div>
-        <div>Friday Feb 4</div>
-        <div>Saturday Feb 5</div>
-      </div>
-
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">10:00am</div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,0)" id=@statuses[0,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,1)" id=@statuses[0,1]>Out of Order</div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,2)" id=@statuses[0,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,3)" id=@statuses[0,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,4)" id=@statuses[0,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,5)" id=@statuses[0,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(0,6)" id=@statuses[0,6]></div>
-      </div>
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">11:00am</div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,0)" id=@statuses[1,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,1)" id=@statuses[1,1]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,2)" id=@statuses[1,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,3)" id=@statuses[1,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,4)" id=@statuses[1,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,5)" id=@statuses[1,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(1,6)" id=@statuses[1,6]></div>
-      </div>
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">12:00pm</div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,0)" id=@statuses[2,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,1)" id=@statuses[2,1]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,2)" id=@statuses[2,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,3)" id=@statuses[2,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,4)" id=@statuses[2,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,5)" id=@statuses[2,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(2,6)" id=@statuses[2,6]></div>
-      </div>
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">1:00pm</div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,0)" id=@statuses[3,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,1)" id=@statuses[3,1]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,2)" id=@statuses[3,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,3)" id=@statuses[3,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,4)" id=@statuses[3,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,5)" id=@statuses[3,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(3,6)" id=@statuses[3,6]></div>
-      </div>
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">2:00pm</div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,0)" id=@statuses[4,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,1)" id=@statuses[4,1]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,2)" id=@statuses[4,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,3)" id=@statuses[4,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,4)" id=@statuses[4,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,5)" id=@statuses[4,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(4,6)" id=@statuses[4,6]></div>
-      </div>
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">3:00pm</div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,0)" id=@statuses[5,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,1)" id=@statuses[5,1]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,2)" id=@statuses[5,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,3)" id=@statuses[5,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,4)" id=@statuses[5,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,5)" id=@statuses[5,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(5,6)" id=@statuses[5,6]></div>
-      </div>
-      <div class="calendarHourRow"> 
-        <div class="calendarWeekday" id="time">4:00pm</div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,0)" id=@statuses[6,0]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,1)" id=@statuses[6,1]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,2)" id=@statuses[6,2]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,3)" id=@statuses[6,3]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,4)" id=@statuses[6,4]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,5)" id=@statuses[6,5]></div>
-        <div class="calendarWeekday" @onclick="() => occupy(6,6)" id=@statuses[6,6]></div>
-      </div>
-
-    </div>
-  </main>
-</div>
-
-@using Microsoft.AspNetCore.Components.Rendering
-@code {
-  private String[,] statuses = 
-    {{"o", "x", "o", "o", "o", "t", "t"},
-    {"o", "x", "o", "o", "o", "t", "t"},
-    {"o", "x", "o", "t", "o", "t", "o"},
-    {"o", "x", "o", "t", "o", "o", "t"},
-    {"o", "x", "o", "t", "o", "t", "t"},
-    {"t", "x", "o", "o", "o", "t", "o"},
-    {"t", "x", "o", "o", "o", "t", "o"}};
-
-  private void occupy(int hour, int weekday){
-    if (statuses[hour, weekday].Equals("o", StringComparison.Ordinal)){
-      statuses[hour, weekday] = "s";
+<div class="d-flex">
+	@if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
     }
-  }
 
+	<div class="form-wrapper">
+		<h3 class="text-center mb-5">Booking Details</h3>
+		<div class="mb-3 row">
+			<label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
+			<div class="col-sm-10">
+				<input class="form-control form-control-sm" type="date" value="2022-01-30">
+			</div>
+			<label for="staticDate" class="col-sm-2 col-form-label">From:</label>
+			<div class="col-sm-10">
+				<input class="form-control form-control-sm" type="time">
+			</div>
+			<label for="staticDate" class="col-sm-2 col-form-label">To:</label>
+			<div class="col-sm-10 mb-5">
+				<input class="form-control form-control-sm" type="time">
+			</div>
+			<label class="col-sm-2 col-form-label">Name</label>
+		    <div class="col-sm-10 mb-3">
+			    <input type="text" class="form-control" @bind=@name/>
+		    </div>
+            <label class="col-sm-2 col-form-label">Email</label>
+		    <div class="col-sm-10 mb-3">
+			    <input type="text" class="form-control" @bind=@email/>
+		    </div>
+            <label class="col-sm-2 col-form-label">UCID</label>
+            <div class="col-sm-10 mb-3">
+			    <input type="text" class="form-control" @bind=@ucid/>
+                @if (validUCID(@ucid)) {
+                    if (ucidCompletedSafety(@ucid)){
+                        <p id="completed">Safety orientation completed</p>
+                    } else {
+                        <p id="noSafety">
+                            The UCID you have entered has not completed the mandatory
+                            safety orientation. Please sign up for one through the workshop
+                            & Events page.
+                        </p>
+                    }
+                } else if (ucid.Length < 8 && ucid.Length > 0) {
+                    <p id="noSafety">Not valid UCID</p>
+                }
+            </div>
+			<button class="btn btn-primary col-3 mt-1" id="confirm" role="button">Book it!</button>
+		</div>
+	</div>
+
+	<div class="calendar-wrapper">
+		<div class="mx-auto">
+			<Estimator />
+		</div>
+
+		<div class="wrapper">
+			<main>
+
+				<div class="toolBar">
+					<button type="button" class="btn btn-primary">Previous</button>
+					<div class="currentMonth">January 30 - February 2</div>
+					<button type="button" class="btn btn-primary">Next</button>
+				</div>
+
+				<div class="calendar">
+					<div class="calendarHeader">
+						<div>Time</div>
+						<div>Sunday Jan 30</div>
+						<div>Monday Jan 31</div>
+						<div>Tuesday Feb 1</div>
+						<div>Wednesday Feb 2</div>
+						<div>Thursday Feb 3</div>
+						<div>Friday Feb 4</div>
+						<div>Saturday Feb 5</div>
+					</div>
+
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">10:00am</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,0)" id=@statuses[0,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,1)" id=@statuses[0,1]>Out of Order</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,2)" id=@statuses[0,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,3)" id=@statuses[0,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,4)" id=@statuses[0,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,5)" id=@statuses[0,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,6)" id=@statuses[0,6]></div>
+					</div>
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">11:00am</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,0)" id=@statuses[1,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,1)" id=@statuses[1,1]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,2)" id=@statuses[1,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,3)" id=@statuses[1,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,4)" id=@statuses[1,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,5)" id=@statuses[1,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,6)" id=@statuses[1,6]></div>
+					</div>
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">12:00pm</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,0)" id=@statuses[2,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,1)" id=@statuses[2,1]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,2)" id=@statuses[2,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,3)" id=@statuses[2,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,4)" id=@statuses[2,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,5)" id=@statuses[2,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,6)" id=@statuses[2,6]></div>
+					</div>
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">1:00pm</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,0)" id=@statuses[3,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,1)" id=@statuses[3,1]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,2)" id=@statuses[3,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,3)" id=@statuses[3,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,4)" id=@statuses[3,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,5)" id=@statuses[3,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,6)" id=@statuses[3,6]></div>
+					</div>
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">2:00pm</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,0)" id=@statuses[4,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,1)" id=@statuses[4,1]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,2)" id=@statuses[4,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,3)" id=@statuses[4,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,4)" id=@statuses[4,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,5)" id=@statuses[4,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,6)" id=@statuses[4,6]></div>
+					</div>
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">3:00pm</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,0)" id=@statuses[5,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,1)" id=@statuses[5,1]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,2)" id=@statuses[5,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,3)" id=@statuses[5,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,4)" id=@statuses[5,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,5)" id=@statuses[5,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,6)" id=@statuses[5,6]></div>
+					</div>
+					<div class="calendarHourRow">
+						<div class="calendarWeekday" id="time">4:00pm</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,0)" id=@statuses[6,0]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,1)" id=@statuses[6,1]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,2)" id=@statuses[6,2]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,3)" id=@statuses[6,3]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,4)" id=@statuses[6,4]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,5)" id=@statuses[6,5]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,6)" id=@statuses[6,6]></div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</div>
+
+@code {
+	public string name = "";
+	public string email = "";
+	public string ucid = "";
+	public string isNewUser { get; set; } = "false";
+	public int currentWorkflowStep { get; set; } = -1;
+
+	protected override void OnInitialized()
+	{
+		try
+		{
+			isNewUser = sessionStorage.GetItem<string>("isNewUser");
+			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+		} catch (Exception)
+		{
+			Console.WriteLine("failed to read session data");
+		}
+
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+    }
+
+	public string[] completedSafety = new string[] { "12345678", "87654321", "34509876" };
+	public bool ucidCompletedSafety(string ucid) {
+		foreach (string id in completedSafety){
+			if (ucid.Equals(id)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public bool validUCID(string ucid) {
+		Regex rx = new Regex(@"^[0-9]*$", RegexOptions.Compiled);
+		bool match = rx.IsMatch(ucid);
+		if (ucid.Length == 8 && match) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private String[,] statuses =
+			{{"o", "x", "o", "o", "o", "t", "t"},
+			{"o", "x", "o", "o", "o", "t", "t"},
+			{"o", "x", "o", "t", "o", "t", "o"},
+			{"o", "x", "o", "t", "o", "o", "t"},
+			{"o", "x", "o", "t", "o", "t", "t"},
+			{"t", "x", "o", "o", "o", "t", "o"},
+			{"t", "x", "o", "o", "o", "t", "o"}};
+
+	private void occupy(int hour, int weekday)
+	{
+		if (statuses[hour, weekday].Equals("o", StringComparison.Ordinal))
+		{
+			statuses[hour, weekday] = "s";
+		}
+	}
 }

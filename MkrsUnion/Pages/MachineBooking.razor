@@ -1,8 +1,72 @@
 ﻿@page "/MachineBooking"
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
+
 <PageTitle>Machines</PageTitle>
 
-<h1>Machine Booking</h1>
+<div class="text-center">
+    <h1>Machine Booking</h1>
+</div>
 
+<div class="d-flex">
+    @if(isNewUser == "true") {
+        <Workflow
+            CurrentStep="currentWorkflowStep"
+        />
+    }
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                    <img src="@Printerimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                </div>
+                                                <div class="button">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                    <img src="@Printerimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                </div>
+                                                <div class="button">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                    <img src="@Printerimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                </div>
+                                                <div class="button">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -57,6 +121,57 @@
                                     </div>
                                 </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                    <img src="@Cricutimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                </div>
+                                                <div class="button">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                    <img src="@Cricutimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                </div>
+                                                <div class="button">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="image"> <!--Photo by Gavin Allanwood on Unsplash1-->
+                                                    <img src="@Cricutimg" />
+                                                </div>
+                                                <div class="card-title">
+                                                    <span class="name"> Self-Serve 3D Print</span>
+                                                </div>
+                                                <div class="button">
+                                                    <button class="btn btn-primary">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -109,6 +224,22 @@
                                     </div>
                                 </div>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
                             </div>
                         </div>
                     </div>
@@ -237,6 +368,8 @@
     </div>
 </div>
 
+</div>
+
 
 
 @code {
@@ -252,6 +385,24 @@
 
     //variables
     int text = 0;
+
+	public string isNewUser { get; set; } = "false";
+	public int currentWorkflowStep { get; set; } = -1;
+
+	protected override void OnInitialized()
+	{
+		try
+		{
+			isNewUser = sessionStorage.GetItem<string>("isNewUser");
+			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+		} catch (Exception)
+		{
+			Console.WriteLine("failed to read session data");
+		}
+
+        Console.WriteLine($"Value for isNewUser = {isNewUser}");
+        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+    }
 
     public void ShowSSPrint()
     {
