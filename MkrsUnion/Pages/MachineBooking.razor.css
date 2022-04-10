@@ -1,4 +1,4 @@
-﻿.image{
+﻿.image {
     height: 200px;
     width: 250px;
 }
@@ -63,4 +63,16 @@
 
 .button button:hover {
     background: #FB992B;
+}
+
+div#description-box {
+    margin-top: 25px;
+    height: 300px;
+    width: 100%;
+}
+
+div#description-box .card-title {
+    font-size: 25px;
+    font-weight: 400;
+    color: #FB992B;
 }
