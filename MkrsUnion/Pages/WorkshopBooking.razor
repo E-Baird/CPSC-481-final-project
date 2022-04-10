@@ -133,19 +133,20 @@
     [Parameter]
     public string InitialFilter { set; get; }
     
-    public string isNewUser { get; set; }
-    public int currentWorkflowStep { get; set; }
+	public string isNewUser { get; set; } = "false";
+	public int currentWorkflowStep { get; set; } = -1;
 
-    protected override void OnInitialized()
-    {
-        InitialFilter = InitialFilter ?? "none";
-        if (InitialFilter != "none")
-        {
-            selectedCategories.Add(InitialFilter);        
-        }
+	protected override void OnInitialized()
+	{
+		try
+		{
+			isNewUser = sessionStorage.GetItem<string>("isNewUser");
+			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+		} catch (Exception)
+		{
+			Console.WriteLine("failed to read session data");
+		}
 
-        isNewUser = sessionStorage.GetItem<string>("isNewUser");
-        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
         Console.WriteLine($"Value for isNewUser = {isNewUser}");
         Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
     }

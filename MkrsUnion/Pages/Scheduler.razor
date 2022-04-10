@@ -187,16 +187,23 @@
 	public string name = "";
 	public string email = "";
 	public string ucid = "";
-	public string isNewUser { get; set; }
-    public int currentWorkflowStep { get; set; }
 	public string selectedDate = "YYYY-MM-DD";
 	public DateTime selectedStartTime { get; set; }
 	public DateTime selectedEndTime { get; set; }
+	public string isNewUser { get; set; } = "false";
+	public int currentWorkflowStep { get; set; } = -1;
 
-    protected override void OnInitialized()
-    {
-        isNewUser = sessionStorage.GetItem<string>("isNewUser");
-        currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+	protected override void OnInitialized()
+	{
+		try
+		{
+			isNewUser = sessionStorage.GetItem<string>("isNewUser");
+			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+		} catch (Exception)
+		{
+			Console.WriteLine("failed to read session data");
+		}
+
         Console.WriteLine($"Value for isNewUser = {isNewUser}");
         Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
     }
