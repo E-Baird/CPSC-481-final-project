@@ -8,7 +8,7 @@
     <div class="container">
       <div class="row g-2">
         <div class="col-md-4 d-flex">
-          <div class="p-3 border bg-light rounded">
+          <div class="p-3 border rounded new-user-img">
               <div class="container">
                 <h3>I'm New Here</h3>
                 <p>
@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="col-md-4 d-flex">
-          <div class="p-3 border bg-light rounded">
+          <div class="p-3 border rounded event-booking-img">
               <div class="container">
                 <h3>Browse Events</h3>
                 <p>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="col-md-4 d-flex">
-          <div class="p-3 border bg-light rounded">
+          <div class="p-3 border rounded machine-booking-img">
               <div class="container">
                 <h3>Book a Machine</h3>
                 <p>
@@ -54,5 +54,7 @@
 
 
 @code {
-
+    string NewUserImg { get; set; } = "./images/cowork.jpg";
+    string EventsImg { get; set; } = "./images/friends.jpg";
+    string MachinesImg { get; set; } = "./images/electronics.jpg";
 }
