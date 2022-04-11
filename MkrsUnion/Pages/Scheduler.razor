@@ -77,7 +77,18 @@
                     <p id="noSafety">Not valid UCID</p>
                 }
             </div>
-			<button class="btn btn-primary col-3 mt-1" id="confirm" role="button">Book it!</button>
+			@if (isBooked){
+				<div>
+					@confirmationMessage
+				</div>
+				<div>
+					<button type="button" class="btn btn-primary">Add to Calendar</button>
+				</div>
+			}
+			else{
+				<button class="btn btn-primary col-3 mt-1" id="confirm" role="button" @onclick="() => book(name, email, ucid)">Book it!</button>
+			}
+			
 		</div>
 	</div>
 
@@ -423,4 +434,16 @@
 			}
 		}
 	}
+
+	public Boolean isBooked = false;
+	public String confirmationMessage { get; set;}
+	public void book(String nameEntered, String emailEntered, String ucidEntered){
+		if (ucidCompletedSafety(ucidEntered) && !selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal)){
+			String bookingMessage = "Your booking for " + selectedDate.ToString() 
+				+ " from " + selectedStartTime.TimeOfDay.ToString() + " - " + selectedEndTime.TimeOfDay.ToString() + " (MST) has been completed.";
+			isBooked = true;
+			confirmationMessage = bookingMessage;
+		}
+	}
+
 }
