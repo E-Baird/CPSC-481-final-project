@@ -187,7 +187,11 @@
                     <div class="card-body">Make your own three-dimensional object in almost any shape from a 3D model.
                         Use our DIY printer in the makerspace or request a full service 3D print job.
                     </div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/scheduler/Self-Serve 3D Printer"))">
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/scheduler/Self-Serve 3D Printer");
+                        })">
                                 Book a 3D Printer
                     </button>
                 }
@@ -384,6 +388,7 @@
         if (isNewUser == "true")
         {
             sessionStorage.SetItem("currentWorkflowStep", "2");
+            Console.WriteLine("updated workflow to 2");
             currentWorkflowStep = 2;
         }
     }

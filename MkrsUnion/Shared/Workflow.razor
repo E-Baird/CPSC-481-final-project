@@ -39,9 +39,19 @@
                         </div>
                     } 
                     else if (i == CurrentStep) {
+                        // we have a link to include for this step
+                        if (i < linkSteps.Count()) {
+                            <div class="circle workflow-row in-progress d-flex align-items-center justify-content-center text-center">
+                                <a href=@linkSteps[i]>@step</a>
+                            </div>
+                        }
+                        // no link needed
+                        else
+                        {
                         <div class="circle workflow-row in-progress d-flex align-items-center justify-content-center text-center">
                             @step
                         </div>
+                        }
                     }
                     else
                     {
@@ -72,6 +82,13 @@
         "Book a Time",
         "Go make it!"
     };
+
+    List<string> linkSteps = new List<string>
+    {
+        "WorkshopBooking/Orientation",
+        "MachineBooking"
+    };
+    
 
     public void ToggleSidebarFilter()
     {
