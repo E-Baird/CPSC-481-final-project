@@ -1,14 +1,14 @@
-@page "/scheduler"
+@page "/scheduler/{MachineName}"
 @inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 
 @using Microsoft.AspNetCore.Components.Rendering
 @using System;
 @using System.Text.RegularExpressions;
 
-<PageTitle>Scheduler</PageTitle>
+<PageTitle>Booking a @MachineName</PageTitle>
 
 
-<h1 class="text-center">Scheduler</h1>
+<h1 class="text-center">Booking a @MachineName</h1>
 
 <div>
 	@startSelected[0]
@@ -77,7 +77,18 @@
                     <p id="noSafety">Not valid UCID</p>
                 }
             </div>
-			<button class="btn btn-primary col-3 mt-1" id="confirm" role="button">Book it!</button>
+			@if (isBooked){
+				<div>
+					@confirmationMessage
+				</div>
+				<div>
+					<button type="button" class="btn btn-primary">Add to Calendar</button>
+				</div>
+			}
+			else{
+				<button class="btn btn-primary col-3 mt-1" id="confirm" role="button" @onclick="() => book(name, email, ucid)">Book it!</button>
+			}
+			
 		</div>
 	</div>
 
@@ -90,92 +101,92 @@
 			<main>
 
 				<div class="toolBar">
-					<button type="button" class="btn btn-primary">Previous</button>
-					<div class="currentMonth">2022 January 30 - 2022 February 2</div>
-					<button type="button" class="btn btn-primary">Next</button>
+					<button type="button" class="btn btn-primary" @onclick="() => prevWeek(currentweek[0])">Previous</button>
+					<div class="currentMonth">@currentWeekTitle</div>
+					<button type="button" class="btn btn-primary" @onclick="() => nextWeek(currentweek[0])">Next</button>
 				</div>
 
 				<div class="calendar">
 					<div class="calendarHeader">
 						<div>Time</div>
-						<div>Sun Jan 30</div>
-						<div>Mon Jan 31</div>
-						<div>Tue Feb 1</div>
-						<div>Wed Feb 2</div>
-						<div>Thu Feb 3</div>
-						<div>Fri Feb 4</div>
-						<div>Sat Feb 5</div>
+						<div>@currentweek[0]</div>
+						<div>@currentweek[1]</div>
+						<div>@currentweek[2]</div>
+						<div>@currentweek[3]</div>
+						<div>@currentweek[4]</div>
+						<div>@currentweek[5]</div>
+						<div>@currentweek[6]</div>
 					</div>
 
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">10:00am</div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,0)" id=@statuses[0,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,1)" id=@statuses[0,1]>Out of Order</div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,2)" id=@statuses[0,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,3)" id=@statuses[0,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,4)" id=@statuses[0,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,5)" id=@statuses[0,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(0,6)" id=@statuses[0,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,0)" id=@statuses[0,0]>@textLabels[0,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,1)" id=@statuses[0,1]>@textLabels[0,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,2)" id=@statuses[0,2]>@textLabels[0,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,3)" id=@statuses[0,3]>@textLabels[0,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,4)" id=@statuses[0,4]>@textLabels[0,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,5)" id=@statuses[0,5]>@textLabels[0,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(0,6)" id=@statuses[0,6]>@textLabels[0,6]</div>
 					</div>
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">11:00am</div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,0)" id=@statuses[1,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,1)" id=@statuses[1,1]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,2)" id=@statuses[1,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,3)" id=@statuses[1,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,4)" id=@statuses[1,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,5)" id=@statuses[1,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(1,6)" id=@statuses[1,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,0)" id=@statuses[1,0]>@textLabels[1,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,1)" id=@statuses[1,1]>@textLabels[1,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,2)" id=@statuses[1,2]>@textLabels[1,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,3)" id=@statuses[1,3]>@textLabels[1,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,4)" id=@statuses[1,4]>@textLabels[1,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,5)" id=@statuses[1,5]>@textLabels[1,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(1,6)" id=@statuses[1,6]>@textLabels[1,6]</div>
 					</div>
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">12:00pm</div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,0)" id=@statuses[2,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,1)" id=@statuses[2,1]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,2)" id=@statuses[2,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,3)" id=@statuses[2,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,4)" id=@statuses[2,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,5)" id=@statuses[2,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(2,6)" id=@statuses[2,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,0)" id=@statuses[2,0]>@textLabels[2,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,1)" id=@statuses[2,1]>@textLabels[2,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,2)" id=@statuses[2,2]>@textLabels[2,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,3)" id=@statuses[2,3]>@textLabels[2,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,4)" id=@statuses[2,4]>@textLabels[2,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,5)" id=@statuses[2,5]>@textLabels[2,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(2,6)" id=@statuses[2,6]>@textLabels[2,6]</div>
 					</div>
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">1:00pm</div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,0)" id=@statuses[3,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,1)" id=@statuses[3,1]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,2)" id=@statuses[3,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,3)" id=@statuses[3,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,4)" id=@statuses[3,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,5)" id=@statuses[3,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(3,6)" id=@statuses[3,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,0)" id=@statuses[3,0]>@textLabels[3,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,1)" id=@statuses[3,1]>@textLabels[3,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,2)" id=@statuses[3,2]>@textLabels[3,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,3)" id=@statuses[3,3]>@textLabels[3,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,4)" id=@statuses[3,4]>@textLabels[3,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,5)" id=@statuses[3,5]>@textLabels[3,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(3,6)" id=@statuses[3,6]>@textLabels[3,6]</div>
 					</div>
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">2:00pm</div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,0)" id=@statuses[4,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,1)" id=@statuses[4,1]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,2)" id=@statuses[4,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,3)" id=@statuses[4,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,4)" id=@statuses[4,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,5)" id=@statuses[4,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(4,6)" id=@statuses[4,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,0)" id=@statuses[4,0]>@textLabels[4,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,1)" id=@statuses[4,1]>@textLabels[4,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,2)" id=@statuses[4,2]>@textLabels[4,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,3)" id=@statuses[4,3]>@textLabels[4,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,4)" id=@statuses[4,4]>@textLabels[4,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,5)" id=@statuses[4,5]>@textLabels[4,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(4,6)" id=@statuses[4,6]>@textLabels[4,6]</div>
 					</div>
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">3:00pm</div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,0)" id=@statuses[5,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,1)" id=@statuses[5,1]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,2)" id=@statuses[5,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,3)" id=@statuses[5,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,4)" id=@statuses[5,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,5)" id=@statuses[5,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(5,6)" id=@statuses[5,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,0)" id=@statuses[5,0]>@textLabels[5,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,1)" id=@statuses[5,1]>@textLabels[5,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,2)" id=@statuses[5,2]>@textLabels[5,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,3)" id=@statuses[5,3]>@textLabels[5,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,4)" id=@statuses[5,4]>@textLabels[5,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,5)" id=@statuses[5,5]>@textLabels[5,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(5,6)" id=@statuses[5,6]>@textLabels[5,6]</div>
 					</div>
 					<div class="calendarHourRow">
 						<div class="calendarWeekday" id="time">4:00pm</div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,0)" id=@statuses[6,0]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,1)" id=@statuses[6,1]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,2)" id=@statuses[6,2]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,3)" id=@statuses[6,3]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,4)" id=@statuses[6,4]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,5)" id=@statuses[6,5]></div>
-						<div class="calendarWeekday" @onclick="() => occupy(6,6)" id=@statuses[6,6]></div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,0)" id=@statuses[6,0]>@textLabels[6,0]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,1)" id=@statuses[6,1]>@textLabels[6,1]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,2)" id=@statuses[6,2]>@textLabels[6,2]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,3)" id=@statuses[6,3]>@textLabels[6,3]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,4)" id=@statuses[6,4]>@textLabels[6,4]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,5)" id=@statuses[6,5]>@textLabels[6,5]</div>
+						<div class="calendarWeekday" @onclick="() => occupy(6,6)" id=@statuses[6,6]>@textLabels[6,6]</div>
 					</div>
 				</div>
 			</main>
@@ -192,6 +203,8 @@
 	public DateTime selectedEndTime { get; set; }
 	public string isNewUser { get; set; } = "false";
 	public int currentWorkflowStep { get; set; } = -1;
+	[Parameter]
+	public String MachineName { get; set;}
 
 	protected override void OnInitialized()
 	{
@@ -229,19 +242,124 @@
 	}
 
 	private String[,] statuses =
-			{{"o", "x", "o", "o", "o", "t", "t"},
-			{"o", "x", "o", "o", "o", "t", "t"},
-			{"o", "x", "o", "t", "o", "t", "o"},
-			{"o", "x", "o", "t", "o", "o", "t"},
-			{"o", "x", "o", "t", "o", "t", "t"},
-			{"t", "x", "o", "o", "o", "t", "o"},
-			{"t", "x", "o", "o", "o", "t", "o"}};
+			{{"p", "x", "p", "p", "o", "t", "t"},
+			{"p", "x", "t", "o", "o", "t", "t"},
+			{"p", "x", "t", "t", "o", "t", "o"},
+			{"p", "x", "p", "t", "o", "o", "t"},
+			{"p", "x", "t", "t", "o", "t", "t"},
+			{"t", "x", "t", "o", "o", "t", "o"},
+			{"t", "x", "p", "o", "o", "t", "o"}};
+	private String[,] textLabels =
+			{{"", "Out of Order", "", "", "", "Booked", "Booked"},
+			{"", "", "Booked", "", "", "", ""},
+			{"", "", "", "Booked", "", "", ""},
+			{"", "", "", "", "", "", "Booked"},
+			{"", "", "Booked", "", "", "Booked", ""},
+			{"Booked", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", ""}};
 
-	private String selectDate(int weekdayInd){
-		if (weekdayInd <=1){
-			return "2022-01-" + (30 + weekdayInd).ToString();
+
+	private String[] weekMain = {"SUN APR 17", "MON APR 18", "TUE APR 19", 
+								"WED APR 20", "THU APR 21", "FRI APR 22", "SAT APR 23"};
+	private String weekTitleMain = "2022 April 17 - 2022 April 23";
+	private String[,] statusesMain =
+			{{"p", "x", "p", "p", "o", "t", "t"},
+			{"p", "x", "t", "o", "o", "t", "t"},
+			{"p", "x", "t", "t", "o", "t", "o"},
+			{"p", "x", "p", "t", "o", "o", "t"},
+			{"p", "x", "t", "t", "o", "t", "t"},
+			{"t", "x", "t", "o", "o", "t", "o"},
+			{"t", "x", "p", "o", "o", "t", "o"}};
+	private String[,] textLabelsMain =
+			{{"", "Out of Order", "", "", "", "Booked", "Booked"},
+			{"", "", "Booked", "", "", "", ""},
+			{"", "", "", "Booked", "", "", ""},
+			{"", "", "", "", "", "", "Booked"},
+			{"", "", "Booked", "", "", "Booked", ""},
+			{"Booked", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", ""}};
+	private String[] weekPrev = {"SUN APR 10", "MON APR 11", "TUE APR 12", 
+								"WED APR 13", "THU APR 14", "FRI APR 15", "SAT APR 16"};
+	private String weekTitlePrev = "2022 April 10 - 2022 April 16";
+	private String[,] statusesPrev =
+			{{"x", "x", "p", "p", "t", "t", "t"},
+			{"x", "x", "t", "p", "t", "t", "p"},
+			{"x", "x", "t", "t", "t", "p", "p"},
+			{"x", "x", "t", "t", "p", "p", "t"},
+			{"x", "x", "t", "t", "t", "t", "t"},
+			{"x", "x", "t", "t", "t", "t", "t"},
+			{"x", "x", "t", "t", "p", "t", "p"}};
+	private String[,] textLabelsPrev =
+			{{"Out of Order", "Out of Order", "", "", "Booked", "Booked", "Booked"},
+			{"", "", "Booked", "", "", "", ""},
+			{"", "", "", "Booked", "", "", ""},
+			{"", "", "", "", "", "", "Booked"},
+			{"", "", "Booked", "", "Booked", "Booked", ""},
+			{"", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", ""}};
+	private String[] weekNext = {"SUN APR 24", "MON APR 25", "TUE APR 26", 
+								"WED APR 27", "THU APR 28", "FRI APR 29", "SAT APR 30"};
+	private String weekTitleNext = "2022 April 24 - 2022 April 30";
+	private String[,] statusesNext =
+			{{"x", "x", "o", "o", "o", "o", "t"},
+			{"x", "x", "t", "o", "o", "o", "o"},
+			{"x", "x", "t", "o", "o", "o", "o"},
+			{"x", "x", "t", "o", "o", "o", "t"},
+			{"x", "x", "t", "o", "t", "t", "t"},
+			{"x", "x", "t", "o", "t", "t", "t"},
+			{"x", "x", "t", "o", "o", "t", "o"}};
+	private String[,] textLabelsNext =
+			{{"Out of Order", "Out of Order", "", "", "", "", "Booked"},
+			{"", "", "Booked", "", "", "", ""},
+			{"", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", "Booked"},
+			{"", "", "Booked", "", "Booked", "Booked", ""},
+			{"", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", ""}};
+	private String[] currentweek = {"SUN APR 17", "MON APR 18", "TUE APR 19", 
+								"WED APR 20", "THU APR 21", "FRI APR 22", "SAT APR 23"};
+	private String currentWeekTitle = "2022 April 17 - 2022 April 23";
+	
+	private void nextWeek(String sunday){
+		if (sunday.Equals("SUN APR 17", StringComparison.Ordinal)){
+			currentweek = weekNext;
+			currentWeekTitle = weekTitleNext;
+			statuses = statusesNext;
+			textLabels = textLabelsNext;
 		}
-		return "2022-02-0" + (weekdayInd - 1).ToString();
+		else if (sunday.Equals("SUN APR 10", StringComparison.Ordinal)){
+			currentweek = weekMain;
+			currentWeekTitle = weekTitleMain;
+			statuses = statusesMain;
+			textLabels = textLabelsMain;
+		}
+	}
+
+	private void prevWeek(String sunday){
+		if (sunday.Equals("SUN APR 17", StringComparison.Ordinal)){
+			currentweek = weekPrev;
+			currentWeekTitle = weekTitlePrev;
+			statuses = statusesPrev;
+			textLabels = textLabelsPrev;
+		}
+		else if (sunday.Equals("SUN APR 24", StringComparison.Ordinal)){
+			currentweek = weekMain;
+			currentWeekTitle = weekTitleMain;
+			statuses = statusesMain;
+			textLabels = textLabelsMain;
+		}
+	}
+
+	private String selectDate(int weekdayInd, String sunday){
+		if (sunday.Equals("SUN APR 17", StringComparison.Ordinal)){
+			return "2022-04-" + (17 + weekdayInd).ToString();
+		}
+		else if (sunday.Equals("SUN APR 10", StringComparison.Ordinal)){
+			return "2022-04-" + (10 + weekdayInd).ToString();
+		}
+		else{
+			return "2022-04-" + (24 + weekdayInd).ToString();
+		}
 	}
 
 	private DateTime selectTime(int hourInd){
@@ -288,9 +406,10 @@
 	private String ww = "";
 	private void occupy(int hourInd, int weekdayInd)
 	{
-		if (statuses[hourInd, weekdayInd].Equals("o", StringComparison.Ordinal))
+		if (statuses[hourInd, weekdayInd].Equals("o", StringComparison.Ordinal) ||
+		statuses[hourInd, weekdayInd].Equals("s", StringComparison.Ordinal))
 		{
-			if (startSelected[0] < hourInd &&  startSelected[1] == weekdayInd){
+			if (startSelected[0] < hourInd && startSelected[1] == weekdayInd){
 				bb = blockage(startSelected[0], hourInd, weekdayInd).ToString();
 				hh = hourInd.ToString();
 				ww = weekdayInd.ToString();
@@ -299,13 +418,15 @@
 						statuses[i, weekdayInd] = "s";
 					}
 					selectedEndTime = selectTime(hourInd + 1);
+					clearPreviousStart(hourInd +1, weekdayInd);
 				}
 			}
+
 			else {
 				clearPreviousStart(hourInd, weekdayInd);
 				statuses[hourInd, weekdayInd] = "s";
 			
-				selectedDate = selectDate(weekdayInd);
+				selectedDate = selectDate(weekdayInd, currentweek[0]);
 				selectedStartTime = selectTime(hourInd);
 				selectedEndTime = selectTime(hourInd + 1);
 				startSelected[0] = hourInd;
@@ -313,4 +434,16 @@
 			}
 		}
 	}
+
+	public Boolean isBooked = false;
+	public String confirmationMessage { get; set;}
+	public void book(String nameEntered, String emailEntered, String ucidEntered){
+		if (ucidCompletedSafety(ucidEntered) && !selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal)){
+			String bookingMessage = "Your booking for " + selectedDate.ToString() 
+				+ " from " + selectedStartTime.TimeOfDay.ToString() + " - " + selectedEndTime.TimeOfDay.ToString() + " (MST) has been completed.";
+			isBooked = true;
+			confirmationMessage = bookingMessage;
+		}
+	}
+
 }
