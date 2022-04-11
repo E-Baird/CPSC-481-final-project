@@ -86,7 +86,14 @@
 				</div>
 			}
 			else{
-				<button class="btn btn-primary col-3 mt-1" id="confirm" role="button" @onclick="() => book(name, email, ucid)">Book it!</button>
+				<button class="btn btn-primary col-3 mt-1" id="confirm" role="button" @onclick="@(
+					() => {
+						incrementWorkflow();
+						book(name, email, ucid);
+					})"
+				>
+					Book it!
+				</button>
 			}
 			
 		</div>
@@ -446,4 +453,15 @@
 		}
 	}
 
+
+	public void incrementWorkflow()
+    {
+        // if the user is successful, also advance their 'getting started'
+        // sidebar state if needed
+        if (isNewUser == "true")
+        {
+            sessionStorage.SetItem("currentWorkflowStep", "3");
+            currentWorkflowStep = 3;
+        }
+    }
 }

@@ -204,8 +204,13 @@
                         Once approved, the model goes into the print queue and is printed as time allows.
                         After the print is finished, an invoice is emailed and the print is taken to the first floor TFDL service desk to await pickup.
                     </div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/fullserveinfo"))">
-                                Request a 3D Print
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/fullserveinfo");
+                        })"
+                    >
+                        Request a 3D Print
                     </button>
                 }
                 @if (text == 3)
@@ -214,8 +219,13 @@
                         <b> Laser Cutting Service</b>
                     </div>
                     <div class="card-body">Submit designs to be laser cut by library staff on birch or acrylic.</div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/fullserveinfo"))">
-                                Request a Laser Cut Service
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/fullserveinfo");
+                        })"
+                    >
+                        Request a Laser Cut Service
                     </button>
                 }
                 @if (text == 4)
@@ -226,8 +236,13 @@
                     <div class="card-body">An entry-level, fully enclosed desktop CNC milling machine that you can use to create 3D carved objects out of materials like wood, plastic, wax and foam using digital designs.
                         It is set up with a PC in the makerspace so that you can import images and set up your milling job on the spot.
                     </div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/scheduler/Carvey CNC Milling Machine"))">
-                                Book Carvey CNC
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/scheduler/Carvey CNC Milling Machine");
+                        })"
+                    >
+                        Book Carvey CNC
                     </button>
                 }
                 @if (text == 5)
@@ -236,8 +251,13 @@
                         <b> Cricut Vinyl Cutter</b>
                     </div>
                     <div class="card-body">Design and print shapes and letters using our vinyl cutter.</div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/scheduler/Cricut Vinyl Cutter"))">
-                                Book Cricut
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/scheduler/Cricut Vinyl Cutter");
+                        })"
+                    >
+                        Book Cricut
                     </button>
                 }
                 @if (text == 6)
@@ -246,8 +266,13 @@
                         <b> Sewing and Embroidery</b>
                     </div>
                     <div class="card-body">Create your own embroidery design using our software or use one of the preset designs to embellish wearable technology or garments that you’ve created yourself.</div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/scheduler/Embroidery Machine"))">
-                                Book Embroidery Machine
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/scheduler/Embroidery Machine");
+                        })"
+                    >
+                        Book Embroidery Machine
                     </button>
                 }
                 @if (text == 7)
@@ -256,8 +281,13 @@
                         <b> Raspberry Pis</b>
                     </div>
                     <div class="card-body">A credit-card sized computer that is helpful for learning about programming and computer science. We can supply a wireless keyboard/mouse and screen for use with the Pis.</div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/scheduler/Raspberry Pi"))">
-                                Book a Raspberry Pi
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/scheduler/Raspberry Pi");
+                        })"
+                    >
+                        Book a Raspberry Pi
                     </button>
                 }
                 @if (text == 8)
@@ -266,8 +296,13 @@
                         <b> Arduinos</b>
                     </div>
                     <div class="card-body">Arduino is an open-source hardware development board that is programmed with a simplified, easy-to-learn programming language. We can supply you with a laptop for use with the Arduino.</div>
-                    <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/scheduler/Arduino"))">
-                                Book an Arduino
+                    <button class="btn btn-primary" @onclick="@(
+                        () => {
+                            incrementWorkflow();
+                            NavMan.NavigateTo("/scheduler/Arduino");
+                        })"
+                    >
+                        Book an Arduino
                     </button>
                 }
             </div>
@@ -291,19 +326,19 @@
     //variables
     int text = 0;
 
-	public string isNewUser { get; set; } = "false";
-	public int currentWorkflowStep { get; set; } = -1;
+    public string isNewUser { get; set; } = "false";
+    public int currentWorkflowStep { get; set; } = -1;
 
-	protected override void OnInitialized()
-	{
-		try
-		{
-			isNewUser = sessionStorage.GetItem<string>("isNewUser");
-			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
-		} catch (Exception)
-		{
-			Console.WriteLine("failed to read session data");
-		}
+    protected override void OnInitialized()
+    {
+        try
+        {
+            isNewUser = sessionStorage.GetItem<string>("isNewUser");
+            currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        } catch (Exception)
+        {
+            Console.WriteLine("failed to read session data");
+        }
 
         Console.WriteLine($"Value for isNewUser = {isNewUser}");
         Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
@@ -340,5 +375,16 @@
     public void ShowArduino()
     {
         text = 8;
+    }
+
+    public void incrementWorkflow()
+    {
+        // if the user is successful, also advance their 'getting started'
+        // sidebar state if needed
+        if (isNewUser == "true")
+        {
+            sessionStorage.SetItem("currentWorkflowStep", "2");
+            currentWorkflowStep = 2;
+        }
     }
 }
