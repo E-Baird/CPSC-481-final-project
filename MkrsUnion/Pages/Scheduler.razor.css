@@ -43,6 +43,12 @@ Saturday & Sunday 12:00PM to 4:00PM
     background-color: #F9F2D2;
 }
 
+.back {
+    flex: 1;
+    padding: 5px;
+}
+
+
 .calendar-wrapper {
     border-left: solid 1px;
 }
@@ -80,12 +86,12 @@ main {
 .calendarHourRow,
 .calendarHeader {
     display: grid;
-    grid-template-columns: 0.5fr repeat(7, 1fr);
+    grid-template-columns: 0.9fr repeat(7, 1fr);
 }
 
 .calendarHourRow {
-    grid-auto-rows: 50px;
-    grid-auto-columns: 20px;
+    grid-auto-rows: 60px;
+    grid-auto-columns: 40px;
     text-align: right;
 }
 
