@@ -387,6 +387,19 @@
     {
         text = 8;
     }
+
+    public void incrementWorkflow()
+    {
+        // if the user is successful, also advance their 'getting started'
+        // sidebar state if needed
+        if (isNewUser == "true")
+        {
+            sessionStorage.SetItem("currentWorkflowStep", "2");
+            Console.WriteLine("updated workflow to 2");
+            currentWorkflowStep = 2;
+        }
+    }
+
     public void listView()
     {
         listview = !listview;
