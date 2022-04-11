@@ -1,14 +1,14 @@
-@page "/scheduler"
+@page "/scheduler/{MachineName}"
 @inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 
 @using Microsoft.AspNetCore.Components.Rendering
 @using System;
 @using System.Text.RegularExpressions;
 
-<PageTitle>Scheduler</PageTitle>
+<PageTitle>Booking a @MachineName</PageTitle>
 
 
-<h1 class="text-center">Scheduler</h1>
+<h1 class="text-center">Booking a @MachineName</h1>
 
 <div>
 	@startSelected[0]
@@ -192,6 +192,8 @@
 	public DateTime selectedEndTime { get; set; }
 	public string isNewUser { get; set; } = "false";
 	public int currentWorkflowStep { get; set; } = -1;
+	[Parameter]
+	public String MachineName { get; set;}
 
 	protected override void OnInitialized()
 	{
