@@ -149,6 +149,12 @@
 
         Console.WriteLine($"Value for isNewUser = {isNewUser}");
         Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+
+        InitialFilter = InitialFilter ?? "none";
+        if (InitialFilter != "none")
+        {
+            selectedCategories.Add(InitialFilter);        
+        }
     }
 
     bool toggle1 = false;
