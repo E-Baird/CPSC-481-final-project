@@ -1,6 +1,6 @@
 .estimator-container {
     width: 600px;
-    height: 200px;
+    max-height: 300px;
     padding: 10px;
     margin: 10px;
 }
