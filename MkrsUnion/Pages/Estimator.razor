@@ -8,94 +8,151 @@
             </button>
         </div>
     } else {    
-        <div class="estimator-container mx-auto">
-            <div class="container border bg-light text-center rounded mx-auto" style="height: 100%">
-                <div class="mx-auto">
-                   My project is...
-                </div>
-                <div class="d-flex">
-                    <div class="row g-2 justify-content-between">
-                        <div class="col-4 d-flex">
-                            <div class="@SmallSelect estimator-card text-center" @onclick="@(
-                                () => {
-                                    @ProjectSize = Size.Small;
-                                    EstimateProjectTime();
-                                    SetActiveSize();
-                                })"
-                            >
-                                Small
+        if (toggleShowEstimator)
+        {
+            <div class="estimator-container mx-auto">
+                <div class="container border bg-light text-center rounded mx-auto" style="height: 100%">
+                    <span 
+                        class="oi oi-chevron-top" 
+                        title="chevron top" 
+                        aria-hidden="true"
+                        @onclick=ToggleEstimatorFilter
+                    >
+                    </span>
+
+                    <div class="mx-auto">
+                       My project is...
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="row g-2 justify-content-between">
+                            <div class="col-4 d-flex">
+                                <div class="@SmallSelect estimator-card text-center" @onclick="@(
+                                    () => {
+                                        @ProjectSize = Size.Small;
+                                        EstimateProjectTime();
+                                        SetActiveSize();
+                                    })"
+                                >
+                                    <div style="min-height:30px; padding:5px;">
+                                        <object data="./icons/box.svg" width="15" height="15"></object>
+                                    </div>
+                                    <div>Small</div>
+                                </div>
                             </div>
+                            <div class="col-4 d-flex">
+                                <div class="@MedSelect estimator-card text-center" @onclick="@(
+                                    () => {
+                                        @ProjectSize = Size.Medium;
+                                        EstimateProjectTime();
+                                        SetActiveSize();
+                                    })"
+                                >
+                                    <div style="min-height:30px; padding:3px;">
+                                        <object data="./icons/box.svg" width="20" height="20"></object>
+                                    </div>
+                                    <div>Medium</div>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                                <div class="@LargeSelect estimator-card text-center" @onclick="@(
+                                    () => {
+                                        @ProjectSize = Size.Large;
+                                        EstimateProjectTime();
+                                        SetActiveSize();
+                                    })"
+                                >
+                                    <div style="min-height:30px;">
+                                        <object data="./icons/box.svg" width="25" height="25"></object>
+                                    </div>
+                                    <div>Large</div>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                                <div class="@SimpleSelect estimator-card text-center" @onclick="@(
+                                    () => {
+                                        @ProjectComplexity = Complexity.Low;
+                                        EstimateProjectTime();
+                                        SetActiveComplexity();
+                                    })"
+                                >
+                                    <div style="min-height:30px;">
+                                        <object data="./icons/asterisk.svg" width="25" height="25"></object>
+                                    </div>
+                                    <div>Little detail</div>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                                <div class="@AvgSelect estimator-card text-center" @onclick="@(
+                                    () => {
+                                        @ProjectComplexity = Complexity.Average;
+                                        EstimateProjectTime();
+                                        SetActiveComplexity();
+                                    })"                                
+                                >
+                                    <div style="min-height:30px;">
+                                        <object data="./icons/snow.svg" width="25" height="25"></object>
+                                    </div>
+                                    <div>Some detail</div>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                                <div class="@ComplexSelect container estimator-card text-center" @onclick="@(
+                                    () => {
+                                        @ProjectComplexity = Complexity.High;
+                                        EstimateProjectTime();
+                                        SetActiveComplexity();
+                                    })"
+                                >
+                                    <div style="min-height:30px;">
+                                        <object data="./icons/snow2.svg" width="25" height="25"></object>
+                                    </div>
+                                    <div>Quite detailed</div>
+                                </div>
+                            </div>
+                            @if (!(@ProjectSize == Size.Unknown) && !(@ProjectComplexity == Complexity.Unknown))
+                            {
+                                // only want to display this div if the size and complexity are known
+                                <div class="mx-auto">
+                                    A @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hour(s)
+                                </div>
+                            }
                         </div>
-                        <div class="col-4 d-flex">
-                            <div class="@MedSelect estimator-card text-center" @onclick="@(
-                                () => {
-                                    @ProjectSize = Size.Medium;
-                                    EstimateProjectTime();
-                                    SetActiveSize();
-                                })"
-                            >
-                                Medium
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex">
-                            <div class="@LargeSelect estimator-card text-center" @onclick="@(
-                                () => {
-                                    @ProjectSize = Size.Large;
-                                    EstimateProjectTime();
-                                    SetActiveSize();
-                                })"
-                            >
-                                Large
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex">
-                            <div class="@SimpleSelect estimator-card text-center" @onclick="@(
-                                () => {
-                                    @ProjectComplexity = Complexity.Low;
-                                    EstimateProjectTime();
-                                    SetActiveComplexity();
-                                })"
-                            >
-                                Little detail
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex">
-                            <div class="@AvgSelect estimator-card text-center" @onclick="@(
-                                () => {
-                                    @ProjectComplexity = Complexity.Average;
-                                    EstimateProjectTime();
-                                    SetActiveComplexity();
-                                })"                                
-                            >
-                                Some detail
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex">
-                            <div class="@ComplexSelect container estimator-card text-center" @onclick="@(
-                                () => {
-                                    @ProjectComplexity = Complexity.High;
-                                    EstimateProjectTime();
-                                    SetActiveComplexity();
-                                })"
-                            >
-                                Quite detailed
-                            </div>
-                        </div>
-                        @if (!(@ProjectSize == Size.Unknown) && !(@ProjectComplexity == Complexity.Unknown))
-                        {
-                            // only want to display this div if the size and complexity are known
-                            <div class="mx-auto">
-                                A @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hour(s)
-                            </div>
-                        }
                     </div>
                 </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="estimator-container mx-auto">
+                <div class="container border bg-light text-center rounded mx-auto" style="height: 100%">
+                    <span 
+                        class="oi oi-chevron-bottom" 
+                        title="chevron bottom" 
+                        aria-hidden="true"
+                        @onclick=ToggleEstimatorFilter
+                    >
+                    </span>
+
+                    @if (!(@ProjectSize == Size.Unknown) && !(@ProjectComplexity == Complexity.Unknown))
+                    {
+                        // only want to display this div if the size and complexity are known
+                        <div class="mx-auto">
+                            A @ProjectSize project with @ProjectComplexity complexity will take approximately @ProjectTime hour(s)
+                        </div>
+                    }
+                </div>
+            </div>
+        }
     }
 </div>
 
 @code {
+    public bool toggleShowEstimator = true;
+    public void ToggleEstimatorFilter()
+    {
+        toggleShowEstimator = !toggleShowEstimator;
+    }
 
     // managing basic component state
     public enum EstimatorState
