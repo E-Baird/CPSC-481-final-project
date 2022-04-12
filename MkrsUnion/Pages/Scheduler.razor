@@ -75,7 +75,10 @@
 				</div>
 			}
 			else{
-				<button class="btn btn-primary col-3 mt-1" id="confirm" role="button" @onclick="() => book(name, email, ucid)">Book it!</button>
+				<button class="btn btn-primary col-3 mt-1" id="confirm" role="button" @onclick="()=>book(name, email, ucid)"
+				>
+					Book it!
+				</button>
 			}
 			
 		</div>
@@ -473,6 +476,7 @@
 	public void book(String nameEntered, String emailEntered, String ucidEntered){
 		if (ucidCompletedSafety(ucidEntered) && !selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal)){
 			isBooked = true;
+
 			disableCalendar();
 			times = selectedStartTime.ToString("hh:mm tt")+ " - " + selectedEndTime.ToString("hh:mm tt");
 			times = times.Replace(".","").Replace(" ", "").ToUpper();
@@ -481,8 +485,15 @@
 			formattedDate = new DateTime(Int32.Parse(dateComponents[0]), Int32.Parse(dateComponents[1]), Int32.Parse(dateComponents[2])).ToLongDateString();
 			String bookingMessage = "Your booking for " + formattedDate
 				+ " from " + times + " (MST) has been completed.";
-			confirmationMessage = bookingMessage;	
+
+
+			// if the user is successful, also advance their 'getting started'
+			// sidebar state if needed
+			if (isNewUser == "true")
+			{
+				sessionStorage.SetItem("currentWorkflowStep", "3");
+				currentWorkflowStep = 3;
+			}
 		}
 	}
-
 }
