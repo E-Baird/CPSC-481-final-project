@@ -5,6 +5,15 @@
         <div class="container mx-auto text-center">
             <button class="btn text-center border border-danger" @onclick="@(() => ChangeEstimatorState(EstimatorState.ShowInputs))">
                 Estimate how much time I need
+                <div>
+                    <span 
+                        class="oi oi-chevron-bottom" 
+                        title="chevron bottom" 
+                        aria-hidden="true"
+                        @onclick=ToggleEstimatorFilter
+                    >
+                    </span>  
+                </div>
             </button>
         </div>
     } else {    
