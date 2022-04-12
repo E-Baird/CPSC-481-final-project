@@ -61,7 +61,7 @@
                                     & Events page.
                                 </p>
                             }
-                        } else if (ucid.Length < 8 && ucid.Length > 0) {
+                        } else if (!(ucid.Length == 8) && ucid.Length > 0) {
                             <p id="noSafety">Not valid UCID</p>
                         }
                     </div>
