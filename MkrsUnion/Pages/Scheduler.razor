@@ -4,27 +4,11 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using System;
 @using System.Text.RegularExpressions;
+@inject NavigationManager NavMan;
 
 <PageTitle>Booking a @MachineName</PageTitle>
 
-
 <h1 class="text-center">Booking a @MachineName</h1>
-
-<div>
-	@startSelected[0]
-</div>
-<div>
-	@startSelected[1]
-</div>
-<div>
-	just clicked hour ind: @hh
-</div>
-<div>
-	just clicked weekday ind: @ww
-</div>
-<div>
-	blockage: @bb
-</div>
 
 <div class="back">
     <button type="button" onclick="history.back()" class="btn btn-danger">Back</button>
@@ -42,27 +26,27 @@
 		<div class="mb-3 row">
 			<label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
 			<div class="col-sm-10">
-				<input class="form-control form-control-sm" type="date" value=@selectedDate>
+				<input class="form-control form-control-sm" type="date" disabled=@isBooked value=@selectedDate>
 			</div>
 			<label for="staticDate" class="col-sm-2 col-form-label">From:</label>
 			<div class="col-sm-10">
-				<input class="form-control form-control-sm" type="time" @bind="selectedStartTime" @bind:format="HH:mm">
+				<input class="form-control form-control-sm" type="time" disabled=@isBooked @bind="selectedStartTime" @bind:format="HH:mm">
 			</div>
 			<label for="staticDate" class="col-sm-2 col-form-label">To:</label>
 			<div class="col-sm-10 mb-5">
-				<input class="form-control form-control-sm" type="time" @bind="selectedEndTime" @bind:format="HH:mm">
+				<input class="form-control form-control-sm" type="time" disabled=@isBooked @bind="selectedEndTime" @bind:format="HH:mm">
 			</div>
 			<label class="col-sm-2 col-form-label">Name</label>
 		    <div class="col-sm-10 mb-3">
-			    <input type="text" class="form-control" @bind=@name/>
+			    <input type="text" class="form-control" disabled=@isBooked @bind=@name/>
 		    </div>
             <label class="col-sm-2 col-form-label">Email</label>
 		    <div class="col-sm-10 mb-3">
-			    <input type="text" class="form-control" @bind=@email/>
+			    <input type="text" class="form-control" disabled=@isBooked @bind=@email/>
 		    </div>
             <label class="col-sm-2 col-form-label">UCID</label>
             <div class="col-sm-10 mb-3">
-			    <input type="text" class="form-control" @bind=@ucid/>
+			    <input type="text" class="form-control" disabled=@isBooked @bind=@ucid/>
                 @if (validUCID(@ucid)) {
                     if (ucidCompletedSafety(@ucid)){
                         <p id="completed">Safety orientation completed</p>
@@ -81,8 +65,13 @@
 				<div>
 					@confirmationMessage
 				</div>
-				<div>
-					<button type="button" class="btn btn-primary">Add to Calendar</button>
+				<div class="row justify-content-between"> 
+					<button class="btn col-3" id="cal" @onclick="@(() => calendarRedirect(@MachineName + " Booking", @formattedDate, @times, @descriptionMessage))">
+						Add to Calendar
+					</button>
+					<button class="btn col-3" id="home" @onclick="@(()=>NavMan.NavigateTo("/"))">
+						Back to Homepage
+					</button>
 				</div>
 			}
 			else{
@@ -101,9 +90,9 @@
 			<main>
 
 				<div class="toolBar">
-					<button type="button" class="btn btn-primary" @onclick="() => prevWeek(currentweek[0])">Previous</button>
+					<button type="button" class="btn btn-primary" disabled=@isBooked @onclick="() => prevWeek(currentweek[0])">Previous</button>
 					<div class="currentMonth">@currentWeekTitle</div>
-					<button type="button" class="btn btn-primary" @onclick="() => nextWeek(currentweek[0])">Next</button>
+					<button type="button" class="btn btn-primary" disabled=@isBooked @onclick="() => nextWeek(currentweek[0])">Next</button>
 				</div>
 
 				<div class="calendar">
@@ -112,7 +101,7 @@
 						<div>@currentweek[0]</div>
 						<div>@currentweek[1]</div>
 						<div>@currentweek[2]</div>
-						<div>@currentweek[3]</div>
+						<div class=@wednesdayClass>@currentweek[3]</div>
 						<div>@currentweek[4]</div>
 						<div>@currentweek[5]</div>
 						<div>@currentweek[6]</div>
@@ -199,12 +188,41 @@
 	public string email = "";
 	public string ucid = "";
 	public string selectedDate = "YYYY-MM-DD";
+	public String formattedDate = "YYYYMMDD";
 	public DateTime selectedStartTime { get; set; }
 	public DateTime selectedEndTime { get; set; }
 	public string isNewUser { get; set; } = "false";
 	public int currentWorkflowStep { get; set; } = -1;
 	[Parameter]
 	public String MachineName { get; set;}
+
+	public string calendar(string title, string dates, string time, string desc) {
+        string baseHref = "https://calendar.google.com/calendar/r/eventedit?";
+
+        Regex noSpace = new Regex(@"\s+");
+
+        string eventName = "text=" + noSpace.Replace(title, "+");
+
+
+        string parsedDate = DateTime.Parse(dates).ToString("yyyyMMdd");
+        //string temp = time.Substring(0, time.IndexOf(" "));
+        string[] times = time.Split('-');
+
+        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss");
+        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss");
+
+        string date = "&dates=" + parsedDate + "T" + parsedTime1 + "/" + parsedDate + "T" + parsedTime2;
+
+        string description = "&details=" + noSpace.Replace(desc, "+");
+        string location = "&location=Taylor+Family+Digital+Library,+410+University+Ct+NW,+Calgary,+AB+T2N+1N4,+Canada";
+
+        return baseHref + eventName + date + description + location;
+    }
+
+	private void calendarRedirect(string title, string date, string time, string desc) {
+        string redirect = calendar(title, date, time, desc);
+        NavMan.NavigateTo(redirect);
+    }
 
 	protected override void OnInitialized()
 	{
@@ -257,6 +275,7 @@
 			{"", "", "Booked", "", "", "Booked", ""},
 			{"Booked", "", "", "", "", "", ""},
 			{"", "", "", "", "", "", ""}};
+	private String wednesdayClass = "today";
 
 
 	private String[] weekMain = {"SUN APR 17", "MON APR 18", "TUE APR 19", 
@@ -326,12 +345,14 @@
 			currentWeekTitle = weekTitleNext;
 			statuses = statusesNext;
 			textLabels = textLabelsNext;
+			wednesdayClass = "";
 		}
 		else if (sunday.Equals("SUN APR 10", StringComparison.Ordinal)){
 			currentweek = weekMain;
 			currentWeekTitle = weekTitleMain;
 			statuses = statusesMain;
 			textLabels = textLabelsMain;
+			wednesdayClass = "today";
 		}
 	}
 
@@ -341,12 +362,14 @@
 			currentWeekTitle = weekTitlePrev;
 			statuses = statusesPrev;
 			textLabels = textLabelsPrev;
+			wednesdayClass = "";
 		}
 		else if (sunday.Equals("SUN APR 24", StringComparison.Ordinal)){
 			currentweek = weekMain;
 			currentWeekTitle = weekTitleMain;
 			statuses = statusesMain;
 			textLabels = textLabelsMain;
+			wednesdayClass = "today";
 		}
 	}
 
@@ -401,18 +424,12 @@
 
 
 	private int[] startSelected = {8, 8};
-	private String bb = "";
-	private String hh = "";
-	private String ww = "";
 	private void occupy(int hourInd, int weekdayInd)
 	{
 		if (statuses[hourInd, weekdayInd].Equals("o", StringComparison.Ordinal) ||
 		statuses[hourInd, weekdayInd].Equals("s", StringComparison.Ordinal))
 		{
 			if (startSelected[0] < hourInd && startSelected[1] == weekdayInd){
-				bb = blockage(startSelected[0], hourInd, weekdayInd).ToString();
-				hh = hourInd.ToString();
-				ww = weekdayInd.ToString();
 				if (!blockage(startSelected[0], hourInd, weekdayInd)){
 					for (int i = startSelected[0]; i <= hourInd; i++){
 						statuses[i, weekdayInd] = "s";
@@ -435,14 +452,36 @@
 		}
 	}
 
+	public void disableCalendar(){
+		for (int i = 0; i < 7; i++){
+			for (int j = 0; j < 7; j++){
+				if (statuses[i,j].Equals("o", StringComparison.Ordinal)){
+					statuses[i,j]="p";
+				}
+				else if (statuses[i,j].Equals("s", StringComparison.Ordinal)){
+					statuses[i,j]="c";
+				}
+			}
+		}
+	}
+
 	public Boolean isBooked = false;
+	public String times { get; set; }
 	public String confirmationMessage { get; set;}
+	public String descriptionMessage { get; set;}
+	
 	public void book(String nameEntered, String emailEntered, String ucidEntered){
 		if (ucidCompletedSafety(ucidEntered) && !selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal)){
-			String bookingMessage = "Your booking for " + selectedDate.ToString() 
-				+ " from " + selectedStartTime.TimeOfDay.ToString() + " - " + selectedEndTime.TimeOfDay.ToString() + " (MST) has been completed.";
 			isBooked = true;
-			confirmationMessage = bookingMessage;
+			disableCalendar();
+			times = selectedStartTime.ToString("hh:mm tt")+ " - " + selectedEndTime.ToString("hh:mm tt");
+			times = times.Replace(".","").Replace(" ", "").ToUpper();
+			string[] dateComponents = selectedDate.ToString().Split('-');
+			descriptionMessage = ("Your booking for the " + MachineName + " at the Taylor Family Digital Library."); 
+			formattedDate = new DateTime(Int32.Parse(dateComponents[0]), Int32.Parse(dateComponents[1]), Int32.Parse(dateComponents[2])).ToLongDateString();
+			String bookingMessage = "Your booking for " + formattedDate
+				+ " from " + times + " (MST) has been completed.";
+			confirmationMessage = bookingMessage;	
 		}
 	}
 
