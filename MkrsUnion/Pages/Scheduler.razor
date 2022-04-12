@@ -485,8 +485,7 @@
 			formattedDate = new DateTime(Int32.Parse(dateComponents[0]), Int32.Parse(dateComponents[1]), Int32.Parse(dateComponents[2])).ToLongDateString();
 			String bookingMessage = "Your booking for " + formattedDate
 				+ " from " + times + " (MST) has been completed.";
-
-
+			confirmationMessage = bookingMessage;
 			// if the user is successful, also advance their 'getting started'
 			// sidebar state if needed
 			if (isNewUser == "true")
