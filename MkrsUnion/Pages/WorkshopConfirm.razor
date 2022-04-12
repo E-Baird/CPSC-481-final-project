@@ -50,7 +50,7 @@
 		            </div>
                     <label class="col-sm-2 col-form-label">UCID</label>
                     <div class="col-sm-10 mb-3">
-			            <input type="text" class="form-control" @bind=@ucid/>
+			            <input type="text" class="form-control" @bind-value=@ucid @bind-value:event="oninput"/>
                         @if (validUCID(@ucid)) {
                             if (ucidCompletedSafety(@ucid) && !@title.Contains("Safety")){
                                 <p id="completed">Safety orientation completed</p>
@@ -61,7 +61,7 @@
                                     & Events page.
                                 </p>
                             }
-                        } else if (ucid.Length < 8 && ucid.Length > 0) {
+                        } else if (!(ucid.Length == 8) && ucid.Length > 0) {
                             <p id="noSafety">Not valid UCID</p>
                         }
                     </div>
@@ -177,8 +177,8 @@
         string temp = time.Substring(0, time.IndexOf(" "));
         string[] times = temp.Split('-');
 
-        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss") + "Z";
-        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss") + "Z";
+        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss");
+        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss");
 
         string date = "&dates=" + parsedDate + "T" + parsedTime1 + "/" + parsedDate + "T" + parsedTime2;
 
