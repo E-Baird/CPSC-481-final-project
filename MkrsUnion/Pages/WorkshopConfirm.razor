@@ -177,8 +177,8 @@
         string temp = time.Substring(0, time.IndexOf(" "));
         string[] times = temp.Split('-');
 
-        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss") + "Z";
-        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss") + "Z";
+        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss");
+        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss");
 
         string date = "&dates=" + parsedDate + "T" + parsedTime1 + "/" + parsedDate + "T" + parsedTime2;
 
