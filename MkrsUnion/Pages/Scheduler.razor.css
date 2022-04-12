@@ -25,6 +25,10 @@ Saturday & Sunday 12:00PM to 4:00PM
 #s {
     background-color: #DAFFC9;
 }
+/* c means completed */
+#c {
+    background-color: #417A26;
+}
 /* t means taken */
 #t {
     background-color: #FF9A9A;
@@ -52,6 +56,12 @@ Saturday & Sunday 12:00PM to 4:00PM
 
 #time {
     background-color: #F9F2D2;
+}
+#cal {
+    color: orangered;
+}
+#home {
+    color: orangered;
 }
 
 .back {
@@ -86,12 +96,13 @@ main {
 }
 
 .currentMonth {
-    color: red;
+    color: white;
     text-align: center;
     margin: auto;
     width: 50%;
-    border: 3px solid green;
+    border: 3px solid #fb992b;
     padding: 10px;
+    background-color: orangered;
 }
 
 .calendarHourRow,
@@ -111,6 +122,9 @@ main {
     align-items: center;
     text-align: center;
     border-bottom: 1px solid black;
+}
+.today{
+    background-color: #6691FF;
 }
 
 .calendarWeekday {
