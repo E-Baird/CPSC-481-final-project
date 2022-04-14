@@ -42,15 +42,28 @@
 	            <div class="row" hidden=@hide>
 		            <label class="col-sm-2 col-form-label">Name</label>
 		            <div class="col-sm-10 mb-3">
-			            <input type="text" class="form-control" @bind=@name/>
-		            </div>
+			            <input type="text" class="form-control @nameErrorClass" @bind=@name/>
+                        @if (nameErrorClass != "")
+                        {
+                           <div class="invalid-feedback">Please provide your name.</div>
+                        }
+                    </div>
                     <label class="col-sm-2 col-form-label">Email</label>
 		            <div class="col-sm-10 mb-3">
-			            <input type="text" class="form-control" @bind=@email/>
+			            <input type="text" class="form-control @emailErrorClass" @bind=@email/>
+                        @if (emailErrorClass != "")
+                        {
+                           <div class="invalid-feedback">Please provide your UCalgary email.</div>
+                        }
 		            </div>
                     <label class="col-sm-2 col-form-label">UCID</label>
                     <div class="col-sm-10 mb-3">
-			            <input type="text" class="form-control" @bind-value=@ucid @bind-value:event="oninput"/>
+			            <input type="text" class="form-control @ucidErrorClass" @bind-value=@ucid @bind-value:event="oninput"/>
+                        @if (ucidErrorClass != "")
+                        {
+                           <div class="invalid-feedback">Please provide your UCID.</div>
+                        }
+
                         @if (validUCID(@ucid)) {
                             if (ucidCompletedSafety(@ucid) && !@title.Contains("Safety")){
                                 <p id="completed">Safety orientation completed</p>
@@ -107,19 +120,23 @@
     public bool hide = false;
     public string href = "";
 
-	public string isNewUser { get; set; } = "false";
-	public int currentWorkflowStep { get; set; } = -1;
+    public string nameErrorClass = "";
+    public string emailErrorClass = "";
+    public string ucidErrorClass = "";
 
-	protected override void OnInitialized()
-	{
-		try
-		{
-			isNewUser = sessionStorage.GetItem<string>("isNewUser");
-			currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
-		} catch (Exception)
-		{
-			Console.WriteLine("failed to read session data");
-		}
+    public string isNewUser { get; set; } = "false";
+    public int currentWorkflowStep { get; set; } = -1;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            isNewUser = sessionStorage.GetItem<string>("isNewUser");
+            currentWorkflowStep = int.Parse(sessionStorage.GetItem<string>("currentWorkflowStep"));
+        } catch (Exception)
+        {
+            Console.WriteLine("failed to read session data");
+        }
 
         Console.WriteLine($"Value for isNewUser = {isNewUser}");
         Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
@@ -128,6 +145,38 @@
     // determines if the user's signup was successful and
     // does any tidying necessary when that happens
     public void handleSignup() {
+        // check for missing form inputs
+        if ((name == "") || (email == "") || (!validEmail(email)) || (ucid == ""))
+        {
+            if (name == "")
+            {
+                nameErrorClass = "is-invalid";
+            }
+            else
+            {
+                nameErrorClass = "";
+            }
+
+            if ((email == "") || (!validEmail(email)))
+            {
+                emailErrorClass = "is-invalid";
+            }
+            else
+            {
+                emailErrorClass = "";
+            }
+
+            if (ucid == "")
+            {
+                ucidErrorClass = "is-invalid";
+            }
+            else
+            {
+                ucidErrorClass = "";
+            }
+            return;
+        }
+
         if (ucidCompletedSafety(ucid) && validUCID(ucid)) {
             hide = true;
 
@@ -159,6 +208,11 @@
         } else {
             return false;
         }
+    }
+
+    public bool validEmail(string email)
+    {
+        return email.Contains(@"@ucalgary.ca");
     }
 
     bool notEmpty (string s) {

@@ -1,14 +1,26 @@
-﻿<form>
+﻿@inject NavigationManager NavMan;
+
+<form>
     <div class="form-body">
         <div class="d-flex justify-content-between">
-            <div class="mr-auto col-2"><a class="btn btn-primary" href="/fullserveinfo" role="button">Back</a></div>
+            <div class="mr-auto col-2"><a class="btn btn-danger" href="/fullserveinfo" role="button">Back</a></div>
             <div class="ml-auto col-10"><h1><b>Full Serve 3D-Printing Submission Form</b></h1></div>
         </div>
-        <EditForm Model="@fullserveform" OnValidSubmit="@HandleValidSubmit">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="row">
-                <div class="col">
+
+        <div class="mr-auto m-3">
+            <p>
+                Once submitted, we will send you a confirmation email that your print job is in our queue.
+                Please contact us if you do not recieve a confirmation email within 24 hours.
+                We will contact you within the next few days with an estimated turnaround time for
+                completion and confirm that your file does not include any issues. Turnaround time is not
+                guaranteed. Please note, we may not be able to accommodate jobs on short notice.
+            </p>
+        </div>
+
+        <div class="container">
+
+            <div class="row w-75 bg-light rounded mx-auto p-2" hidden=@hide>
+                <div class="col border-end">
                     <h2>Job Details</h2>
                     <div class="form-group">
                         <label for="exampleInputFile">File input</label>
@@ -17,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <label for="colourCategoryInput">Colour</label>
-                        <select class="form-select" id="colourCategoryInput">
+                        <select class="form-select @colourErrorClass" id="colourCategoryInput" @bind=@colour>
                             <option selected>Options</option>
                             <option>Black</option>
                             <option>Grey</option>
@@ -30,10 +42,14 @@
                             <option>Purple</option>
                             <option>Pink</option>
                         </select>
+                        @if (colourErrorClass != "")
+				        {
+					        <div class="invalid-feedback">Please select a colour.</div>
+				        }
                     </div>
                     <div class="form-group">
                         <label for="copiesInput">Copies</label>
-                        <select class="form-select" id="copiesInput">
+                        <select class="form-select" id="copiesInput" @bind=@copies>
                             <option selected>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -45,6 +61,10 @@
                             <option>9</option>
                             <option>10</option>
                         </select>
+                        @if (copiesErrorClass != "")
+				        {
+					        <div class="invalid-feedback">Please specify number of copies.</div>
+				        }
                         <span id="helpBlock" class="help-block">
                             If you require more then 10 copies,
                             please provide copy count in comments section below.
@@ -54,66 +74,168 @@
                         <p>Dimensions(mm):</p>
                         <div class="col">
                             <label for="dimxInput">X</label>
-                            <InputNumber class="form-control" id="dimxInput" @bind-Value="fullserveform.DimensionX" />
+                            <input type="number" class="form-control @dimensionsErrorClass" id="dimxInput" @bind-value="fullserveform.DimensionX" />
+
                         </div>
                         <div class="col">
                             <label for="dimyInput">Y</label>
-                            <InputNumber class="form-control" id="dimyInput" @bind-Value="fullserveform.DimensionY" />
+                            <input type="number" class="form-control @dimensionsErrorClass" id="dimyInput" @bind-value="fullserveform.DimensionY" />
                         </div>
                         <div class="col">
                             <label for="amountInput">Z</label>
-                            <InputNumber class="form-control" id="amountInput" @bind-Value="fullserveform.DimensionZ" />
+                            <input type="number" class="form-control @dimensionsErrorClass" id="amountInput" @bind-value="fullserveform.DimensionZ" />
                         </div>
-
                     </div>
+                    @if (dimensionsErrorClass != "")
+				    {
+					    <div class="row invalid-feedback">All three dimensions required.</div>
+				    }
                 </div>
                 <div class="col">
                     <h2>Personal Details</h2>
                     <div class="form-group">
                         <label for="nameInput">Name</label>
-                        <InputText class="form-control" id="nameInput" placeholder="Full Name" @bind-Value="fullserveform.Name" />
+                        <input class="form-control @nameErrorClass" id="nameInput" placeholder="Full Name" @bind="fullserveform.Name" />
+                        @if (nameErrorClass != "")
+				        {
+					        <div class="invalid-feedback">Please provide your name.</div>
+				        }
                     </div>
                     <div class="form-group">
                         <label for="emailInput">Email</label>
-                        <InputText class="form-control" id="emailInput" placeholder="youremail@ucalgary.ca" @bind-Value="fullserveform.Email" />
+                        <input class="form-control @emailErrorClass" id="emailInput" placeholder="youremail@ucalgary.ca" @bind="fullserveform.Email" />
+                         @if (emailErrorClass != "")
+				        {
+					        <div class="invalid-feedback">Please provide your UCalgary email.</div>
+				        }               
                     </div>
                     <div class="form-group">
                         <label for="ucidInput">UCID</label>
-                        <InputText class="form-control" id="ucidInput" placeholder="00000000" @bind-Value="fullserveform.UCID" />
+                        <input class="form-control @ucidErrorClass" id="ucidInput" placeholder="00000000" @bind="fullserveform.UCID" />
+                        @if (ucidErrorClass != "")
+				        {
+					        <div class="invalid-feedback">Please provide your UCID.</div>
+				        }
+                    
                     </div>
                     <div class="form-group">
                         <label for="commentsInput">Comments</label>
-                        <textarea class="form-control" id="commentsInput" placeholder="Please dont break my model!" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <div class="mr-auto col-9">
-                        <p>
-                            Once submitted, we will send you a confirmation email that your print job is in our queue!
-                            We will contact you within the next few days with an estimate for the tunraround time for
-                            completion and confirm that your file does not include any issues. Turn around time is not
-                            guranteed. Please contact us if you do not recieve a confirmation email. We may not be able to
-                            accommodate jobs on short notice.
-                        </p>
-                    </div>
-                    <div class="ml-auto col-3">
-                        <button type="submit" id="submitForm" class="btn btn-primary btn-lg">Submit</button>
+                        <textarea class="form-control" id="commentsInput" placeholder="Add any special requests here." rows="3"></textarea>
                     </div>
                 </div>
             </div>
-        </EditForm>
-        <div class="success"><b>@success</b></div>
+        </div>
+
+        <div class="my-3">
+            <div class="btn btn-primary" onclick="@submitForm" hidden=@hide>
+                Submit print job
+            </div>
+        </div>
     </div>
+    @if (hide)
+    {
+        <div class="row w-50 bg-light rounded mx-auto p-2">
+            <b>
+                <p> Thank you for submitting your 3D print job. The details of your print are below:</p>
+                <ul>
+                    <li>Colour: @colour</li>
+                    <li>Dimensions: @fullserveform.DimensionX mm * @fullserveform.DimensionY mm * @fullserveform.DimensionZ mm</li>
+                    <li>Copies: @copies</li>
+                </ul>
+                <p>Please check your inbox for a confirmation email with more details.</p>
+
+                <button class="btn col-3" id="home" @onclick="@(()=>NavMan.NavigateTo("/"))">
+                    Back to Homepage
+                </button>
+            </b> 
+        </div>        
+    }
 </form>
 
 @code {
     private FullServeModel fullserveform = new FullServeModel { };
     private string success = "";
+    public string colour { get; set; }
+    public int copies { get; set; } = 1;
+    public string nameErrorClass = "";
+    public string emailErrorClass = "";
+    public string ucidErrorClass = "";
+    public string colourErrorClass = "";
+    public string copiesErrorClass = "";
+    public string dimensionsErrorClass = "";
+    public bool hide = false;
 
-    public void HandleValidSubmit()
+    public bool validEmail(string email)
     {
-        success = "Submission Successful!";
+        return email.Contains(@"@ucalgary.ca");
     }
 
+    public void submitForm()
+    {
+        Console.WriteLine("Submitting form");
+        Console.WriteLine(fullserveform.Name);
+        Console.WriteLine(fullserveform.Email);
+        Console.WriteLine(fullserveform.UCID);
+        // check for missing form inputs
+        if (
+            (colour == null) ||
+            (fullserveform.DimensionX == 0) ||
+            (fullserveform.DimensionY == 0) ||
+            (fullserveform.DimensionZ == 0) ||
+            (fullserveform.Name == "") || 
+            (fullserveform.Email == "") || 
+            (!validEmail(fullserveform.Email)) || 
+            (fullserveform.UCID == ""))
+        {
+
+            if (colour == null)
+            {
+                colourErrorClass = "is-invalid";
+            }
+            else
+            {
+                colourErrorClass = "";
+            }
+
+            if ((fullserveform.DimensionX == 0) || (fullserveform.DimensionY == 0) || (fullserveform.DimensionZ == 0))
+            {
+                dimensionsErrorClass = "is-invalid";
+            }
+            else
+            {
+                dimensionsErrorClass = "";
+            }
+
+            if (fullserveform.Name == "")
+            {
+                nameErrorClass = "is-invalid";
+            }
+            else
+            {
+                nameErrorClass = "";
+            }
+
+            if ((fullserveform.Email == "") || (!validEmail(fullserveform.Email)))
+            {
+                emailErrorClass = "is-invalid";
+            }
+            else
+            {
+                emailErrorClass = "";
+            }
+
+            if (fullserveform.UCID == "")
+            {
+                ucidErrorClass = "is-invalid";
+            }
+            else
+            {
+                ucidErrorClass = "";
+            }
+            return;
+        }
+        hide = true;
+        success = "Submission Successful";
+    }
 }
 

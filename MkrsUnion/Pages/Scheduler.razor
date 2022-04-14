@@ -26,7 +26,11 @@
 		<div class="mb-3 row">
 			<label for="staticDate" class="col-sm-2 col-form-label">Date:</label>
 			<div class="col-sm-10">
-				<input class="form-control form-control-sm" type="date" disabled=@isBooked value=@selectedDate>
+				<input class="form-control form-control-sm @dateErrorClass" type="date" disabled=@isBooked value=@selectedDate>
+				@if (dateErrorClass != "")
+				{
+					<div class="invalid-feedback">Please select a date.</div>
+				}
 			</div>
 			<label for="staticDate" class="col-sm-2 col-form-label">From:</label>
 			<div class="col-sm-10">
@@ -38,16 +42,29 @@
 			</div>
 			<label class="col-sm-2 col-form-label">Name</label>
 		    <div class="col-sm-10 mb-3">
-			    <input type="text" class="form-control" disabled=@isBooked @bind=@name/>
+			    <input type="text" class="form-control @nameErrorClass" disabled=@isBooked @bind=@name/>
+				    @if (nameErrorClass != "")
+                    {
+                       <div class="invalid-feedback">Please provide your name.</div>
+                    }
 		    </div>
             <label class="col-sm-2 col-form-label">Email</label>
 		    <div class="col-sm-10 mb-3">
-			    <input type="text" class="form-control" disabled=@isBooked @bind=@email/>
+			    <input type="text" class="form-control @emailErrorClass" disabled=@isBooked @bind=@email/>
+				    @if (emailErrorClass != "")
+                    {
+                       <div class="invalid-feedback">Please provide your UCalgary email.</div>
+                    }
 		    </div>
             <label class="col-sm-2 col-form-label">UCID</label>
             <div class="col-sm-10 mb-3">
-			    <input type="text" class="form-control" disabled=@isBooked @bind-value=@ucid @bind-value:event="oninput"/>
-                @if (validUCID(@ucid)) {
+			    <input type="text" class="form-control @ucidErrorClass" disabled=@isBooked @bind-value=@ucid @bind-value:event="oninput"/>
+				@if (ucidErrorClass != "")
+                {
+                    <div class="invalid-feedback">Please provide your UCID.</div>
+                }
+				
+				@if (validUCID(@ucid)) {
                     if (ucidCompletedSafety(@ucid)){
                         <p id="completed">Safety orientation completed</p>
                     } else {
@@ -194,38 +211,43 @@
 	public String formattedDate = "YYYYMMDD";
 	public DateTime selectedStartTime { get; set; }
 	public DateTime selectedEndTime { get; set; }
+	public string nameErrorClass = "";
+	public string emailErrorClass = "";
+	public string ucidErrorClass = "";
+	public string dateErrorClass = "";
 	public string isNewUser { get; set; } = "false";
 	public int currentWorkflowStep { get; set; } = -1;
+
 	[Parameter]
 	public String MachineName { get; set;}
 
 	public string calendar(string title, string dates, string time, string desc) {
-        string baseHref = "https://calendar.google.com/calendar/r/eventedit?";
+		string baseHref = "https://calendar.google.com/calendar/r/eventedit?";
 
-        Regex noSpace = new Regex(@"\s+");
+		Regex noSpace = new Regex(@"\s+");
 
-        string eventName = "text=" + noSpace.Replace(title, "+");
+		string eventName = "text=" + noSpace.Replace(title, "+");
 
 
-        string parsedDate = DateTime.Parse(dates).ToString("yyyyMMdd");
-        //string temp = time.Substring(0, time.IndexOf(" "));
-        string[] times = time.Split('-');
+		string parsedDate = DateTime.Parse(dates).ToString("yyyyMMdd");
+		//string temp = time.Substring(0, time.IndexOf(" "));
+		string[] times = time.Split('-');
 
-        string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss");
-        string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss");
+		string parsedTime1 = DateTime.Parse(times[0]).ToString("HHmmss");
+		string parsedTime2 = DateTime.Parse(times[1]).ToString("HHmmss");
 
-        string date = "&dates=" + parsedDate + "T" + parsedTime1 + "/" + parsedDate + "T" + parsedTime2;
+		string date = "&dates=" + parsedDate + "T" + parsedTime1 + "/" + parsedDate + "T" + parsedTime2;
 
-        string description = "&details=" + noSpace.Replace(desc, "+");
-        string location = "&location=Taylor+Family+Digital+Library,+410+University+Ct+NW,+Calgary,+AB+T2N+1N4,+Canada";
+		string description = "&details=" + noSpace.Replace(desc, "+");
+		string location = "&location=Taylor+Family+Digital+Library,+410+University+Ct+NW,+Calgary,+AB+T2N+1N4,+Canada";
 
-        return baseHref + eventName + date + description + location;
-    }
+		return baseHref + eventName + date + description + location;
+	}
 
 	private void calendarRedirect(string title, string date, string time, string desc) {
-        string redirect = calendar(title, date, time, desc);
-        NavMan.NavigateTo(redirect);
-    }
+		string redirect = calendar(title, date, time, desc);
+		NavMan.NavigateTo(redirect);
+	}
 
 	protected override void OnInitialized()
 	{
@@ -238,9 +260,9 @@
 			Console.WriteLine("failed to read session data");
 		}
 
-        Console.WriteLine($"Value for isNewUser = {isNewUser}");
-        Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
-    }
+		Console.WriteLine($"Value for isNewUser = {isNewUser}");
+		Console.WriteLine($"Value for currentWorkflowStep = {currentWorkflowStep}");
+	}
 
 	public string[] completedSafety = new string[] { "12345678", "87654321", "34509876" };
 	public bool ucidCompletedSafety(string ucid) {
@@ -341,7 +363,7 @@
 	private String[] currentweek = {"SUN APR 17", "MON APR 18", "TUE APR 19", 
 								"WED APR 20", "THU APR 21", "FRI APR 22", "SAT APR 23"};
 	private String currentWeekTitle = "2022 April 17 - 2022 April 23";
-	
+
 	private void nextWeek(String sunday){
 		if (sunday.Equals("SUN APR 17", StringComparison.Ordinal)){
 			currentweek = weekNext;
@@ -410,7 +432,7 @@
 					}
 				}
 			}
-				
+
 		}
 	}
 
@@ -445,7 +467,7 @@
 			else {
 				clearPreviousStart(hourInd, weekdayInd);
 				statuses[hourInd, weekdayInd] = "s";
-			
+
 				selectedDate = selectDate(weekdayInd, currentweek[0]);
 				selectedStartTime = selectTime(hourInd);
 				selectedEndTime = selectTime(hourInd + 1);
@@ -468,13 +490,59 @@
 		}
 	}
 
+	public bool validEmail(string email) 
+	{
+		return email.Contains(@"@ucalgary.ca");
+	}
+
 	public Boolean isBooked = false;
 	public String times { get; set; }
 	public String confirmationMessage { get; set;}
 	public String descriptionMessage { get; set;}
-	
+
 	public void book(String nameEntered, String emailEntered, String ucidEntered){
-		if (ucidCompletedSafety(ucidEntered) && !selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal)){
+		// check for missing form inputs
+		if ((nameEntered == "") || (emailEntered == "") || (!validEmail(emailEntered)) || (ucidEntered == "") || selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal))
+		{
+			if (nameEntered == "")
+			{
+				nameErrorClass = "is-invalid";
+			}
+			else
+			{
+				nameErrorClass = "";
+			}
+
+			if ((emailEntered == "") || (!validEmail(emailEntered)))
+			{
+				emailErrorClass = "is-invalid";
+			}
+			else
+			{
+				emailErrorClass = "";
+			}
+
+			if (ucidEntered == "")
+			{
+				ucidErrorClass = "is-invalid";
+			}
+			else
+			{
+				ucidErrorClass = "";
+			}
+
+			if (selectedDate.Equals("YYYY-MM-DD", StringComparison.Ordinal))
+			{
+				dateErrorClass = "is-invalid";
+			}
+			else
+			{
+				dateErrorClass = "";
+			}
+			return;
+		}
+
+		if (ucidCompletedSafety(ucidEntered)){
 			isBooked = true;
 
 			disableCalendar();

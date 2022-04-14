@@ -18,14 +18,14 @@ namespace MkrsUnion.Components
         public int DimensionZ { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         [Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
         [Required]
         [StringLength(8)]
-        public string UCID { get; set; }
+        public string UCID { get; set; } = "";
 
     }
 }
