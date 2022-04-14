@@ -20,6 +20,8 @@
             <button class="btn btn-primary" id="listview" @onclick="listView">
                                 Toggle List View
                     </button>
+        </div>
+        <div class="row">
             @if(listview)
             {
                 <div class="col">
@@ -36,8 +38,10 @@
                         Once approved, the model goes into the print queue and is printed as time allows.
                         After the print is finished, an invoice is emailed and the print is taken to the first floor TFDL service desk to await pickup. </CardBody1>
                         
+                        <!--
                         <CardHeader2>Laser Cutting Service</CardHeader2>
                         <CardBody2>Submit designs to be laser cut by library staff on birch or acrylic.</CardBody2>
+                        -->
                         
                         <CardHeader3>Carvey CNC Milling Machine</CardHeader3>
                         <CardBody3>An entry-level, fully enclosed desktop CNC milling machine that you can use to create 3D carved objects out of materials like wood, plastic, wax and foam using digital designs.
@@ -95,21 +99,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col d-flex justify-content-center">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="image"> <!--Photo by Opt Lasers on Unsplash-->
-                                                        <img src="@LaserCutimg" />
-                                                    </div>
-                                                    <div class="card-title">
-                                                        <span class="name">Laser Cutting Service</span>
-                                                    </div>
-                                                    <div class="button" @onclick="ShowLaserCutter">
-                                                        <button class="btn btn-primary">Select</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <!--<div class="col d-flex justify-content-center">-->
+                                            <!--<div class="card">-->
+                                                <!--<div class="card-body">-->
+                                                    <!--<div class="image">--> <!--Photo by Opt Lasers on Unsplash-->
+                                                        <!--<img src="@LaserCutimg" />-->
+                                                    <!--</div>-->
+                                                    <!--<div class="card-title">-->
+                                                        <!--<span class="name">Laser Cutting Service</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="button" @onclick="ShowLaserCutter">-->
+                                                        <!--<button class="btn btn-primary">Select</button>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
                             </div>
@@ -250,16 +254,6 @@
                         </div>
                         <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/fullserveinfo"))">
                                     Request a 3D Print
-                        </button>
-                    }
-                    @if (text == 3)
-                    {
-                        <div class="card-title"> 
-                            <b> Laser Cutting Service</b>
-                        </div>
-                        <div class="card-body">Submit designs to be laser cut by library staff on birch or acrylic.</div>
-                        <button class="btn btn-primary" @onclick="@(()=>NavMan.NavigateTo("/fullserveinfo"))">
-                                    Request a Laser Cut Service
                         </button>
                     }
                     @if (text == 4)

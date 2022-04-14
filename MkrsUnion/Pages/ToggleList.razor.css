@@ -1,0 +1,10 @@
+﻿.button {
+    width: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card .button button {
+    align-items: center;
+    margin-bottom: 5px;
+}
