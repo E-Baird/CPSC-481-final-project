@@ -79,7 +79,7 @@
                         }
                     </div>
                 </div>
-                <a class="btn btn-primary" role="button" onclick="@handleSignup" hidden=@hide>Confirm</a>
+                <a class="btn btn-primary" role="button" onclick="@(() => handleSignup(@title))" hidden=@hide>Confirm</a>
                 @if (hide) {
                     <div class="mb-3 row">
                         <b>
@@ -144,7 +144,7 @@
 
     // determines if the user's signup was successful and
     // does any tidying necessary when that happens
-    public void handleSignup() {
+    public void handleSignup(string title) {
         // check for missing form inputs
         if ((name == "") || (email == "") || (!validEmail(email)) || (ucid == ""))
         {
@@ -177,8 +177,8 @@
             return;
         }
 
-        if (ucidCompletedSafety(ucid) && validUCID(ucid)) {
-            hide = true;
+        if (validUCID(ucid)) {
+
 
             // if the user is successful, also advance their 'getting started'
             // sidebar state if needed
@@ -186,6 +186,11 @@
             {
                 sessionStorage.SetItem("currentWorkflowStep", "1");
                 currentWorkflowStep = 1;
+                hide = true;
+            } else if (ucidCompletedSafety(ucid)) {
+                hide = true;
+            } else if (title.Contains("Safety")){
+                hide = true;
             }
         }
     }
