@@ -33,8 +33,10 @@ Functions and cases implemented inlcude:
 6. A resources page.
 
 ## Useful Data
-When attempting to book time on a machine or book a spot for a workshop that is not a safety orientation, the following UCIDs should be used as they are considered valid UCID's that have completed a safety orientation and have full access to the makerspace.
+- When attempting to book time on a machine or book a spot for a workshop that is not a safety orientation, the following UCIDs should be used as they are considered valid UCID's that have completed a safety orientation and have full access to the makerspace.
 1. 12345678
 2. 87654321
 3. 34509876
+- Another important note is that emails must end in "@ucalgary.ca" in order to be valid for booking.
+- Any non-empty name is accepted for booking.
 
